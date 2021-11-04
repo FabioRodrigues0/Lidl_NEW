@@ -1,0 +1,18 @@
+INSERT INTO product_brand (`brand`)
+VALUES ('Milaneza'),
+       ('Barilla'),
+       ('Nacional'),
+       ('Cigala'),
+       ('Garofalo'),
+       ('Bom Petisco'),
+       ('Baci'),
+       ('Starbucks'),
+       ('Kinder'),
+       ('Tritão'),
+       ('Compal'),
+       ('Fula'),
+       ('Lays'),
+       ('Sidul'),
+       ('Nobre'),
+       ('Gallo'),
+       ('Oliveira da Serra');

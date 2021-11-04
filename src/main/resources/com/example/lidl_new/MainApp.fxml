@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane xmlns:fx="http://javafx.com/fxml/1" fx:id="MainBorderPane" maxHeight="1.7976931348623157E308"
+            maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity"
+            xmlns="http://javafx.com/javafx/11.0.2" fx:controller="com.example.lidl_new.Controller.MainAppController">
+    <top>
+        <HBox alignment="CENTER" prefHeight="41.0" prefWidth="1083.0" BorderPane.alignment="CENTER">
+            <children>
+                <Button fx:id="tbHome" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308"
+                        mnemonicParsing="false" onAction="#tabHome" prefHeight="69.0" prefWidth="176.0" text="Home">
+                    <HBox.margin>
+                        <Insets left="4.0" right="2.0"/>
+                    </HBox.margin>
+                    <!--               <graphic>
+                                      <FontIcon iconLiteral="di-java" iconSize="64"/>
+                                   </graphic>-->
+                </Button>
+                <Button fx:id="tbClient" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308"
+                        mnemonicParsing="false" onAction="#tabClient" prefHeight="70.0" prefWidth="176.0"
+                        text="Gestão de Clientes/ Cartao Cliente" wrapText="true">
+                    <HBox.margin>
+                        <Insets left="2.0" right="2.0"/>
+                    </HBox.margin>
+                </Button>
+                <Button fx:id="tbProduct" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308"
+                        mnemonicParsing="false" onAction="#tabProduct" prefHeight="69.0" prefWidth="176.0"
+                        text="Gestão de Produtos">
+                    <HBox.margin>
+                        <Insets left="2.0" right="2.0"/>
+                    </HBox.margin>
+                </Button>
+                <Button fx:id="tbAddProduct" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308"
+                        mnemonicParsing="false" onAction="#tabAddProduct" prefHeight="69.0" prefWidth="176.0"
+                        text="Adicionar Produtos">
+                    <HBox.margin>
+                        <Insets left="2.0" right="2.0"/>
+                    </HBox.margin>
+                </Button>
+                <Button fx:id="tbUpdateProduct" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308"
+                        mnemonicParsing="false" onAction="#tabUpdateProduct" prefHeight="69.0" prefWidth="176.0"
+                        text="Atualizar Produtos">
+                    <HBox.margin>
+                        <Insets left="2.0" right="2.0"/>
+                    </HBox.margin>
+                </Button>
+                <Button fx:id="tbAbout" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308"
+                        mnemonicParsing="false" onAction="#tabAbout" prefHeight="69.0" prefWidth="176.0" text="Sobre">
+                    <HBox.margin>
+                        <Insets left="2.0" right="4.0"/>
+                    </HBox.margin>
+                </Button>
+            </children>
+        </HBox>
+    </top>
+    <left>
+        <AnchorPane BorderPane.alignment="CENTER"/>
+    </left>
+    <right>
+        <AnchorPane BorderPane.alignment="CENTER"/>
+    </right>
+    <bottom>
+        <AnchorPane BorderPane.alignment="CENTER"/>
+    </bottom>
+</BorderPane>

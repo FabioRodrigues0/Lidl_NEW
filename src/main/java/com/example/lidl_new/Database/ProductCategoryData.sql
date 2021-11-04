@@ -1,0 +1,18 @@
+INSERT INTO product_category (`category`)
+VALUES ('Vegetais'),
+       ('Fruta'),
+       ('Talho'),
+       ('Peixaria'),
+       ('Padaria e Pastelaria'),
+       ('Charcutaria'),
+       ('Higiene e Beleza'),
+       ('Especiarias'),
+       ('Congelados'),
+       ('Limpeza'),
+       ('Bebé'),
+       ('Livraria e Papelaria'),
+       ('Casa, Bricolage e Jardim'),
+       ('Bebidas e Garrafeira'),
+       ('Lacticínios e Ovos'),
+       ('Bio e Intolerâncias'),
+       ('Mercearia');
