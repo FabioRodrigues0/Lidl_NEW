@@ -4,19 +4,28 @@ public class Invoice {
 
 
   public String nameProduct;
-  public int quantity, idClient;
-  public double price;
+  public int quantity;
+  public int idProduct;
+  public float price;
 
-
-  public Invoice (String product, int idClient, int quantity, double price) {
+  public Invoice (int idProduct, String product, int quantity, float price) {
+    this.idProduct = idProduct;
     this.nameProduct = product;
-    this.idClient = idClient;
     this.quantity = quantity;
     this.price = price;
   }
 
+
   public Invoice () {
 
+  }
+
+  public int getIdProduct () {
+    return idProduct;
+  }
+
+  public void setIdProduct (int idProduct) {
+    this.idProduct = idProduct;
   }
 
   public String getNameProduct () {
@@ -35,15 +44,11 @@ public class Invoice {
     this.quantity = quantity;
   }
 
-  public void setIdClient (int idClient) {
-    this.idClient = idClient;
-  }
-
-  public double getPrice () {
+  public float getPrice () {
     return price;
   }
 
-  public void setPrice (double price) {
+  public void setPrice (float price) {
     this.price = price;
   }
 }

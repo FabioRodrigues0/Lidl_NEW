@@ -9,70 +9,32 @@
 package com.example.lidl_new.Model;
 
 import com.example.lidl_new.Classes.Invoice;
-import com.example.lidl_new.Controller.HomeController;
 import com.example.lidl_new.Database.Conn;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.Objects;
-import java.util.Scanner;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.collections.ObservableListBase;
 
 public class InvoiceModel {
   public ObservableList<Invoice> invoiceList;
 
-  public InvoiceModel (String nameProduct, int idClient, int quantity, double price) {
-    invoiceList = FXCollections.observableArrayList();
-    invoiceList.add(new Invoice(nameProduct, idClient, quantity, price));
-
-  }
-
   public InvoiceModel () {
+    invoiceList = FXCollections.observableArrayList();
 
   }
-
-  /**
-   * SELECT Orders.OrderID, Customers.CustomerName
-   * FROM Orders
-   * INNER JOIN Customers ON Orders.CustomerID = Customers.CustomerID;
-   */
-    /*public static void ReadInvoice(){
-        ReadClient();
-        try {
-            Statement stmt = Conn.createStatement();
-            ResultSet rs = stmt.executeQuery("select invoice_id, product_id, quantity, product.product, product.price, invoice.client, invoice.total_price, client.name, client.nif, client.card,
-client_card.points, client_card.total_purchases, client_card.barcode
-from ((((invoice_product
-inner join invoice on invoice_id = invoice.id)
-inner join product on product_id = product.id)
-inner join client on client = client.id)
-inner join client_card on card = client_card.id)
-where client.id = 28");Substituir o 28 pelo id que vem do FX
-            System.out.println("Lista de Clientes: ");
-            while (rs.next()){
-                System.out.println(rs.getInt(1) + " - Nome: "
-                        + rs.getString(2) + " - NIF: "
-                        + rs.getString(3));
-            }
-        } catch (Exception e) {
-            System.out.println(e);
-        }
-    }*/
 
   //------------------------------------- CREATE INVOICE_PRODUCT / INVOICE ----------------------------------------//
-  public static void CreateInvoiceProduct () throws SQLException {
+  public void CreateInvoiceProduct (int Client, float tp) throws SQLException {
     // Lista clientes
     //ReadClient();
     // Guarda o ID do cliente escolhido
-    int idClient = 1;// !todo Substituir o 1 pelo id que vem do FX
+    int idClient = Client;
     // Inicializa a variável referente ao preço total da compra
-    double total_price = 0;
+    float total_price = tp;
     int invoiceId = 0;
-    String buy;
-    double totalPurshase = 0;
+    float totalPurshase = 0;
 
     try {
       Statement stmt = Conn.createStatement();
@@ -80,61 +42,31 @@ where client.id = 28");Substituir o 28 pelo id que vem do FX
       ResultSet rs = stmt.executeQuery("SELECT LAST_INSERT_ID() as invoiceLastId FROM invoice");
       while (rs.next())
         invoiceId = rs.getInt("invoiceLastId");
+      System.out.println(invoiceId + " este id");
     } catch (Exception e) {
       System.out.println(e);
     }
-
-    Scanner in = new Scanner(System.in);
-    do {
-      //Product.ReadProducts();
-      System.out.println("Escolha um produto: ");
-      int product_id = in.nextInt();
-      System.out.println("Quantidade: ");
-      int quantity = in.nextInt();
+    for (Invoice r : invoiceList) {
       try {
         Statement stmt = Conn.createStatement();
-        stmt.executeUpdate("INSERT INTO invoice_product(invoice_id, product_id, quantity) " + "VALUES ('" + invoiceId + "', '" + product_id + "', '" + quantity + "')");
-        myResult result = ReadInfoProduct(product_id);
+        System.out.println(invoiceId + " aqui este id");
+        stmt.executeUpdate("INSERT INTO invoice_product(invoice_id, product_id, quantity) " + "" + "VALUES ('" + invoiceId + "', '" + r.getIdProduct() + "', '" + r.getQuantity() + "')");
+        myResult result = ReadInfoProduct(r.getIdProduct());
         double newStock = result.getFirst();
-        newStock -= quantity;
-        UpdateStock(newStock, product_id);
+        newStock -= r.getQuantity();
+        UpdateStock(newStock, r.getIdProduct());
         double productPrice = result.getSecond();
         // Atualiza valor total da compra na tabela invoice
-        double purshase = (double) (productPrice * quantity);
+        double purshase = (double) (productPrice * r.getQuantity());
         // Casting
         totalPurshase += (double) (purshase);
       } catch (Exception e) {
         System.out.println(e);
       }
+    }
 
-      System.out.println("Continuar a comprar? (Y/N)");
-      buy = in.next();
-    } while (Objects.equals(buy, "Y") || Objects.equals(buy, "y"));
     UpdatePrice(invoiceId, totalPurshase);
     CardModel.UpdatePointsCard(idClient, totalPurshase);
-  }
-
-  //------------------------------------- UPDATE INVOICE_PRODUCT / INVOICE ----------------------------------------//
-  static double UpdatePrice (int id, double total_price) {
-    try {
-      Statement stmt = Conn.createStatement();
-      stmt.executeUpdate("UPDATE invoice SET total_price = '" + total_price + "' WHERE id = '" + id + "'");
-      System.out.println("Update do preço total (compra) na tabela invoice feito com sucesso!");
-    } catch (Exception e) {
-      System.out.println(e);
-    }
-    return total_price;
-  }
-
-  static double UpdateStock (double stock, int id) {
-    try {
-      Statement stmt = Conn.createStatement();
-      stmt.executeUpdate("UPDATE product SET stock = '" + stock + "' WHERE id = '" + id + "'");
-      System.out.println("Stock atualizado com sucesso! Stock atual --> " + stock);
-    } catch (Exception e) {
-      System.out.println(e);
-    }
-    return stock;
   }
 
   //------------------------------------- VERIFICAR PRICE / STOCK ----------------------------------------//
@@ -155,6 +87,42 @@ where client.id = 28");Substituir o 28 pelo id que vem do FX
     return new myResult(result, price);
   }
 
+  //------------------------------------- UPDATE PRODUCT STOCK ---------------------------------------------//
+  static double UpdateStock (double stock, int id) {
+    try {
+      Statement stmt = Conn.createStatement();
+      stmt.executeUpdate("UPDATE product SET stock = '" + stock + "' WHERE id = '" + id + "'");
+      System.out.println("Stock atualizado com sucesso! Stock atual --> " + stock);
+    } catch (Exception e) {
+      System.out.println(e);
+    }
+    return stock;
+  }
+
+  //------------------------------------- UPDATE INVOICE_PRODUCT / INVOICE ----------------------------------------//
+  static double UpdatePrice (int id, double total_price) {
+    try {
+      Statement stmt = Conn.createStatement();
+      stmt.executeUpdate("UPDATE invoice SET total_price = '" + total_price + "' WHERE id = '" + id + "'");
+      System.out.println("Update do preço total (compra) na tabela invoice feito com sucesso!");
+    } catch (Exception e) {
+      System.out.println(e);
+    }
+    return total_price;
+  }
+
+  //----------------------- UPDATE A LISTA DE PRODUTOS QUE CLIENTE QUER COMPRAR ----------------------------------//
+  public ObservableList<Invoice> addRowInvoice (int productIndex, String nameProduct, int quantity, float price) {
+    invoiceList.add(new Invoice(productIndex, nameProduct, quantity, price));
+    return invoiceList;
+  }
+
+  public ObservableList<Invoice> deleteRowInvoice (Invoice r) {
+    invoiceList.remove(r);
+    return invoiceList;
+  }
+
+  //-------------------------- LISTA DE PRODUTOS QUE CLIENTE QUER COMPRAR ---------------------------------------//
   public ObservableList<Invoice> getInvoices () {
     return invoiceList;
   }
@@ -163,6 +131,7 @@ where client.id = 28");Substituir o 28 pelo id que vem do FX
     this.invoiceList = invoiceList;
   }
 
+  //------------------------------------------------------------------------------------------------------------//
   public static class myResult {
     private final double first;
     private final double second;

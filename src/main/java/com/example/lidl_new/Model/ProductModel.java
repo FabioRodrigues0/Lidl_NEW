@@ -8,6 +8,7 @@
 
 package com.example.lidl_new.Model;
 
+import com.example.lidl_new.Classes.Invoice;
 import com.example.lidl_new.Classes.Product;
 import com.example.lidl_new.Database.Conn;
 import java.sql.ResultSet;
@@ -15,7 +16,6 @@ import java.sql.Statement;
 import java.util.Collection;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-//import static com.example.lidl.Model.Product.getProduct;
 
 public class ProductModel {
 
@@ -24,15 +24,6 @@ public class ProductModel {
   public ProductModel () {
     productList = FXCollections.observableArrayList();
 
-    try {
-      Statement stmt = Conn.createStatement();
-      ResultSet rs = stmt.executeQuery("CALL lidl_java.listProducts()");
-      while (rs.next()) {
-        productList.add(new Product(rs.getInt(1), rs.getInt(2), rs.getString(3), rs.getString(4), rs.getString(5), rs.getInt(6), rs.getDouble(7), rs.getInt(8)));
-      }
-    } catch (Exception e) {
-      System.out.println(e);
-    }
   }
 
 
@@ -47,7 +38,7 @@ public class ProductModel {
     }
   }
 
-  public static void updateProduct (int idProduto, int barcode, String productName, int category, int brand, int stock, double price, int tax) {
+  public static void updateProduct (int idProduto, int barcode, String productName, int category, int brand, int stock, float price, int tax) {
 
     System.out.println("barcode:" + barcode + "product: " + productName + "price: " + price + "stock: " + stock + "category: " + category + "brand: " + brand + "tax: " + tax);
 
@@ -59,6 +50,19 @@ public class ProductModel {
       System.out.println(e);
 
     }
+  }
+
+  public ObservableList<Product> addListOfProducts () {
+    try {
+      Statement stmt = Conn.createStatement();
+      ResultSet rs = stmt.executeQuery("CALL lidl_java.listProducts()");
+      while (rs.next()) {
+        productList.add(new Product(rs.getInt(1), rs.getInt(2), rs.getString(3), rs.getString(4), rs.getString(5), rs.getInt(6), rs.getFloat(7), rs.getInt(8)));
+      }
+    } catch (Exception e) {
+      System.out.println(e);
+    }
+    return productList;
   }
 
   public ObservableList<Product> getProducts () {

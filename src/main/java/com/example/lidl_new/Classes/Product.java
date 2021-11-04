@@ -17,52 +17,52 @@ package com.example.lidl_new.Classes;
 
 public class Product {
 
-    public int id, barcode, stock, tax;
-    public String productName, brand, category;
-    public double price;
+  public int id, barcode, stock, tax;
+  public String productName, brand, category;
+  public float price;
 
-    public Product (int id, int barcode, String productName, String category, String brand, int stock, double price, int tax) {
-        this.id = id;
-        this.barcode = barcode;
-        this.productName = productName;
-        this.category = category;
-        this.brand = brand;
-        this.stock = stock;
-        this.price = price;
-        this.tax = tax;
-    }
+  public Product (int id, int barcode, String productName, String category, String brand, int stock, float price, int tax) {
+    this.id = id;
+    this.barcode = barcode;
+    this.productName = productName;
+    this.category = category;
+    this.brand = brand;
+    this.stock = stock;
+    this.price = price;
+    this.tax = tax;
+  }
 
-    public int getId () {
-        return id;
-    }
+  public int getId () {
+    return id;
+  }
 
-    public int getBarcode () {
-        return barcode;
-    }
+  public int getBarcode () {
+    return barcode;
+  }
 
-    public String getProductName () {
-        return productName;
-    }
+  public String getProductName () {
+    return productName;
+  }
 
-    public int getStock () {
-        return stock;
-    }
+  public int getStock () {
+    return stock;
+  }
 
-    public String getCategory () {
-        return category;
-    }
+  public String getCategory () {
+    return category;
+  }
 
-    public String getBrand () {
-        return brand;
-    }
+  public String getBrand () {
+    return brand;
+  }
 
-    public int getTax () {
-        return tax;
-    }
+  public int getTax () {
+    return tax;
+  }
 
-    public double getPrice () {
-        return price;
-    }
+  public float getPrice () {
+    return price;
+  }
 
 
 }

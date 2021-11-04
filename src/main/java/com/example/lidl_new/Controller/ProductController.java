@@ -18,7 +18,6 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 
 import static com.example.lidl_new.Classes.Brand.getBrand;
@@ -99,7 +98,7 @@ public class ProductController implements Initializable {
   @FXML
   public TableColumn<Product, Integer> colStock;
   @FXML
-  public TableColumn<Product, Double> colPrice;
+  public TableColumn<Product, Float> colPrice;
   @FXML
   public TableColumn<Product, Integer> colTax;
   @FXML
@@ -112,7 +111,6 @@ public class ProductController implements Initializable {
 
   ProductModel model = new ProductModel();
   MainAppController load = new MainAppController();
-  ObservableList<Product> product = model.getProducts();
 
   Connection conn;
   String query;
@@ -150,56 +148,9 @@ public class ProductController implements Initializable {
         }
       }
     }
-    double price = Double.parseDouble(cPrice.getText());
+    float price = Float.parseFloat(cPrice.getText());
 
     ProductModel.createProduct(barcode, cNameProduct.getText(), category, brand, stock, price, tax);
-  }
-
-  /*
-   * Chamada ao iniciar na tab de dar adicionar um produto
-   */
-  @FXML
-  public void onSelectAddProduct () {
-    for (int i = 0; i < getBrand().size(); i++) {
-      cBrand.getItems().addAll(getBrand().get(i).getBrandName());
-    }
-    for (int i = 0; i < getCategory().size(); i++) {
-      cCategory.getItems().addAll(getCategory().get(i).getCategoryName());
-    }
-    for (int i = 0; i < getTax().size(); i++) {
-      cTax.getItems().addAll(getTax().get(i).getTaxPercent());
-    }
-  }
-
-/*  @FXML
-  public void test2 () {
-    // action event
-    EventHandler<MouseEvent> event = new EventHandler<MouseEvent>() {
-      public void handle (MouseEvent e) {
-        Product productSelected = tvListProducts.getSelectionModel().getSelectedItem();
-        load.tabAddProduct(e);
-      }
-    };
-    btUpdateProduct.setOnAction(event);
-  }*/
-
-  //------------------------------------------- Listar Productos -----------------------------------------------
-  /*
-   * Função chamada ao selecionar a tab Produtos
-   * Chama que função de listar os produto
-   */
-  @FXML
-  public void onListProduct () {
-    colId.setCellValueFactory(new PropertyValueFactory<Product, Integer>("id"));
-    colBarcode.setCellValueFactory(new PropertyValueFactory<Product, Integer>("barcode"));
-    colProductName.setCellValueFactory(new PropertyValueFactory<Product, String>("productName"));
-    colCategory.setCellValueFactory(new PropertyValueFactory<Product, String>("category"));
-    colBrand.setCellValueFactory(new PropertyValueFactory<Product, String>("brand"));
-    colStock.setCellValueFactory(new PropertyValueFactory<Product, Integer>("stock"));
-    colPrice.setCellValueFactory(new PropertyValueFactory<Product, Double>("price"));
-    colTax.setCellValueFactory(new PropertyValueFactory<Product, Integer>("tax"));
-
-    tvListProducts.setItems(product);
   }
 
   //------------------------------------------- Update Producto -----------------------------------------------
@@ -208,7 +159,7 @@ public class ProductController implements Initializable {
    * Chama que função de dar update ao produto
    */
   @FXML
-  public void onUpdateProduct (ActionEvent event) throws IOException, SQLException {
+  public void setUpdateProduct (ActionEvent event) throws IOException, SQLException {
     int id = Integer.parseInt(uId.getText());
     int barcode = Integer.parseInt(uBarcode.getText());
     int stock = Integer.parseInt(uStock.getText());
@@ -225,44 +176,28 @@ public class ProductController implements Initializable {
         }
       }
     }
-    double price = Double.parseDouble(uPrice.getText());
+    float price = Float.parseFloat(uPrice.getText());
 
     ProductModel.updateProduct(id, barcode, uNameProduct.getText(), category, brand, stock, price, tax);
   }
 
-  /*
-   * Chamada ao iniciar na tab de dar update o produto
-   */
-  @FXML
-  public void onSelectUpdateProduct () {
-    for (int i = 0; i < getBrand().size(); i++) {
-      uBrand.getItems().addAll(getBrand().get(i).getBrandName());
-    }
-    for (int i = 0; i < getCategory().size(); i++) {
-      uCategory.getItems().addAll(getCategory().get(i).getCategoryName());
-    }
-    for (int i = 0; i < getTax().size(); i++) {
-      uTax.getItems().addAll(getTax().get(i).getTaxPercent());
-    }
-  }
-
-  @FXML
+/*  @FXML
   public void test () {
     // action event
     EventHandler<ActionEvent> event = new EventHandler<ActionEvent>() {
       public void handle (ActionEvent e) {
         Product productSelected = tvListProducts.getSelectionModel().getSelectedItem();
-        onTabUpdateProduct(e, productSelected);
+        onUpdateProduct(e, productSelected);
       }
     };
     btUpdateProduct.setOnAction(event);
-  }
+  }*/
 
   /*
    * e chamada atravez da lista de produtos selecionando qual produto se quer dar update
    */
   @FXML
-  public void onTabUpdateProduct (ActionEvent e, Product productSelected) {
+  public void onUpdateProduct (ActionEvent e, Product productSelected) {
     for (int i = 0; i < getBrand().size(); i++) {
       uBrand.getItems().addAll(getBrand().get(i).getBrandName());
     }
@@ -290,13 +225,61 @@ public class ProductController implements Initializable {
   @FXML
   @Override
   public void initialize (URL url, ResourceBundle resourceBundle) {
+    /*EventHandler<ActionEvent> event = new EventHandler<ActionEvent>() {
+      public void handle (ActionEvent e) {
+        try {
+          System.out.println(e);
+          load.loadUI("AddProduct", e);
+        } catch (SQLException ex) {
+          ex.printStackTrace();
+        } catch (IOException ex) {
+          ex.printStackTrace();
+        }
+      }
+    };
+    btAddProduct.setOnAction(event);*/
     String txt = url.toString();
     if (txt.contains("/Add")) {
+      System.out.println("/add");
       onSelectAddProduct();
-    } else if (txt.contains("/Update")) {
-      onSelectUpdateProduct();
     } else if (txt.contains("/Product")) {
+      System.out.println("/prod");
       onListProduct();
     }
+  }
+
+  /*
+   * Chamada ao iniciar na tab de dar adicionar um produto
+   */
+  @FXML
+  public void onSelectAddProduct () {
+    for (int i = 0; i < getBrand().size(); i++) {
+      cBrand.getItems().addAll(getBrand().get(i).getBrandName());
+    }
+    for (int i = 0; i < getCategory().size(); i++) {
+      cCategory.getItems().addAll(getCategory().get(i).getCategoryName());
+    }
+    for (int i = 0; i < getTax().size(); i++) {
+      cTax.getItems().addAll(getTax().get(i).getTaxPercent());
+    }
+  }
+
+  //------------------------------------------- Listar Productos -----------------------------------------------
+  /*
+   * Função chamada ao selecionar a tab Produtos
+   * Chama que função de listar os produto
+   */
+  @FXML
+  public void onListProduct () {
+    colId.setCellValueFactory(new PropertyValueFactory<Product, Integer>("id"));
+    colBarcode.setCellValueFactory(new PropertyValueFactory<Product, Integer>("barcode"));
+    colProductName.setCellValueFactory(new PropertyValueFactory<Product, String>("productName"));
+    colCategory.setCellValueFactory(new PropertyValueFactory<Product, String>("category"));
+    colBrand.setCellValueFactory(new PropertyValueFactory<Product, String>("brand"));
+    colStock.setCellValueFactory(new PropertyValueFactory<Product, Integer>("stock"));
+    colPrice.setCellValueFactory(new PropertyValueFactory<Product, Float>("price"));
+    colTax.setCellValueFactory(new PropertyValueFactory<Product, Integer>("tax"));
+
+    tvListProducts.setItems(model.addListOfProducts());
   }
 }

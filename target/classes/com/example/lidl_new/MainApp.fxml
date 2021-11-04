@@ -57,12 +57,20 @@
         </HBox>
     </top>
     <left>
-        <AnchorPane BorderPane.alignment="CENTER"/>
+        <AnchorPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" BorderPane.alignment="CENTER"/>
     </left>
     <right>
-        <AnchorPane BorderPane.alignment="CENTER"/>
+        <AnchorPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" BorderPane.alignment="CENTER"/>
     </right>
+    <padding>
+        <Insets bottom="2.0" left="2.0" right="2.0" top="2.0"/>
+    </padding>
     <bottom>
-        <AnchorPane BorderPane.alignment="CENTER"/>
+        <VBox fx:id="MainContent" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308"
+              BorderPane.alignment="CENTER">
+            <BorderPane.margin>
+                <Insets bottom="2.0" left="2.0" right="2.0" top="2.0"/>
+            </BorderPane.margin>
+        </VBox>
     </bottom>
 </BorderPane>

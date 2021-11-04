@@ -5,11 +5,10 @@ import com.example.lidl_new.Classes.Product;
 import com.example.lidl_new.Model.InvoiceModel;
 import com.example.lidl_new.Model.ProductModel;
 import java.net.URL;
+import java.sql.SQLException;
 import java.util.*;
 import java.util.stream.Collectors;
-import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.collections.ObservableListBase;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -22,11 +21,10 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.TilePane;
 
-import static java.util.Arrays.setAll;
-
 import static com.example.lidl_new.Classes.Category.getCategory;
 
 public class HomeController implements Initializable {
+  /* Secção de botôes das Categorias e Produtos */
   @FXML
   public TextField sQuantity;
   @FXML
@@ -35,6 +33,7 @@ public class HomeController implements Initializable {
   public Button btCategory;
   @FXML
   public TilePane tp_Products;
+  /* Botões de adiconar a quantidade */
   @FXML
   public Button btProducts;
   @FXML
@@ -59,6 +58,7 @@ public class HomeController implements Initializable {
   public Button btQuantity9;
   @FXML
   public Button btQuantityClear;
+  /* tabela de produtos da fatura */
   @FXML
   public TableView<Invoice> tbInvoice;
   @FXML
@@ -67,116 +67,34 @@ public class HomeController implements Initializable {
   public TableColumn<Invoice, Integer> colQuantity;
   @FXML
   public TableColumn<Invoice, Double> colPrice;
+  /* Secção de botoes de funcionadlidades e caixas de texto para informação */
   @FXML
   public TextField txtclientID;
   @FXML
   public Button btShop;
+  @FXML
+  public TextField totalInvoice;
+  @FXML
+  public Button btDeleteProduct;
 
+  //variaveis
   ProductModel productModel = new ProductModel();
   InvoiceModel invoiceModel = new InvoiceModel();
-  Invoice i = new Invoice();
   ObservableList<Product> product = productModel.getProducts();
-  int lastIndex = 0;
-  boolean shopFinished;
-  private ObservableList<Invoice> invoices = invoiceModel.getInvoices();
 
   public HomeController () {
   }
 
-  //------------------------------------------- Função ao inciar App -----------------------------------------------
   /*
-   * Função cria os botoes das categorias dos produtos basiado nas categorias que existem na base de dados
+   * Envia a fatura com a lista de produtos
+   * para ser adicionada a base de dados
    */
   @FXML
-  public void onListCategories () {
-    List<Button> listCategory = new ArrayList<>();//our Collection to hold newly created Buttons
-    for (int i = 0; i < getCategory().size(); i++) {
-      tp_Category.getChildren().clear();
-      btCategory = new Button(getCategory().get(i).getCategoryName());
-      btCategory.setMinWidth(145);
-      btCategory.setPrefHeight(40);
-      btCategory.setWrapText(true);
-      // action event
-      EventHandler<ActionEvent> event = new EventHandler<ActionEvent>() {
-        public void handle (ActionEvent e) {
-          onBtListProduct(e);
-        }
-      };
-
-      btCategory.setOnAction(event);
-      listCategory.add(btCategory);
-    }
-    tp_Category.getChildren().addAll(listCategory);
-  }
-
-  /*
-   * Função cria os botoes dos produtos que existem basiado na categorias clicado
-   */
-  @FXML
-  public void onBtListProduct (ActionEvent event) {
-    // !todo WARNING E ma utilização depender do texto do botão
-    String nameButton = ((Button) event.getSource()).getText();
-    List<Button> listProduct = new ArrayList<Button>();//our Collection to hold newly created Buttons
-    List<Product> productListQuantity = product.stream().filter(product -> product.getCategory().equals(nameButton)).collect(Collectors.toList());
-
-    tp_Products.getChildren().clear();
-    for (Product value : productListQuantity) {
-      btProducts = new Button(value.getProductName());
-      btProducts.setPrefWidth(70);
-      btProducts.setPrefHeight(80);
-      btProducts.setWrapText(true);
-      btProducts.setAlignment(Pos.CENTER);
-      // action event
-      EventHandler<ActionEvent> evt = new EventHandler<ActionEvent>() {
-        public void handle (ActionEvent e) {
-          onToInvoice(e);
-        }
-      };
-
-      btProducts.setOnAction(evt);
-      listProduct.add(btProducts);
-    }
-    tp_Products.getChildren().addAll(listProduct);
-  }
-
-  @FXML
-  public void onToInvoice (ActionEvent event) {
-    // !todo WARNING E ma utilização depender do texto do botão
-    String nameProduct = ((Button) event.getSource()).getText();
-    int productQuantity = Integer.parseInt(sQuantity.getText());
+  public void finishShop () throws SQLException {
     int idClient = Integer.parseInt(txtclientID.getText());
+    float totalPurchase = Float.parseFloat(totalInvoice.getText());
+    invoiceModel.CreateInvoiceProduct(idClient, totalPurchase);
 
-    Product productIndex = null;
-    //este for e para procurar nos produtos o index do produto para pedir o preço
-    for (Product product : product) {
-      if (product.getProductName().equals(nameProduct)) {
-        productIndex = product;
-      }
-    }
-    int index = product.indexOf(productIndex);
-    double price = product.get(index).getPrice();
-
-    invoices = FXCollections.observableArrayList();
-
-    invoices.add(new Invoice(nameProduct, idClient, productQuantity, price));
-
-    System.out.println(invoices.size());
-    lastIndex++;
-    updateProductsToInvoice();
-  }
-
-  @FXML
-  public void finishShop () {
-    shopFinished = false;
-  }
-
-  @FXML
-  public void updateProductsToInvoice () {
-    colProduct.setCellValueFactory(new PropertyValueFactory<Invoice, String>("nameProduct"));
-    colQuantity.setCellValueFactory(new PropertyValueFactory<Invoice, Integer>("quantity"));
-    colPrice.setCellValueFactory(new PropertyValueFactory<Invoice, Double>("price"));
-
-    tbInvoice.setItems(invoices);
   }
 
   /*
@@ -212,5 +130,110 @@ public class HomeController implements Initializable {
     onListCategories();
   }
 
+  //------------------------------------------- Função ao inciar App -----------------------------------------------
+  /*
+   * Função cria os botoes das categorias dos produtos basiado nas categorias que existem na base de dados
+   */
+  @FXML
+  public void onListCategories () {
+    List<Button> listCategory = new ArrayList<>();//our Collection to hold newly created Buttons
+    for (int i = 0; i < getCategory().size(); i++) {
+      tp_Category.getChildren().clear();
+      btCategory = new Button(getCategory().get(i).getCategoryName());
+      btCategory.setMinWidth(145);
+      btCategory.setPrefHeight(40);
+      btCategory.setWrapText(true);
+      // action event
+      EventHandler<ActionEvent> event = new EventHandler<ActionEvent>() {
+        public void handle (ActionEvent e) {
+          onBtListProduct(e);
+        }
+      };
 
+      btCategory.setOnAction(event);
+      listCategory.add(btCategory);
+    }
+    tp_Category.getChildren().addAll(listCategory);
+  }
+
+  /*
+   * Função cria os botoes dos produtos que existem basiado na categorias clicado
+   */
+  @FXML
+  public void onBtListProduct (ActionEvent event) {
+    tp_Products.getChildren().clear();
+    // !todo WARNING E ma utilização depender do texto do botão
+    String nameButton = ((Button) event.getSource()).getText();
+    List<Button> listProduct = new ArrayList<Button>();//our Collection to hold newly created Buttons
+    List<Product> productListQuantity = productModel.addListOfProducts().stream().filter(product -> product.getCategory().equals(nameButton)).collect(Collectors.toList());
+
+    for (Product value : productListQuantity) {
+      btProducts = new Button(value.getProductName());
+      btProducts.setPrefWidth(70);
+      btProducts.setPrefHeight(80);
+      btProducts.setWrapText(true);
+      btProducts.setAlignment(Pos.CENTER);
+      // action event
+      EventHandler<ActionEvent> evt = new EventHandler<ActionEvent>() {
+        public void handle (ActionEvent e) {
+          onToInvoice(e);
+        }
+      };
+
+      btProducts.setOnAction(evt);
+      listProduct.add(btProducts);
+    }
+    tp_Products.getChildren().addAll(listProduct);
+  }
+
+  /*
+   * Adicionar um produto da lista da fatura
+   */
+  @FXML
+  public void onToInvoice (ActionEvent event) {
+    // !todo WARNING E ma utilização depender do texto do botão
+    String nameProduct = ((Button) event.getSource()).getText();
+    int productQuantity = Integer.parseInt(sQuantity.getText());
+
+    Product productIndex = null;
+    //este for e para procurar nos produtos o index do produto para pedir o preço
+    for (Product product : product) {
+      if (product.getProductName().equals(nameProduct)) {
+        productIndex = product;
+      }
+    }
+    int index = product.indexOf(productIndex);
+    float price = product.get(index).getPrice();
+    int productID = product.get(index).getId();
+    float totalPurchase = Float.parseFloat(totalInvoice.getText());
+
+    totalPurchase = totalPurchase + (price * productQuantity);
+    String totalPurchasetxt = String.valueOf(totalPurchase);
+    totalPurchasetxt = String.format("%.2f", totalPurchase);
+
+    totalInvoice.setText(String.valueOf(totalPurchasetxt));
+    invoiceModel.addRowInvoice(productID, nameProduct, productQuantity, price);
+    updateProductsToInvoice();
+  }
+
+  /*
+   * Adicionar a lista de Produtos na fatura a tabela
+   */
+  @FXML
+  public void updateProductsToInvoice () {
+    colProduct.setCellValueFactory(new PropertyValueFactory<Invoice, String>("nameProduct"));
+    colQuantity.setCellValueFactory(new PropertyValueFactory<Invoice, Integer>("quantity"));
+    colPrice.setCellValueFactory(new PropertyValueFactory<Invoice, Double>("price"));
+
+    tbInvoice.setItems(invoiceModel.getInvoices());
+  }
+
+  /*
+   * Apagar produto da lista da fatura
+   */
+  @FXML
+  public void deleteProduct (ActionEvent event) {
+    Invoice r = tbInvoice.getSelectionModel().getSelectedItem();
+    invoiceModel.deleteRowInvoice(r);
+  }
 }

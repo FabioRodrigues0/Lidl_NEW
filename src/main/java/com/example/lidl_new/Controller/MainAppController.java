@@ -15,6 +15,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.VBox;
 
 public class MainAppController implements Initializable {
   /*
@@ -34,7 +35,8 @@ public class MainAppController implements Initializable {
   public Button tbProduct; // Value injected by FXMLLoader
   @FXML // fx:id="tbUpdateProduct"
   public Button tbUpdateProduct; // Value injected by FXMLLoader
-  ProductController pc = new ProductController();
+  @FXML
+  public VBox MainContent;
 
   public MainAppController () {
 
@@ -49,6 +51,22 @@ public class MainAppController implements Initializable {
   @FXML
   public void tabHome (ActionEvent event) throws SQLException, IOException {
     loadUI("Home", event);
+  }
+
+  /*
+   *Função que que muda a tab
+   */
+  public void loadUI (String ui, ActionEvent event) throws SQLException, IOException {
+    Parent root = null;
+    try {
+      FXMLLoader loader = new FXMLLoader();
+      loader.setLocation(MainApp.class.getResource(ui + ".fxml"));
+
+      root = loader.load();
+    } catch (IOException ex) {
+      Logger.getLogger(MainAppController.class.getName()).log(Level.SEVERE, null, ex);
+    }
+    MainBorderPane.setCenter(root);
   }
 
   @FXML
@@ -74,22 +92,6 @@ public class MainAppController implements Initializable {
   @FXML
   public void tabAbout (ActionEvent event) throws SQLException, IOException {
     loadUI("About", event);
-  }
-
-  /*
-   *Função que que muda a tab
-   */
-  public void loadUI (String ui, ActionEvent event) throws SQLException, IOException {
-    Parent root = null;
-    try {
-      FXMLLoader loader = new FXMLLoader();
-      loader.setLocation(MainApp.class.getResource(ui + ".fxml"));
-
-      root = loader.load();
-    } catch (IOException ex) {
-      Logger.getLogger(MainAppController.class.getName()).log(Level.SEVERE, null, ex);
-    }
-    MainBorderPane.setCenter(root);
   }
 
   @Override
