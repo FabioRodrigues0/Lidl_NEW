@@ -1,0 +1,3614 @@
+diff --git a/README.md b/README.md
+index 37b26b2..5940f9b 100644
+--- a/README.md
++++ b/README.md
+@@ -1,15 +1,29 @@
+-# Lidl
+-
+-<p> Project folder </p>
+-
+->Lidl
+->+-- _src
+->   +-- _Main
+->       +--Java
+->           +--com.example.Lidl
+->               +--
+->       +--Resources
+->           +--com.example.Lidl
+->               +-- ... `javaFX Scenes`
+->           +--media
+->               +-- `imagens`
++<!-- PROJECT LOGO -->
++<br />
++<div align="center">
++  <a href="https://github.com/sparthaa/lidl_NEW">
++    <img src="media/brand__default.png" alt="Logo" width="115" height="115">
++  </a>
++   
++<h3 align="center">Lidl</h3>
++
++  <p align="center">
++    project_description
++    <br />
++    <a href="https://github.com/sparthaa/lidl_NEW"><strong>Explore the docs »</strong></a>
++    <br />
++    <br />
++    <a href="https://github.com/github_username/repo_name">View Demo</a>
++    ·
++    <a href="https://github.com/github_username/repo_name/issues">Report Bug</a>
++    ·
++    <a href="https://github.com/github_username/repo_name/issues">Request Feature</a>
++  </p>
++</div>
++
++
++<p>Projeto realizado por:</p>
++
++* [Fabio Rodrigues](https://github.com/sparthaa)
++* [Pedro Silva](https://github.com/pedrosilva89)
++* [Nuno Alves](https://github.com/alves95)
+\ No newline at end of file
+diff --git a/src/main/java/com/example/lidl_new/Classes/Invoice.java b/src/main/java/com/example/lidl_new/Classes/Invoice.java
+index 66a5bc7..7ead432 100644
+--- a/src/main/java/com/example/lidl_new/Classes/Invoice.java
++++ b/src/main/java/com/example/lidl_new/Classes/Invoice.java
+@@ -1,2 +1,31 @@
+-package com.example.lidl_new.Classes;public class Invoice {
++package com.example.lidl_new.Classes;
++
++public class Invoice {
++  public int id;
++  public int idClient;
++  public float total_price;
++  public String date;
++
++  public Invoice (int id, int idClient, float total_price, String date) {
++    this.id = id;
++    this.idClient = idClient;
++    this.total_price = total_price;
++    this.date = date;
++  }
++
++  public int getId () {
++    return id;
++  }
++
++  public int getIdClient () {
++    return idClient;
++  }
++
++  public float getTotal_price () {
++    return total_price;
++  }
++
++  public String getDate () {
++    return date;
++  }
+ }
+diff --git a/src/main/java/com/example/lidl_new/Classes/InvoiceProduct.java b/src/main/java/com/example/lidl_new/Classes/InvoiceProduct.java
+index 8ffab60..93f7f9d 100644
+--- a/src/main/java/com/example/lidl_new/Classes/InvoiceProduct.java
++++ b/src/main/java/com/example/lidl_new/Classes/InvoiceProduct.java
+@@ -1,2 +1,44 @@
+-package com.example.lidl_new.Classes;public class InvoiceProduct {
++package com.example.lidl_new.Classes;
++
++public class InvoiceProduct {
++  public int id;
++  public int invoice_id;
++  public int product_id;
++  public float quantity;
++  public String productName;
++  public float productPrice;
++
++  public InvoiceProduct (int id, int invoice_id, int product_id, float quantity, String productName, float productPrice) {
++    this.id = id;
++    this.invoice_id = invoice_id;
++    this.product_id = product_id;
++    this.quantity = quantity;
++    this.productName = productName;
++    this.productPrice = productPrice;
++  }
++
++  public int getId () {
++    return id;
++  }
++
++  public int getInvoice_id () {
++    return invoice_id;
++  }
++
++  public int getProduct_id () {
++    return product_id;
++  }
++
++  public String getProductName () {
++    return productName;
++  }
++
++  public float getProductPrice () {
++    return productPrice;
++  }
++
++  public float getQuantity () {
++    return quantity;
++  }
++
+ }
+diff --git a/src/main/java/com/example/lidl_new/Classes/ShopList.java b/src/main/java/com/example/lidl_new/Classes/ShopList.java
+index f4fcb61..32ff586 100644
+--- a/src/main/java/com/example/lidl_new/Classes/ShopList.java
++++ b/src/main/java/com/example/lidl_new/Classes/ShopList.java
+@@ -1,6 +1,6 @@
+ package com.example.lidl_new.Classes;
+ 
+-public class Invoice {
++public class ShopList {
+ 
+ 
+   public String nameProduct;
+@@ -8,7 +8,7 @@ public class Invoice {
+   public int idProduct;
+   public float price;
+ 
+-  public Invoice (int idProduct, String product, int quantity, float price) {
++  public ShopList (int idProduct, String product, int quantity, float price) {
+     this.idProduct = idProduct;
+     this.nameProduct = product;
+     this.quantity = quantity;
+@@ -16,7 +16,7 @@ public class Invoice {
+   }
+ 
+ 
+-  public Invoice () {
++  public ShopList () {
+ 
+   }
+ 
+diff --git a/src/main/java/com/example/lidl_new/Controller/AddProduct.java b/src/main/java/com/example/lidl_new/Controller/AddProduct.java
+index ec2679c..c69bdbe 100644
+--- a/src/main/java/com/example/lidl_new/Controller/AddProduct.java
++++ b/src/main/java/com/example/lidl_new/Controller/AddProduct.java
+@@ -1,2 +1,123 @@
+-package com.example.lidl_new.Controller;public class AddProduct {
++package com.example.lidl_new.Controller;
++
++import com.example.lidl_new.MainApp;
++import com.example.lidl_new.Model.ProductModel;
++import java.io.IOException;
++import java.net.URL;
++import java.sql.SQLException;
++import java.util.Objects;
++import java.util.ResourceBundle;
++import javafx.event.ActionEvent;
++import javafx.fxml.FXML;
++import javafx.fxml.FXMLLoader;
++import javafx.fxml.Initializable;
++import javafx.scene.Scene;
++import javafx.scene.control.Button;
++import javafx.scene.control.ChoiceBox;
++import javafx.scene.control.TextField;
++import javafx.stage.Modality;
++import javafx.stage.Stage;
++
++import static com.example.lidl_new.Classes.Brand.getBrand;
++import static com.example.lidl_new.Classes.Category.getCategory;
++import static com.example.lidl_new.Classes.Tax.getTax;
++
++public class AddProduct implements Initializable {
++  /*
++   * Carregar Caixas de Texto e Botões da tab Adicionar Artigo
++   */
++  @FXML
++  public TextField cNameProduct;
++  @FXML
++  public TextField cPrice;
++  @FXML
++  public TextField cStock;
++  @FXML
++  public TextField cBarcode;
++  @FXML
++  public ChoiceBox<String> cBrand;
++  @FXML
++  public ChoiceBox<String> cCategory;
++  @FXML
++  public ChoiceBox<Integer> cTax;
++  @FXML
++  public Button cProduct;
++  @FXML
++  public Button cBtClean;
++  public Button btUClose;
++
++
++  public void display () throws IOException {
++    Stage window = new Stage();
++    window.initModality(Modality.WINDOW_MODAL);
++    window.setTitle("Criar Produto");
++    window.setMinWidth(250);
++
++    FXMLLoader fxmlLoader = new FXMLLoader(MainApp.class.getResource("AddProduct.fxml"));
++    Scene scene = new Scene(fxmlLoader.load(), 600, 400);
++    window.setScene(scene);
++    window.show();
++  }
++
++  /*
++   * Função chamada no clicar do botão de Registar
++   * Chama que função de criar o produto
++   * No fim chama a função de fechar a tab
++   */
++  @FXML
++  public void onCreateProduct (ActionEvent event) throws IOException, SQLException {
++    // !todo talves nao dê
++    int barcode = Integer.parseInt(cBarcode.getText());
++    int stock = Integer.parseInt(cStock.getText());
++    float price = Float.parseFloat(cPrice.getText());
++    int category = 99, brand = 99, tax = 99;
++    for (int i = 0; i < getCategory().size(); i++) {
++      if (Objects.equals(getCategory().get(i).getCategoryName(), cCategory.getValue())) {
++        category = getCategory().get(i).getId();
++      }
++    }
++    for (int i = 0; i < getBrand().size(); i++) {
++      if (Objects.equals(getBrand().get(i).getBrandName(), cBrand.getValue())) {
++        brand = getBrand().get(i).getId();
++      }
++    }
++    for (int j = 0; j < getTax().size(); j++) {
++      if (Objects.equals(getTax().get(j).getTaxPercent(), cTax.getValue())) {
++        tax = getTax().get(j).getId();
++      }
++    }
++
++    ProductModel.createProduct(barcode, cNameProduct.getText(), category, brand, stock, price, tax);
++  }
++
++  @FXML
++  @Override
++  public void initialize (URL url, ResourceBundle resourceBundle) {
++    onSelectAddProduct();
++  }
++
++  //------------------------------------------- Criar Producto -----------------------------------------------
++  /*
++   * Chamada ao iniciar na tab de dar adicionar um produto
++   */
++  @FXML
++  public void onSelectAddProduct () {
++    for (int i = 0; i < getBrand().size(); i++) {
++      cBrand.getItems().addAll(getBrand().get(i).getBrandName());
++    }
++    for (int i = 0; i < getCategory().size(); i++) {
++      cCategory.getItems().addAll(getCategory().get(i).getCategoryName());
++    }
++    for (int i = 0; i < getTax().size(); i++) {
++      cTax.getItems().addAll(getTax().get(i).getTaxPercent());
++    }
++  }
++
++  @FXML
++  public void clearText () {
++    cNameProduct.clear();
++    cBarcode.clear();
++    cStock.clear();
++    cPrice.clear();
++  }
+ }
+diff --git a/src/main/java/com/example/lidl_new/Controller/ClientController.java b/src/main/java/com/example/lidl_new/Controller/ClientController.java
+index 0728fd7..083ffbc 100644
+--- a/src/main/java/com/example/lidl_new/Controller/ClientController.java
++++ b/src/main/java/com/example/lidl_new/Controller/ClientController.java
+@@ -1,15 +1,22 @@
+ package com.example.lidl_new.Controller;
+ 
++import com.example.lidl_new.Classes.Invoice;
++import com.example.lidl_new.Classes.InvoiceProduct;
++import com.example.lidl_new.Model.CardModel;
+ import com.example.lidl_new.Model.ClientModel;
++import com.example.lidl_new.Model.InvoiceModel;
++import com.example.lidl_new.Model.InvoiceProductModel;
+ import java.io.IOException;
++import java.net.URL;
+ import java.sql.SQLException;
++import java.util.ResourceBundle;
+ import javafx.event.ActionEvent;
+ import javafx.fxml.FXML;
+-import javafx.scene.control.Button;
+-import javafx.scene.control.PasswordField;
+-import javafx.scene.control.TextField;
++import javafx.fxml.Initializable;
++import javafx.scene.control.*;
++import javafx.scene.control.cell.PropertyValueFactory;
+ 
+-public class ClientController {
++public class ClientController implements Initializable {
+   /*
+    * Carregar Caixas de Texto e Botões da Scene de Registar Novo Cliente
+    */
+@@ -37,6 +44,51 @@ public class ClientController {
+   public Button cClient;
+   @FXML
+   public Button cCancelClient;
++  /*
++   * Carregar Caixas de Texto e Botões da Scene de login
++   */
++  @FXML
++  public Button btLogin;
++  @FXML
++  public Button btCancel;
++  @FXML
++  public TextField lLogin;
++  @FXML
++  public PasswordField lPassword;
++  @FXML
++  public Label txtcheckLogin;
++  /*
++   * Carregar Tabela das faturas do cliente
++   */
++  @FXML
++  public TableView<Invoice> tbInvoice;
++  @FXML
++  public TableColumn<Invoice, Integer> colInvoiceID;
++  @FXML
++  public TableColumn<Invoice, Float> colInvoiceTotal;
++  @FXML
++  public TableColumn<Invoice, String> colInvoiceDate;
++  /*
++   * Carregar Tabela dos Produtos na fatura do cliente
++   */
++  @FXML
++  public TableView<InvoiceProduct> tbtbInvoiceProducts;
++  @FXML
++  public TableColumn<InvoiceProduct, String> colInvoiceNameProduct;
++  @FXML
++  public TableColumn<InvoiceProduct, Float> colInvoiceQT;
++  @FXML
++  public TableColumn<InvoiceProduct, Float> colInvoicePrice;
++  @FXML
++  public TextField txtClientID;
++  @FXML
++  public Button btSearchInvoices;
++  @FXML
++  public TextField clientPoints;
++
++  InvoiceModel model = new InvoiceModel(0);
++  InvoiceProductModel modelProduct = new InvoiceProductModel();
++  CardModel c = new CardModel();
+ 
+   public ClientController () {
+ 
+@@ -56,6 +108,56 @@ public class ClientController {
+     int port = Integer.parseInt(cNumberClient.getText());
+ 
+     ClientModel.CreateClient(cNameClient.getText(), cCCClient.getText(), nif, tlf, cAddressClient.getText(), port, cFloorClient.getText(), cLocationClient.getText(), cEmailClient.getText(), cPasswordClient.getText());
+-    //MainAppController.loadUI("Home");
++  }
++
++  //------------------------------------------- Listar Faturas -----------------------------------------------
++  /*
++   * Lista os produtos na fatura selecionada
++   */
++  @FXML
++  public void onListProductInvoices () {
++    Invoice invoiceSelected = tbInvoice.getSelectionModel().getSelectedItem();
++    int id = invoiceSelected.getId();
++
++    modelProduct.ListOfProductsInvoices(id);
++
++    colInvoiceNameProduct.setCellValueFactory(new PropertyValueFactory<InvoiceProduct, String>("productName"));
++    colInvoiceQT.setCellValueFactory(new PropertyValueFactory<InvoiceProduct, Float>("quantity"));
++    colInvoicePrice.setCellValueFactory(new PropertyValueFactory<InvoiceProduct, Float>("productPrice"));
++
++    tbtbInvoiceProducts.setItems(modelProduct.ListOfProductsInvoices(id));
++  }
++
++  /*
++   * Lista as faturas do cliente indicado
++   */
++  @FXML
++  public void onSearchInvoices () {
++    int client = Integer.parseInt(txtClientID.getText());
++
++    colInvoiceID.setCellValueFactory(new PropertyValueFactory<Invoice, Integer>("id"));
++    colInvoiceTotal.setCellValueFactory(new PropertyValueFactory<Invoice, Float>("total_price"));
++    colInvoiceDate.setCellValueFactory(new PropertyValueFactory<Invoice, String>("date"));
++    int points = c.getPoints(client);
++    clientPoints.setText(String.valueOf(points));
++    tbInvoice.setItems(model.getInvoiceModel(client));
++  }
++
++  //------------------------------------------- initialize -----------------------------------------------
++  @Override
++  public void initialize (URL url, ResourceBundle resourceBundle) {
++    onListInvoices();
++  }
++
++  /*
++   * Lista todas as faturas
++   */
++  @FXML
++  public void onListInvoices () {
++    colInvoiceID.setCellValueFactory(new PropertyValueFactory<Invoice, Integer>("id"));
++    colInvoiceTotal.setCellValueFactory(new PropertyValueFactory<Invoice, Float>("total_price"));
++    colInvoiceDate.setCellValueFactory(new PropertyValueFactory<Invoice, String>("date"));
++
++    tbInvoice.setItems(model.getInvoiceModel(0));
+   }
+ }
+diff --git a/src/main/java/com/example/lidl_new/Controller/DeleteWindow.java b/src/main/java/com/example/lidl_new/Controller/DeleteWindow.java
+index c80f57f..9cc98e0 100644
+--- a/src/main/java/com/example/lidl_new/Controller/DeleteWindow.java
++++ b/src/main/java/com/example/lidl_new/Controller/DeleteWindow.java
+@@ -1,2 +1,56 @@
+-package com.example.lidl_new.Controller;public class DeleteWindow {
++package com.example.lidl_new.Controller;
++
++import com.example.lidl_new.MainApp;
++import java.io.IOException;
++import java.net.URL;
++import java.util.ResourceBundle;
++import javafx.event.ActionEvent;
++import javafx.fxml.FXML;
++import javafx.fxml.FXMLLoader;
++import javafx.fxml.Initializable;
++import javafx.scene.Scene;
++import javafx.scene.control.Button;
++import javafx.stage.Modality;
++import javafx.stage.Stage;
++
++public class DeleteWindow implements Initializable {
++  @FXML
++  public Button yesButton;
++  @FXML
++  public Button noButton;
++  @FXML
++  Stage window = new Stage();
++  private boolean answer;
++
++  @FXML
++  public boolean display () throws IOException {
++    window.initModality(Modality.WINDOW_MODAL);
++    window.setTitle("Confirmar");
++    window.setMinWidth(250);
++
++    FXMLLoader fxmlLoader = new FXMLLoader(MainApp.class.getResource("DeleteWindow.fxml"));
++    Scene scene = new Scene(fxmlLoader.load(), 600, 200);
++    window.setScene(scene);
++    window.showAndWait();
++
++    return answer;
++  }
++
++
++  @Override
++  public void initialize (URL url, ResourceBundle resourceBundle) {
++
++  }
++
++  public void yes (ActionEvent event) {
++    System.out.println("Clicked");
++    answer = true;
++    window.close();
++  }
++
++  public void no (ActionEvent event) {
++    System.out.println("Clicked");
++    answer = false;
++    window.close();
++  }
+ }
+diff --git a/src/main/java/com/example/lidl_new/Controller/HomeController.java b/src/main/java/com/example/lidl_new/Controller/HomeController.java
+index 7f5990b..0f9a3d7 100644
+--- a/src/main/java/com/example/lidl_new/Controller/HomeController.java
++++ b/src/main/java/com/example/lidl_new/Controller/HomeController.java
+@@ -1,8 +1,8 @@
+ package com.example.lidl_new.Controller;
+ 
+-import com.example.lidl_new.Classes.Invoice;
++import com.example.lidl_new.Classes.ShopList;
+ import com.example.lidl_new.Classes.Product;
+-import com.example.lidl_new.Model.InvoiceModel;
++import com.example.lidl_new.Model.ShopListModel;
+ import com.example.lidl_new.Model.ProductModel;
+ import java.net.URL;
+ import java.sql.SQLException;
+@@ -60,13 +60,13 @@ public class HomeController implements Initializable {
+   public Button btQuantityClear;
+   /* tabela de produtos da fatura */
+   @FXML
+-  public TableView<Invoice> tbInvoice;
++  public TableView<ShopList> tbInvoice;
+   @FXML
+-  public TableColumn<Invoice, String> colProduct;
++  public TableColumn<ShopList, String> colProduct;
+   @FXML
+-  public TableColumn<Invoice, Integer> colQuantity;
++  public TableColumn<ShopList, Integer> colQuantity;
+   @FXML
+-  public TableColumn<Invoice, Double> colPrice;
++  public TableColumn<ShopList, Double> colPrice;
+   /* Secção de botoes de funcionadlidades e caixas de texto para informação */
+   @FXML
+   public TextField txtclientID;
+@@ -79,7 +79,7 @@ public class HomeController implements Initializable {
+ 
+   //variaveis
+   ProductModel productModel = new ProductModel();
+-  InvoiceModel invoiceModel = new InvoiceModel();
++  ShopListModel shopListModel = new ShopListModel();
+   ObservableList<Product> product = productModel.getProducts();
+ 
+   public HomeController () {
+@@ -93,7 +93,7 @@ public class HomeController implements Initializable {
+   public void finishShop () throws SQLException {
+     int idClient = Integer.parseInt(txtclientID.getText());
+     float totalPurchase = Float.parseFloat(totalInvoice.getText());
+-    invoiceModel.CreateInvoiceProduct(idClient, totalPurchase);
++    shopListModel.CreateInvoiceProduct(idClient, totalPurchase);
+ 
+   }
+ 
+@@ -161,12 +161,13 @@ public class HomeController implements Initializable {
+    */
+   @FXML
+   public void onBtListProduct (ActionEvent event) {
+-    tp_Products.getChildren().clear();
+     // !todo WARNING E ma utilização depender do texto do botão
+     String nameButton = ((Button) event.getSource()).getText();
+     List<Button> listProduct = new ArrayList<Button>();//our Collection to hold newly created Buttons
++    listProduct.clear();
+     List<Product> productListQuantity = productModel.addListOfProducts().stream().filter(product -> product.getCategory().equals(nameButton)).collect(Collectors.toList());
+ 
++    tp_Products.getChildren().clear();
+     for (Product value : productListQuantity) {
+       btProducts = new Button(value.getProductName());
+       btProducts.setPrefWidth(70);
+@@ -176,7 +177,7 @@ public class HomeController implements Initializable {
+       // action event
+       EventHandler<ActionEvent> evt = new EventHandler<ActionEvent>() {
+         public void handle (ActionEvent e) {
+-          onToInvoice(e);
++          onToShopList(e);
+         }
+       };
+ 
+@@ -190,7 +191,7 @@ public class HomeController implements Initializable {
+    * Adicionar um produto da lista da fatura
+    */
+   @FXML
+-  public void onToInvoice (ActionEvent event) {
++  public void onToShopList (ActionEvent event) {
+     // !todo WARNING E ma utilização depender do texto do botão
+     String nameProduct = ((Button) event.getSource()).getText();
+     int productQuantity = Integer.parseInt(sQuantity.getText());
+@@ -212,7 +213,7 @@ public class HomeController implements Initializable {
+     totalPurchasetxt = String.format("%.2f", totalPurchase);
+ 
+     totalInvoice.setText(String.valueOf(totalPurchasetxt));
+-    invoiceModel.addRowInvoice(productID, nameProduct, productQuantity, price);
++    shopListModel.addRowInvoice(productID, nameProduct, productQuantity, price);
+     updateProductsToInvoice();
+   }
+ 
+@@ -221,11 +222,11 @@ public class HomeController implements Initializable {
+    */
+   @FXML
+   public void updateProductsToInvoice () {
+-    colProduct.setCellValueFactory(new PropertyValueFactory<Invoice, String>("nameProduct"));
+-    colQuantity.setCellValueFactory(new PropertyValueFactory<Invoice, Integer>("quantity"));
+-    colPrice.setCellValueFactory(new PropertyValueFactory<Invoice, Double>("price"));
++    colProduct.setCellValueFactory(new PropertyValueFactory<ShopList, String>("nameProduct"));
++    colQuantity.setCellValueFactory(new PropertyValueFactory<ShopList, Integer>("quantity"));
++    colPrice.setCellValueFactory(new PropertyValueFactory<ShopList, Double>("price"));
+ 
+-    tbInvoice.setItems(invoiceModel.getInvoices());
++    tbInvoice.setItems(shopListModel.getInvoices());
+   }
+ 
+   /*
+@@ -233,7 +234,7 @@ public class HomeController implements Initializable {
+    */
+   @FXML
+   public void deleteProduct (ActionEvent event) {
+-    Invoice r = tbInvoice.getSelectionModel().getSelectedItem();
+-    invoiceModel.deleteRowInvoice(r);
++    ShopList r = tbInvoice.getSelectionModel().getSelectedItem();
++    shopListModel.deleteRowInvoice(r);
+   }
+ }
+diff --git a/src/main/java/com/example/lidl_new/Controller/ProductController.java b/src/main/java/com/example/lidl_new/Controller/ProductController.java
+index b841d8f..66e1c33 100644
+--- a/src/main/java/com/example/lidl_new/Controller/ProductController.java
++++ b/src/main/java/com/example/lidl_new/Controller/ProductController.java
+@@ -7,68 +7,36 @@ import java.io.IOException;
+ import java.net.URL;
+ import java.sql.Connection;
+ import java.sql.ResultSet;
+-import java.sql.SQLException;
+ import java.sql.Statement;
+-import java.util.Objects;
+ import java.util.ResourceBundle;
+-import javafx.collections.ObservableList;
+-import javafx.event.ActionEvent;
+-import javafx.event.EventHandler;
+ import javafx.fxml.FXML;
+ import javafx.fxml.Initializable;
+ import javafx.scene.control.*;
+ import javafx.scene.control.cell.PropertyValueFactory;
+ import javafx.scene.layout.HBox;
+ 
+-import static com.example.lidl_new.Classes.Brand.getBrand;
+-import static com.example.lidl_new.Classes.Category.getCategory;
+-import static com.example.lidl_new.Classes.Tax.getTax;
+-
+ public class ProductController implements Initializable {
+   /*
+-   * Carregar Caixas de Texto e Botões da tab Adicionar Artigo
+-   */
+-  @FXML
+-  public TextField cNameProduct;
+-  @FXML
+-  public TextField cPrice;
+-  @FXML
+-  public TextField cStock;
+-  @FXML
+-  public TextField cBarcode;
+-  @FXML
+-  public ChoiceBox<String> cBrand;
+-  @FXML
+-  public ChoiceBox<String> cCategory;
+-  @FXML
+-  public ChoiceBox<Integer> cTax;
+-  @FXML
+-  public Button cProduct;
+-  @FXML
+-  public Button cBtClean;
+-  /*
+-   * Carregar Caixas de Texto e Botões da tab Update Artigo
++   * tabela dos produtos
+    */
+   @FXML
+-  public TextField uId;
+-  @FXML
+-  public TextField uNameProduct;
++  public TableView<Product> tvListProducts;
+   @FXML
+-  public TextField uPrice;
++  public TableColumn<Product, Integer> colId;
+   @FXML
+-  public TextField uStock;
++  public TableColumn<Product, Integer> colBarcode;
+   @FXML
+-  public TextField uBarcode;
++  public TableColumn<Product, String> colProductName;
+   @FXML
+-  public ChoiceBox<String> uBrand;
++  public TableColumn<Product, String> colCategory;
+   @FXML
+-  public ChoiceBox<String> uCategory;
++  public TableColumn<Product, String> colBrand;
+   @FXML
+-  public ChoiceBox<Integer> uTax;
++  public TableColumn<Product, Integer> colStock;
+   @FXML
+-  public Button uBtUpdate;
++  public TableColumn<Product, Float> colPrice;
+   @FXML
+-  public Button btUClose;
++  public TableColumn<Product, Integer> colTax;
+   /*
+    * Carregar Caixas de Texto e Botões da Tab Gestao de Artigos
+    */
+@@ -80,27 +48,6 @@ public class ProductController implements Initializable {
+   public Button btDeleteProduct;
+   @FXML
+   public Button btUpdateList;
+-  /*
+-   * tabela dos produtos
+-   */
+-  @FXML
+-  public TableView<Product> tvListProducts;
+-  @FXML
+-  public TableColumn<Product, Integer> colId;
+-  @FXML
+-  public TableColumn<Product, Integer> colBarcode;
+-  @FXML
+-  public TableColumn<Product, String> colProductName;
+-  @FXML
+-  public TableColumn<Product, String> colCategory;
+-  @FXML
+-  public TableColumn<Product, String> colBrand;
+-  @FXML
+-  public TableColumn<Product, Integer> colStock;
+-  @FXML
+-  public TableColumn<Product, Float> colPrice;
+-  @FXML
+-  public TableColumn<Product, Integer> colTax;
+   @FXML
+   public HBox tabUpdateProduct;
+   @FXML
+@@ -110,7 +57,9 @@ public class ProductController implements Initializable {
+ 
+ 
+   ProductModel model = new ProductModel();
+-  MainAppController load = new MainAppController();
++  AddProduct add = new AddProduct();
++  UpdateProduct update = new UpdateProduct();
++  DeleteWindow delete = new DeleteWindow();
+ 
+   Connection conn;
+   String query;
+@@ -126,96 +75,31 @@ public class ProductController implements Initializable {
+ 
+   //------------------------------------------- Criar Producto -----------------------------------------------
+   /*
+-   * Função chamada no clicar do botão de Registar
+-   * Chama que função de criar o produto
+-   * No fim chama a função de fechar a tab
++   * Chamada ao iniciar na tab de dar adicionar um produto
+    */
+   @FXML
+-  public void onCreateProduct (ActionEvent event) throws IOException, SQLException {
+-    // !todo talves nao dê
+-    int barcode = Integer.parseInt(cBarcode.getText());
+-    int stock = Integer.parseInt(cStock.getText());
+-    int category = 99, brand = 99, tax = 99;
+-    for (int i = 0; i < 18; i++) {
+-      if (Objects.equals(getBrand().get(i).getBrandName(), cBrand.getValue())) {
+-        brand = getBrand().get(i).getId();
+-      } else if (Objects.equals(getCategory().get(i).getCategoryName(), cCategory.getValue())) {
+-        category = getCategory().get(i).getId();
+-      }
+-      for (int j = 0; j < 3; j++) {
+-        if (Objects.equals(getTax().get(j).getTaxPercent(), cTax.getValue())) {
+-          tax = getTax().get(j).getId();
+-        }
+-      }
+-    }
+-    float price = Float.parseFloat(cPrice.getText());
+-
+-    ProductModel.createProduct(barcode, cNameProduct.getText(), category, brand, stock, price, tax);
++  public void onAddProduct () throws IOException {
++    add.display();
+   }
+ 
+-  //------------------------------------------- Update Producto -----------------------------------------------
++  //------------------------------------------- Update Product -----------------------------------------------
+   /*
+-   * Função chamada no clicar do botão de Update
+-   * Chama que função de dar update ao produto
++   * e chama a função que vai escrever os items do produto nas caixas de texto
++   *  através da lista de produto selecionado
+    */
+   @FXML
+-  public void setUpdateProduct (ActionEvent event) throws IOException, SQLException {
+-    int id = Integer.parseInt(uId.getText());
+-    int barcode = Integer.parseInt(uBarcode.getText());
+-    int stock = Integer.parseInt(uStock.getText());
+-    int category = 99, brand = 99, tax = 99;
+-    for (int i = 0; i < 18; i++) {
+-      if (Objects.equals(getBrand().get(i).getBrandName(), uBrand.getValue())) {
+-        brand = getBrand().get(i).getId();
+-      } else if (Objects.equals(getCategory().get(i).getCategoryName(), uCategory.getValue())) {
+-        category = getCategory().get(i).getId();
+-      }
+-      for (int j = 0; j < 3; j++) {
+-        if (Objects.equals(getTax().get(j).getTaxPercent(), uTax.getValue())) {
+-          tax = getTax().get(j).getId();
+-        }
+-      }
+-    }
+-    float price = Float.parseFloat(uPrice.getText());
++  public void onUpdateProduct () throws IOException {
++    update.display();
++    Product productSelected = tvListProducts.getSelectionModel().getSelectedItem();
++    String a = String.valueOf(productSelected.getId());
++    String b = String.valueOf(productSelected.getProductName());
++    String c = String.valueOf(productSelected.getBarcode());
++    String d = String.valueOf(productSelected.getStock());
++    String e = String.valueOf(productSelected.getPrice());
++    update.updateProduct(a, b, c, d, e);
+ 
+-    ProductModel.updateProduct(id, barcode, uNameProduct.getText(), category, brand, stock, price, tax);
+   }
+ 
+-/*  @FXML
+-  public void test () {
+-    // action event
+-    EventHandler<ActionEvent> event = new EventHandler<ActionEvent>() {
+-      public void handle (ActionEvent e) {
+-        Product productSelected = tvListProducts.getSelectionModel().getSelectedItem();
+-        onUpdateProduct(e, productSelected);
+-      }
+-    };
+-    btUpdateProduct.setOnAction(event);
+-  }*/
+-
+-  /*
+-   * e chamada atravez da lista de produtos selecionando qual produto se quer dar update
+-   */
+-  @FXML
+-  public void onUpdateProduct (ActionEvent e, Product productSelected) {
+-    for (int i = 0; i < getBrand().size(); i++) {
+-      uBrand.getItems().addAll(getBrand().get(i).getBrandName());
+-    }
+-    for (int i = 0; i < getCategory().size(); i++) {
+-      uCategory.getItems().addAll(getCategory().get(i).getCategoryName());
+-    }
+-    for (int i = 0; i < getTax().size(); i++) {
+-      uTax.getItems().addAll(getTax().get(i).getTaxPercent());
+-    }
+-    uId.setText(String.valueOf(productSelected.getId()));
+-    uNameProduct.setText(productSelected.getProductName());
+-    uBarcode.setText(String.valueOf(productSelected.getBarcode()));
+-    uStock.setText(String.valueOf(productSelected.getStock()));
+-    uPrice.setText(String.valueOf(productSelected.getPrice()));
+-    uCategory.setValue(productSelected.getCategory());
+-    uBrand.setValue(productSelected.getBrand());
+-    uTax.setValue(productSelected.getTax());
+-  }
+ 
+   //----------------------------- Função de Iniciar o Controlador -----------------------------------------------
+   /*
+@@ -225,46 +109,11 @@ public class ProductController implements Initializable {
+   @FXML
+   @Override
+   public void initialize (URL url, ResourceBundle resourceBundle) {
+-    /*EventHandler<ActionEvent> event = new EventHandler<ActionEvent>() {
+-      public void handle (ActionEvent e) {
+-        try {
+-          System.out.println(e);
+-          load.loadUI("AddProduct", e);
+-        } catch (SQLException ex) {
+-          ex.printStackTrace();
+-        } catch (IOException ex) {
+-          ex.printStackTrace();
+-        }
+-      }
+-    };
+-    btAddProduct.setOnAction(event);*/
+-    String txt = url.toString();
+-    if (txt.contains("/Add")) {
+-      System.out.println("/add");
+-      onSelectAddProduct();
+-    } else if (txt.contains("/Product")) {
+-      System.out.println("/prod");
+-      onListProduct();
+-    }
++    onListProduct();
+   }
+ 
+-  /*
+-   * Chamada ao iniciar na tab de dar adicionar um produto
+-   */
+-  @FXML
+-  public void onSelectAddProduct () {
+-    for (int i = 0; i < getBrand().size(); i++) {
+-      cBrand.getItems().addAll(getBrand().get(i).getBrandName());
+-    }
+-    for (int i = 0; i < getCategory().size(); i++) {
+-      cCategory.getItems().addAll(getCategory().get(i).getCategoryName());
+-    }
+-    for (int i = 0; i < getTax().size(); i++) {
+-      cTax.getItems().addAll(getTax().get(i).getTaxPercent());
+-    }
+-  }
+ 
+-  //------------------------------------------- Listar Productos -----------------------------------------------
++  //------------------------------------------- Listar Products -----------------------------------------------
+   /*
+    * Função chamada ao selecionar a tab Produtos
+    * Chama que função de listar os produto
+@@ -282,4 +131,24 @@ public class ProductController implements Initializable {
+ 
+     tvListProducts.setItems(model.addListOfProducts());
+   }
++
++  //------------------------------------------- Delete Products -----------------------------------------------
++  /*
++   * Chama a função de criar uma nova janela,
++   * para comfirmação se deseja Apagar o produto
++   */
++  @FXML
++  public void onDeleteProduct () {
++    boolean result = false;
++    Product productSelected = tvListProducts.getSelectionModel().getSelectedItem();
++    try {
++      result = delete.display();
++    } catch (IOException e) {
++      e.printStackTrace();
++    }
++    if (result) {
++      int idProduct = productSelected.getId();
++      model.deleteProduct(idProduct);
++    }
++  }
+ }
+diff --git a/src/main/java/com/example/lidl_new/Controller/UpdateProduct.java b/src/main/java/com/example/lidl_new/Controller/UpdateProduct.java
+index 2b91748..ff5dd55 100644
+--- a/src/main/java/com/example/lidl_new/Controller/UpdateProduct.java
++++ b/src/main/java/com/example/lidl_new/Controller/UpdateProduct.java
+@@ -1,40 +1,157 @@
+ package com.example.lidl_new.Controller;
+ 
++import com.example.lidl_new.Classes.Brand;
++import com.example.lidl_new.Classes.Category;
++import com.example.lidl_new.Classes.Tax;
+ import com.example.lidl_new.MainApp;
++import com.example.lidl_new.Model.ProductModel;
+ import java.io.IOException;
++import java.net.URL;
++import java.util.Objects;
++import java.util.ResourceBundle;
++import javafx.fxml.FXML;
+ import javafx.fxml.FXMLLoader;
++import javafx.fxml.Initializable;
+ import javafx.scene.Scene;
+ import javafx.scene.control.Button;
++import javafx.scene.control.ChoiceBox;
++import javafx.scene.control.TextField;
++import javafx.scene.layout.HBox;
+ import javafx.stage.Modality;
+ import javafx.stage.Stage;
+ 
+-public class UpdateWindow {
+-  public static Button yesButton;
+-  public static Button noButton;
+-  static boolean answer;
+-
+-  public static boolean display () throws IOException {
++import static com.example.lidl_new.Classes.Brand.getBrand;
++import static com.example.lidl_new.Classes.Category.getCategory;
++import static com.example.lidl_new.Classes.Tax.getTax;
+ 
++public class UpdateProduct implements Initializable {
++  /*
++   * Carregar Caixas de Texto e Botões da tab Update Artigo
++   */
++  @FXML
++  public TextField uId;
++  @FXML
++  public TextField uNameProduct;
++  @FXML
++  public TextField uPrice;
++  @FXML
++  public TextField uStock;
++  @FXML
++  public TextField uBarcode;
++  @FXML
++  public ChoiceBox<String> uBrand;
++  @FXML
++  public ChoiceBox<String> uCategory;
++  @FXML
++  public ChoiceBox<Integer> uTax;
++  @FXML
++  public Button uBtUpdate;
++  @FXML
++  public Button btUClose;
++  @FXML
++  public HBox tabUpdateProduct;
++  ProductModel model = new ProductModel();
+ 
++  //------------------------------------------- JANELA -----------------------------------------------
++  /*
++   * Cria uma nova janela para a scene UpdateProduct
++   */
++  @FXML
++  public void display () throws IOException {
+     Stage window = new Stage();
+     window.initModality(Modality.WINDOW_MODAL);
+-    window.setTitle("Confirmar");
++    window.setTitle("Update");
+     window.setMinWidth(250);
+ 
+-    yesButton.setOnAction(event -> {
+-      answer = true;
+-      window.close();
+-    });
+-    noButton.setOnAction(event -> {
+-      answer = true;
+-      window.close();
+-    });
+-
+-    FXMLLoader fxmlLoader = new FXMLLoader(MainApp.class.getResource("DeleteWindow.fxml"));
+-    Scene scene = new Scene(fxmlLoader.load(), 1250, 840);
++    FXMLLoader fxmlLoader = new FXMLLoader(MainApp.class.getResource("UpdateProduct.fxml"));
++    Scene scene = new Scene(fxmlLoader.load(), 600, 400);
+     window.setScene(scene);
+-    window.showAndWait();
++    window.show();
++    System.out.println("Entrei3");
++  }
++
++  //------------------------------------------- Update Produto -----------------------------------------------
++  /*
++   * Função chamada no clicar do botão de Update
++   * Chama que função de dar update ao produto
++   */
++  @FXML
++  public void setUpdateProduct () {
++    int id = Integer.parseInt(uId.getText());
++    int barcode = Integer.parseInt(uBarcode.getText());
++    int stock = Integer.parseInt(uStock.getText());
++    int category = 99, brand = 99, tax = 99;
++    for (int i = 0; i < 18; i++) {
++      if (Objects.equals(getBrand().get(i).getBrandName(), uBrand.getValue())) {
++        brand = getBrand().get(i).getId();
++      } else if (Objects.equals(getCategory().get(i).getCategoryName(), uCategory.getValue())) {
++        category = getCategory().get(i).getId();
++      }
++      for (int j = 0; j < 3; j++) {
++        if (Objects.equals(getTax().get(j).getTaxPercent(), uTax.getValue())) {
++          tax = getTax().get(j).getId();
++        }
++      }
++    }
++    float price = Float.parseFloat(uPrice.getText());
++
++    model.updateProduct(id, barcode, uNameProduct.getText(), category, brand, stock, price, tax);
++  }
++
++  /*
++   * Escreve o producto nas caixas de texto e seleciona os choisebox
++   * para se mudar e atualizar o producto
++   */
++  @FXML
++  public void updateProduct (String a, String b, String c, String d, String e) {
++    System.out.println("Entrei1");
++    uId.setText("6");
++    uNameProduct.setText("7");
++    uBarcode.setText("8");
++    uStock.setText("9");
++    uPrice.setText("10");
++/*    uId.setText(a);
++    uNameProduct.setText(b);
++    uBarcode.setText(c);
++    uStock.setText(d);
++    uPrice.setText(e);
++    uCategory.setValue("");
++    uBrand.setValue("");
++    uTax.setValue(1);*/
++  }
++
++  //------------------------------------------- initialize -----------------------------------------------
++  /*
++   * Arranca assim que o fxml e feito load
++   */
++  @FXML
++  @Override
++  public void initialize (URL url, ResourceBundle resourceBundle) {
++    System.out.println("Entrei5");
++    update();
++  }
+ 
+-    return answer;
++  /*
++   * Cria as opções para o choicebox
++   */
++  @FXML
++  public void update () {
++    System.out.println("Entrei4");
++    uId.setText("1");
++    uNameProduct.setText("2");
++    uBarcode.setText("3");
++    uStock.setText("4");
++    uPrice.setText("5");
++    for (Brand b : getBrand()) {
++      uBrand.getItems().addAll(b.getBrandName());
++    }
++    for (int i = 0; i < getBrand().size(); i++) {
++    }
++    for (Category c : getCategory()) {
++      uCategory.getItems().addAll(c.getCategoryName());
++    }
++    for (Tax t : getTax()) {
++      uTax.getItems().addAll(t.getTaxPercent());
++    }
+   }
+ }
+\ No newline at end of file
+diff --git a/src/main/java/com/example/lidl_new/Model/CardModel.java b/src/main/java/com/example/lidl_new/Model/CardModel.java
+index 65abf50..9d6466f 100644
+--- a/src/main/java/com/example/lidl_new/Model/CardModel.java
++++ b/src/main/java/com/example/lidl_new/Model/CardModel.java
+@@ -16,46 +16,57 @@ import java.sql.Statement;
+ public class CardModel {
+ 
+ 
+-    public static int UpdatePointsCard(int idClient, double totalPurshase){
+-        int cardId = 0;
+-        int pointsAtMoment = 0;
+-
+-        try {
+-            Statement stmt2 = Conn.createStatement();
+-            ResultSet rs = stmt2.executeQuery("SELECT client.id, client.card, client_card.points FROM client " +
+-                    "INNER JOIN client_card on client.card = client_card.id where client.id = '" + idClient + "'");
+-            while (rs.next()){
+-                cardId = rs.getInt(2);
+-                pointsAtMoment = rs.getInt(3);
+-                System.out.println("Id do cliente: " + rs.getInt(1));
+-                System.out.println("Id do cartão cliente: " + rs.getInt(2));
+-                System.out.println("Pontos no cartão cliente: " + rs.getInt(3));
+-            }
+-        } catch (Exception e) {
+-            System.out.println(e);
+-        }
+-
+-        // Update dos pontos do cartão
+-        // A variável define qual o valor por cada três pontos
+-        int value = 50;
+-        int pontosAcomular = 3;
+-
+-        int x = (int)totalPurshase / value;
+-        pointsAtMoment += x * pontosAcomular;
+-
+-        UpdatePoints(cardId, pointsAtMoment);
+-
+-        return 0;
++  public static int UpdatePointsCard (int idClient, double totalPurshase) {
++    int cardId = 0;
++    int pointsAtMoment = 0;
++
++    try {
++      Statement stmt2 = Conn.createStatement();
++      ResultSet rs = stmt2.executeQuery("SELECT client.id, client.card, client_card.points FROM client " + "INNER JOIN client_card on client.card = client_card.id where client.id = '" + idClient + "'");
++      while (rs.next()) {
++        cardId = rs.getInt(2);
++        pointsAtMoment = rs.getInt(3);
++      }
++    } catch (Exception e) {
++      System.out.println(e);
++    }
++
++    // Update dos pontos do cartão
++    // A variável define qual o valor por cada três pontos
++    int value = 50;
++    int pontosAcomular = 3;
++
++    int x = (int) totalPurshase / value;
++    pointsAtMoment += x * pontosAcomular;
++
++    UpdatePoints(cardId, pointsAtMoment);
++
++    return 0;
++  }
++
++  static double UpdatePoints (int id, int points) {
++
++    try {
++      Statement stmt = Conn.createStatement();
++      stmt.executeUpdate("UPDATE client_card SET points = '" + points + "' WHERE id = '" + id + "'");
++      System.out.println("Update dos pontos do cartão cliente: " + points);
++    } catch (Exception e) {
++      System.out.println(e);
+     }
++    return points;
++  }
+ 
+-    static double UpdatePoints(int id, int points){
+-        try {
+-            Statement stmt = Conn.createStatement();
+-            stmt.executeUpdate("UPDATE client_card SET points = '"+points+"' WHERE id = '"+id+"'");
+-            System.out.println("Update dos pontos do cartão cliente: " + points);
+-        } catch (Exception e){
+-            System.out.println(e);
+-        }
+-        return points;
++  public int getPoints (int idClient) {
++    int pointsAtMoment = 0;
++    try {
++      Statement stmt2 = Conn.createStatement();
++      ResultSet rs = stmt2.executeQuery("SELECT client.id, client.card, client_card.points FROM client " + "INNER JOIN client_card on client.card = client_card.id where client.id = '" + idClient + "'");
++      while (rs.next()) {
++        pointsAtMoment = rs.getInt(3);
++      }
++    } catch (Exception e) {
++      System.out.println(e);
+     }
++    return pointsAtMoment;
++  }
+ }
+diff --git a/src/main/java/com/example/lidl_new/Model/InvoiceModel.java b/src/main/java/com/example/lidl_new/Model/InvoiceModel.java
+index 29ca7df..9a8aa27 100644
+--- a/src/main/java/com/example/lidl_new/Model/InvoiceModel.java
++++ b/src/main/java/com/example/lidl_new/Model/InvoiceModel.java
+@@ -1,2 +1,47 @@
+-package com.example.lidl_new.Model;public class InvoiceModel {
++package com.example.lidl_new.Model;
++
++import com.example.lidl_new.Classes.Invoice;
++import com.example.lidl_new.Database.Conn;
++import java.sql.ResultSet;
++import java.sql.Statement;
++import javafx.collections.FXCollections;
++import javafx.collections.ObservableList;
++
++public class InvoiceModel {
++  public ObservableList<Invoice> invoiceList;
++  int id;
++
++  public InvoiceModel (int i) {
++    id = i;
++    invoiceList = FXCollections.observableArrayList();
++  }
++
++  public ObservableList<Invoice> getInvoiceModel (int client) {
++    cleanInvoiceList();
++    id = client;
++    try {
++      Statement stmt = Conn.createStatement();
++      ResultSet rs = stmt.executeQuery("CALL lidl_java.listinvoices(" + id + ")");
++      while (rs.next()) {
++        invoiceList.add(new Invoice(rs.getInt(1), rs.getInt(2), rs.getFloat(3), rs.getString(4)));
++      }
++    } catch (Exception e) {
++      System.out.println(e);
++    }
++    return invoiceList;
++  }
++
++  public void cleanInvoiceList () {
++    invoiceList.clear();
++  }
++
++  public ObservableList<Invoice> getInvoices () {
++    return invoiceList;
++  }
++
++  public void setInvoices (ObservableList<Invoice> invoiceList) {
++    this.invoiceList = invoiceList;
++  }
++
++
+ }
+diff --git a/src/main/java/com/example/lidl_new/Model/InvoiceProductModel.java b/src/main/java/com/example/lidl_new/Model/InvoiceProductModel.java
+index 2b1c491..df35950 100644
+--- a/src/main/java/com/example/lidl_new/Model/InvoiceProductModel.java
++++ b/src/main/java/com/example/lidl_new/Model/InvoiceProductModel.java
+@@ -1,2 +1,52 @@
+-package com.example.lidl_new.Model;public class InvoiceProductModel {
++package com.example.lidl_new.Model;
++
++import com.example.lidl_new.Classes.Invoice;
++import com.example.lidl_new.Classes.InvoiceProduct;
++import com.example.lidl_new.Database.Conn;
++import java.sql.ResultSet;
++import java.sql.SQLException;
++import java.sql.Statement;
++import javafx.collections.FXCollections;
++import javafx.collections.ObservableList;
++
++public class InvoiceProductModel {
++  public ObservableList<InvoiceProduct> invoiceProductList;
++
++  public InvoiceProductModel () {
++    invoiceProductList = FXCollections.observableArrayList();
++  }
++
++  public ObservableList<InvoiceProduct> ListOfProductsInvoices (int id) {
++    cleanInvoiceList();
++    try {
++      Statement stmt = Conn.createStatement();
++      ResultSet rs = stmt.executeQuery("CALL lidl_java.listinvoiceproduct(" + id + ")");
++      if (rs.isAfterLast()) {
++        invoiceProductList.add(new InvoiceProduct(rs.getInt(1), rs.getInt(2), rs.getInt(2), rs.getInt(3), rs.getString(4), rs.getFloat(5)));
++
++      } else {
++        while (rs.next()) {
++          invoiceProductList.add(new InvoiceProduct(rs.getInt(1), rs.getInt(2), rs.getInt(3), rs.getFloat(4), rs.getString(5), rs.getFloat(6)));
++        }
++      }
++    } catch (NumberFormatException | SQLException e) {
++      System.out.println(e);
++    }
++    return invoiceProductList;
++  }
++
++  public ObservableList<InvoiceProduct> cleanInvoiceList () {
++    for (int i = 0; i < invoiceProductList.size(); i++) {
++      invoiceProductList.remove(i);
++    }
++    return invoiceProductList;
++  }
++
++  public ObservableList<InvoiceProduct> getProductsInvoices () {
++    return invoiceProductList;
++  }
++
++  public void setProductsInvoices (ObservableList<InvoiceProduct> invoiceProductList) {
++    this.invoiceProductList = invoiceProductList;
++  }
+ }
+diff --git a/src/main/java/com/example/lidl_new/Model/ProductModel.java b/src/main/java/com/example/lidl_new/Model/ProductModel.java
+index 9e5aa9b..1ae86ea 100644
+--- a/src/main/java/com/example/lidl_new/Model/ProductModel.java
++++ b/src/main/java/com/example/lidl_new/Model/ProductModel.java
+@@ -8,12 +8,10 @@
+ 
+ package com.example.lidl_new.Model;
+ 
+-import com.example.lidl_new.Classes.Invoice;
+ import com.example.lidl_new.Classes.Product;
+ import com.example.lidl_new.Database.Conn;
+ import java.sql.ResultSet;
+ import java.sql.Statement;
+-import java.util.Collection;
+ import javafx.collections.FXCollections;
+ import javafx.collections.ObservableList;
+ 
+@@ -38,9 +36,7 @@ public class ProductModel {
+     }
+   }
+ 
+-  public static void updateProduct (int idProduto, int barcode, String productName, int category, int brand, int stock, float price, int tax) {
+-
+-    System.out.println("barcode:" + barcode + "product: " + productName + "price: " + price + "stock: " + stock + "category: " + category + "brand: " + brand + "tax: " + tax);
++  public void updateProduct (int idProduto, int barcode, String productName, int category, int brand, int stock, float price, int tax) {
+ 
+     try {
+       Statement stmt = Conn.createStatement();
+@@ -50,9 +46,11 @@ public class ProductModel {
+       System.out.println(e);
+ 
+     }
++    addListOfProducts();
+   }
+ 
+   public ObservableList<Product> addListOfProducts () {
++    cleanproductList();
+     try {
+       Statement stmt = Conn.createStatement();
+       ResultSet rs = stmt.executeQuery("CALL lidl_java.listProducts()");
+@@ -65,6 +63,22 @@ public class ProductModel {
+     return productList;
+   }
+ 
++  public void cleanproductList () {
++    productList.clear();
++  }
++
++  public void deleteProduct (int idProduto) {
++    try {
++      Statement stmt = Conn.createStatement();
++      stmt.executeUpdate("DELETE `product` WHERE `id`= '" + idProduto + "'");
++      System.out.println("Produto Apagado com sucesso!");
++    } catch (Exception e) {
++      System.out.println(e);
++
++    }
++    addListOfProducts();
++  }
++
+   public ObservableList<Product> getProducts () {
+     return productList;
+   }
+diff --git a/src/main/java/com/example/lidl_new/Model/ShopListModel.java b/src/main/java/com/example/lidl_new/Model/ShopListModel.java
+index b76dc9c..75023ea 100644
+--- a/src/main/java/com/example/lidl_new/Model/ShopListModel.java
++++ b/src/main/java/com/example/lidl_new/Model/ShopListModel.java
+@@ -8,7 +8,7 @@
+  */
+ package com.example.lidl_new.Model;
+ 
+-import com.example.lidl_new.Classes.Invoice;
++import com.example.lidl_new.Classes.ShopList;
+ import com.example.lidl_new.Database.Conn;
+ 
+ import java.sql.ResultSet;
+@@ -17,11 +17,11 @@ import java.sql.Statement;
+ import javafx.collections.FXCollections;
+ import javafx.collections.ObservableList;
+ 
+-public class InvoiceModel {
+-  public ObservableList<Invoice> invoiceList;
++public class ShopListModel {
++  public ObservableList<ShopList> shopListList;
+ 
+-  public InvoiceModel () {
+-    invoiceList = FXCollections.observableArrayList();
++  public ShopListModel () {
++    shopListList = FXCollections.observableArrayList();
+ 
+   }
+ 
+@@ -46,7 +46,7 @@ public class InvoiceModel {
+     } catch (Exception e) {
+       System.out.println(e);
+     }
+-    for (Invoice r : invoiceList) {
++    for (ShopList r : shopListList) {
+       try {
+         Statement stmt = Conn.createStatement();
+         System.out.println(invoiceId + " aqui este id");
+@@ -112,23 +112,23 @@ public class InvoiceModel {
+   }
+ 
+   //----------------------- UPDATE A LISTA DE PRODUTOS QUE CLIENTE QUER COMPRAR ----------------------------------//
+-  public ObservableList<Invoice> addRowInvoice (int productIndex, String nameProduct, int quantity, float price) {
+-    invoiceList.add(new Invoice(productIndex, nameProduct, quantity, price));
+-    return invoiceList;
++  public ObservableList<ShopList> addRowInvoice (int productIndex, String nameProduct, int quantity, float price) {
++    shopListList.add(new ShopList(productIndex, nameProduct, quantity, price));
++    return shopListList;
+   }
+ 
+-  public ObservableList<Invoice> deleteRowInvoice (Invoice r) {
+-    invoiceList.remove(r);
+-    return invoiceList;
++  public ObservableList<ShopList> deleteRowInvoice (ShopList r) {
++    shopListList.remove(r);
++    return shopListList;
+   }
+ 
+   //-------------------------- LISTA DE PRODUTOS QUE CLIENTE QUER COMPRAR ---------------------------------------//
+-  public ObservableList<Invoice> getInvoices () {
+-    return invoiceList;
++  public ObservableList<ShopList> getInvoices () {
++    return shopListList;
+   }
+ 
+-  public void setInvoices (ObservableList<Invoice> invoiceList) {
+-    this.invoiceList = invoiceList;
++  public void setInvoices (ObservableList<ShopList> shopListList) {
++    this.shopListList = shopListList;
+   }
+ 
+   //------------------------------------------------------------------------------------------------------------//
+diff --git a/src/main/resources/com/example/lidl_new/AddProduct.fxml b/src/main/resources/com/example/lidl_new/AddProduct.fxml
+index 7a3fbbc..8d77cdd 100644
+--- a/src/main/resources/com/example/lidl_new/AddProduct.fxml
++++ b/src/main/resources/com/example/lidl_new/AddProduct.fxml
+@@ -6,27 +6,30 @@
+ <?import javafx.scene.text.*?>
+ <?import org.kordamp.ikonli.javafx.*?>
+ 
+-<HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.lidl_new.Controller.ProductController">
++<HBox xmlns:fx="http://javafx.com/fxml/1" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
++      prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.2"
++      fx:controller="com.example.lidl_new.Controller.AddProduct">
+     <children>
+         <VBox spacing="5.0">
+             <children>
+                 <HBox alignment="TOP_RIGHT" prefHeight="27.0" prefWidth="1017.0">
+                     <children>
+-                        <Button fx:id="btUClose" contentDisplay="GRAPHIC_ONLY" mnemonicParsing="false" style="-fx-background-color: transparent;" textAlignment="CENTER" wrapText="true">
++                        <Button fx:id="btUClose" contentDisplay="GRAPHIC_ONLY" mnemonicParsing="false"
++                                style="-fx-background-color: transparent;" textAlignment="CENTER" wrapText="true">
+                             <graphic>
+-                                <FontIcon iconLiteral="fa-close" iconSize="20" />
++                                <FontIcon iconLiteral="fa-close" iconSize="20"/>
+                             </graphic>
+                             <padding>
+-                                <Insets bottom="-1.0" left="-1.0" right="-1.0" top="-1.0" />
++                                <Insets bottom="-1.0" left="-1.0" right="-1.0" top="-1.0"/>
+                             </padding>
+                         </Button>
+                     </children>
+                     <padding>
+-                        <Insets right="4.0" />
++                        <Insets right="4.0"/>
+                     </padding>
+-               <VBox.margin>
+-                  <Insets bottom="-7.0" left="3.0" right="3.0" />
+-               </VBox.margin>
++                    <VBox.margin>
++                        <Insets bottom="-7.0" left="3.0" right="3.0"/>
++                    </VBox.margin>
+                 </HBox>
+                 <HBox spacing="10.0">
+                     <children>
+@@ -34,58 +37,58 @@
+                             <children>
+                                 <Label prefHeight="30.0" text="Nome">
+                                     <font>
+-                                        <Font size="14.0" />
++                                        <Font size="14.0"/>
+                                     </font>
+                                     <VBox.margin>
+-                                        <Insets bottom="5.0" />
++                                        <Insets bottom="5.0"/>
+                                     </VBox.margin>
+                                 </Label>
+                                 <Label prefHeight="30.0" text="Referencia">
+                                     <font>
+-                                        <Font size="14.0" />
++                                        <Font size="14.0"/>
+                                     </font>
+                                     <VBox.margin>
+-                                        <Insets bottom="5.0" />
++                                        <Insets bottom="5.0"/>
+                                     </VBox.margin>
+                                 </Label>
+                                 <Label prefHeight="30.0" text="Stock">
+                                     <font>
+-                                        <Font size="14.0" />
++                                        <Font size="14.0"/>
+                                     </font>
+                                     <VBox.margin>
+-                                        <Insets bottom="5.0" />
++                                        <Insets bottom="5.0"/>
+                                     </VBox.margin>
+                                 </Label>
+                                 <Label prefHeight="30.0" text="Preço">
+                                     <font>
+-                                        <Font size="14.0" />
++                                        <Font size="14.0"/>
+                                     </font>
+                                     <VBox.margin>
+-                                        <Insets bottom="5.0" />
++                                        <Insets bottom="5.0"/>
+                                     </VBox.margin>
+                                 </Label>
+                                 <Label prefHeight="30.0" text="Categoria">
+                                     <font>
+-                                        <Font size="14.0" />
++                                        <Font size="14.0"/>
+                                     </font>
+                                     <VBox.margin>
+-                                        <Insets bottom="5.0" />
++                                        <Insets bottom="5.0"/>
+                                     </VBox.margin>
+                                 </Label>
+                                 <Label prefHeight="30.0" text="Marca">
+                                     <font>
+-                                        <Font size="14.0" />
++                                        <Font size="14.0"/>
+                                     </font>
+                                     <VBox.margin>
+-                                        <Insets bottom="5.0" />
++                                        <Insets bottom="5.0"/>
+                                     </VBox.margin>
+                                 </Label>
+                                 <Label prefHeight="30.0" text="Taxa">
+                                     <font>
+-                                        <Font size="14.0" />
++                                        <Font size="14.0"/>
+                                     </font>
+                                     <VBox.margin>
+-                                        <Insets bottom="5.0" />
++                                        <Insets bottom="5.0"/>
+                                     </VBox.margin>
+                                 </Label>
+                             </children>
+@@ -94,48 +97,51 @@
+                             <children>
+                                 <TextField fx:id="cNameProduct" prefHeight="30.0" prefWidth="300.0">
+                                     <VBox.margin>
+-                                        <Insets bottom="5.0" />
++                                        <Insets bottom="5.0"/>
+                                     </VBox.margin>
+                                 </TextField>
+                                 <TextField fx:id="cPrice" prefHeight="30.0" prefWidth="300.0">
+                                     <VBox.margin>
+-                                        <Insets bottom="5.0" />
++                                        <Insets bottom="5.0"/>
+                                     </VBox.margin>
+                                 </TextField>
+                                 <TextField fx:id="cStock" prefHeight="30.0" prefWidth="300.0">
+                                     <VBox.margin>
+-                                        <Insets bottom="5.0" />
++                                        <Insets bottom="5.0"/>
+                                     </VBox.margin>
+                                 </TextField>
+                                 <TextField fx:id="cBarcode" prefHeight="30.0" prefWidth="300.0">
+                                     <VBox.margin>
+-                                        <Insets bottom="5.0" />
++                                        <Insets bottom="5.0"/>
+                                     </VBox.margin>
+                                 </TextField>
+                                 <ChoiceBox fx:id="cCategory" prefHeight="30.0" prefWidth="300.0">
+                                     <VBox.margin>
+-                                        <Insets bottom="5.0" />
++                                        <Insets bottom="5.0"/>
+                                     </VBox.margin>
+                                 </ChoiceBox>
+                                 <ChoiceBox fx:id="cBrand" prefHeight="30.0" prefWidth="300.0">
+                                     <VBox.margin>
+-                                        <Insets bottom="5.0" />
++                                        <Insets bottom="5.0"/>
+                                     </VBox.margin>
+                                 </ChoiceBox>
+                                 <ChoiceBox fx:id="cTax" prefHeight="30.0" prefWidth="300.0">
+                                     <VBox.margin>
+-                                        <Insets bottom="5.0" />
++                                        <Insets bottom="5.0"/>
+                                     </VBox.margin>
+                                 </ChoiceBox>
+                                 <HBox prefHeight="27.0" prefWidth="304.0">
+-                           <children>
+-                                        <Button fx:id="cProduct" mnemonicParsing="false" onAction="#onCreateProduct" prefHeight="25.0" prefWidth="148.0" text="Registrar">
++                                    <children>
++                                        <Button fx:id="cProduct" mnemonicParsing="false" onAction="#onCreateProduct"
++                                                prefHeight="25.0" prefWidth="148.0" text="Registrar">
+                                             <HBox.margin>
+-                                                <Insets right="5.0" />
++                                                <Insets right="5.0"/>
+                                             </HBox.margin>
+                                         </Button>
+-                                        <Button fx:id="cBtClean" cancelButton="true" mnemonicParsing="false" prefHeight="25.0" prefWidth="148.0" text="Limpar" />
+-                           </children>
++                                        <Button fx:id="cBtClean" cancelButton="true" mnemonicParsing="false"
++                                                onAction="#clearText" prefHeight="25.0" prefWidth="148.0"
++                                                text="Limpar"/>
++                                    </children>
+                                 </HBox>
+                             </children>
+                         </VBox>
+@@ -145,6 +151,6 @@
+         </VBox>
+     </children>
+     <padding>
+-        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
++        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0"/>
+     </padding>
+ </HBox>
+diff --git a/src/main/resources/com/example/lidl_new/Client.fxml b/src/main/resources/com/example/lidl_new/Client.fxml
+index 63bc347..9f286fe 100644
+--- a/src/main/resources/com/example/lidl_new/Client.fxml
++++ b/src/main/resources/com/example/lidl_new/Client.fxml
+@@ -16,10 +16,10 @@
+                         onAction="#onCreateClient" prefHeight="30.0" prefWidth="290.0" text="Criar Cliente"/>
+                 <HBox prefHeight="32.0" prefWidth="230.0">
+                     <children>
+-                        <TextField minHeight="30.0" minWidth="200.0" prefHeight="30.0" prefWidth="250.0"
+-                                   promptText="Nº Cartao Cliente"/>
+-                        <Button id="btConsultarCompras" minHeight="30.0" minWidth="30.0" mnemonicParsing="false"
+-                                textAlignment="CENTER">
++                        <TextField fx:id="txtClientID" minHeight="30.0" minWidth="200.0" prefHeight="30.0"
++                                   prefWidth="250.0" promptText="Nº Cartao Cliente"/>
++                        <Button id="btConsultarCompras" fx:id="btSearchInvoices" minHeight="30.0" minWidth="30.0"
++                                mnemonicParsing="false" onAction="#onSearchInvoices" textAlignment="CENTER">
+                             <font>
+                                 <Font name="Material Icons" size="14.0"/>
+                             </font>
+@@ -42,7 +42,7 @@
+                                 <Insets right="10.0"/>
+                             </HBox.margin>
+                         </Label>
+-                        <TextField disable="true" editable="false" minHeight="30.0" prefHeight="30.0"
++                        <TextField fx:id="clientPoints" editable="false" minHeight="30.0" prefHeight="30.0"
+                                    prefWidth="177.0"/>
+                     </children>
+                     <VBox.margin>
+@@ -56,18 +56,19 @@
+         </VBox>
+         <VBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" spacing="3.0" HBox.hgrow="ALWAYS">
+             <children>
+-                <TableView prefHeight="300.0" prefWidth="599.0" VBox.vgrow="ALWAYS">
++                <TableView fx:id="tbInvoice" onMouseClicked="#onListProductInvoices" prefHeight="300.0"
++                           prefWidth="599.0" VBox.vgrow="ALWAYS">
+                     <columns>
+-                        <TableColumn editable="false" prefWidth="88.0" text="ID"/>
+-                        <TableColumn editable="false" prefWidth="62.0" text="CUSTO"/>
+-                        <TableColumn editable="false" prefWidth="97.0" text="DATA"/>
++                        <TableColumn fx:id="colInvoiceID" editable="false" prefWidth="100.0" text="ID"/>
++                        <TableColumn fx:id="colInvoiceTotal" editable="false" prefWidth="126.0" text="TOTAL COMPRA"/>
++                        <TableColumn fx:id="colInvoiceDate" editable="false" prefWidth="128.0" text="DATA"/>
+                     </columns>
+                 </TableView>
+-                <TableView prefHeight="350.0" prefWidth="599.0" VBox.vgrow="ALWAYS">
++                <TableView fx:id="tbtbInvoiceProducts" prefHeight="350.0" prefWidth="599.0" VBox.vgrow="ALWAYS">
+                     <columns>
+-                        <TableColumn editable="false" prefWidth="130.0" text="PRODUTOS"/>
+-                        <TableColumn editable="false" prefWidth="46.0" text="QT"/>
+-                        <TableColumn editable="false" prefWidth="70.0" text="PREÇO"/>
++                        <TableColumn fx:id="colInvoiceNameProduct" editable="false" prefWidth="236.0" text="PRODUTOS"/>
++                        <TableColumn fx:id="colInvoiceQT" editable="false" prefWidth="46.0" text="QT"/>
++                        <TableColumn fx:id="colInvoicePrice" editable="false" prefWidth="72.0" text="PREÇO"/>
+                     </columns>
+                 </TableView>
+             </children>
+diff --git a/src/main/resources/com/example/lidl_new/DeleteWindow.fxml b/src/main/resources/com/example/lidl_new/DeleteWindow.fxml
+index a40026d..afe18b1 100644
+--- a/src/main/resources/com/example/lidl_new/DeleteWindow.fxml
++++ b/src/main/resources/com/example/lidl_new/DeleteWindow.fxml
+@@ -1,14 +1,25 @@
+ <?xml version="1.0" encoding="UTF-8"?>
+ 
+-<?import java.lang.*?>
+-<?import java.util.*?>
+-<?import javafx.scene.*?>
+ <?import javafx.scene.control.*?>
+ <?import javafx.scene.layout.*?>
++<?import javafx.scene.text.*?>
+ 
+-<AnchorPane xmlns="http://javafx.com/javafx"
+-            xmlns:fx="http://javafx.com/fxml"
+-            fx:controller="com.example.lidl_new.DeleteWindow"
+-            prefHeight="400.0" prefWidth="600.0">
+-
+-</AnchorPane>
++<StackPane xmlns:fx="http://javafx.com/fxml/1" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="200.0"
++           prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.2"
++           fx:controller="com.example.lidl_new.Controller.DeleteWindow">
++    <VBox alignment="CENTER" layoutX="29.0" layoutY="77.0" prefHeight="400.0" prefWidth="600.0" spacing="25.0"
++          AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
++          AnchorPane.topAnchor="0.0">
++        <Label text="Tens a certeza que queres Apagar o Produto?">
++            <font>
++                <Font size="18.0"/>
++            </font>
++        </Label>
++        <HBox alignment="CENTER" prefHeight="50.0" prefWidth="200.0" spacing="20.0">
++            <Button fx:id="yesButton" mnemonicParsing="false" onAction="#yes" prefHeight="30.0" prefWidth="150.0"
++                    text="Sim"/>
++            <Button fx:id="noButton" mnemonicParsing="false" onAction="#no" prefHeight="30.0" prefWidth="150.0"
++                    text="Não"/>
++        </HBox>
++    </VBox>
++</StackPane>
+diff --git a/src/main/resources/com/example/lidl_new/Home.fxml b/src/main/resources/com/example/lidl_new/Home.fxml
+index 2d624d4..49a2107 100644
+--- a/src/main/resources/com/example/lidl_new/Home.fxml
++++ b/src/main/resources/com/example/lidl_new/Home.fxml
+@@ -21,19 +21,21 @@
+                                      minWidth="-Infinity" resizable="false" text="Preço"/>
+                     </columns>
+                 </TableView>
+-                <HBox prefHeight="100.0" prefWidth="200.0" VBox.vgrow="NEVER">
++                <HBox prefHeight="100.0" prefWidth="200.0" spacing="3.0" VBox.vgrow="NEVER">
+                     <children>
+                         <Button fx:id="btQuantity1" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308"
+-                                minWidth="85.0" mnemonicParsing="false" onAction="#productQuantity" text="1"/>
++                                minWidth="85.0" mnemonicParsing="false" onAction="#productQuantity" text="1"
++                                HBox.hgrow="ALWAYS"/>
+                         <Button fx:id="btQuantity2" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308"
+-                                minWidth="85.0" mnemonicParsing="false" onAction="#productQuantity" text="2">
++                                minWidth="85.0" mnemonicParsing="false" onAction="#productQuantity" text="2"
++                                HBox.hgrow="ALWAYS">
+                             <HBox.margin>
+                                 <Insets left="4.0" right="4.0"/>
+                             </HBox.margin>
+                         </Button>
+                         <Button fx:id="btQuantity3" contentDisplay="CENTER" maxHeight="1.7976931348623157E308"
+                                 maxWidth="1.7976931348623157E308" minWidth="85.0" mnemonicParsing="false"
+-                                onAction="#productQuantity" text="3"/>
++                                onAction="#productQuantity" text="3" HBox.hgrow="ALWAYS"/>
+                     </children>
+                     <padding>
+                         <Insets bottom="3.0" left="3.0" top="3.0"/>
+@@ -42,16 +44,18 @@
+                 <HBox prefHeight="100.0" prefWidth="200.0" VBox.vgrow="NEVER">
+                     <children>
+                         <Button fx:id="btQuantity4" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308"
+-                                minWidth="85.0" mnemonicParsing="false" onAction="#productQuantity" text="4"/>
++                                minWidth="85.0" mnemonicParsing="false" onAction="#productQuantity" text="4"
++                                HBox.hgrow="ALWAYS"/>
+                         <Button fx:id="btQuantity5" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308"
+-                                minWidth="85.0" mnemonicParsing="false" onAction="#productQuantity" text="5">
++                                minWidth="85.0" mnemonicParsing="false" onAction="#productQuantity" text="5"
++                                HBox.hgrow="ALWAYS">
+                             <HBox.margin>
+                                 <Insets left="4.0" right="4.0"/>
+                             </HBox.margin>
+                         </Button>
+                         <Button fx:id="btQuantity6" contentDisplay="CENTER" maxHeight="1.7976931348623157E308"
+                                 maxWidth="1.7976931348623157E308" minWidth="85.0" mnemonicParsing="false"
+-                                onAction="#productQuantity" text="6"/>
++                                onAction="#productQuantity" text="6" HBox.hgrow="ALWAYS"/>
+                     </children>
+                     <padding>
+                         <Insets bottom="3.0" left="3.0" top="3.0"/>
+@@ -60,16 +64,18 @@
+                 <HBox prefHeight="100.0" prefWidth="200.0" VBox.vgrow="NEVER">
+                     <children>
+                         <Button fx:id="btQuantity7" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308"
+-                                minWidth="85.0" mnemonicParsing="false" onAction="#productQuantity" text="7"/>
++                                minWidth="85.0" mnemonicParsing="false" onAction="#productQuantity" text="7"
++                                HBox.hgrow="ALWAYS"/>
+                         <Button fx:id="btQuantity8" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308"
+-                                minWidth="85.0" mnemonicParsing="false" onAction="#productQuantity" text="8">
++                                minWidth="85.0" mnemonicParsing="false" onAction="#productQuantity" text="8"
++                                HBox.hgrow="ALWAYS">
+                             <HBox.margin>
+                                 <Insets left="4.0" right="4.0"/>
+                             </HBox.margin>
+                         </Button>
+                         <Button fx:id="btQuantity9" contentDisplay="CENTER" maxHeight="1.7976931348623157E308"
+                                 maxWidth="1.7976931348623157E308" minWidth="85.0" mnemonicParsing="false"
+-                                onAction="#productQuantity" text="9"/>
++                                onAction="#productQuantity" text="9" HBox.hgrow="ALWAYS"/>
+                     </children>
+                     <padding>
+                         <Insets bottom="3.0" left="3.0" top="3.0"/>
+@@ -79,14 +85,14 @@
+                     <children>
+                         <Button fx:id="btQuantityClear" maxHeight="1.7976931348623157E308"
+                                 maxWidth="1.7976931348623157E308" minWidth="129.0" mnemonicParsing="false"
+-                                onAction="#productQuantity" text="Clear">
++                                onAction="#productQuantity" text="Clear" HBox.hgrow="ALWAYS">
+                             <HBox.margin>
+                                 <Insets right="2.0"/>
+                             </HBox.margin>
+                         </Button>
+                         <Button fx:id="btQuantity0" contentDisplay="CENTER" maxHeight="1.7976931348623157E308"
+                                 maxWidth="1.7976931348623157E308" minWidth="129.0" mnemonicParsing="false"
+-                                onAction="#productQuantity" text="0">
++                                onAction="#productQuantity" text="0" HBox.hgrow="ALWAYS">
+                             <HBox.margin>
+                                 <Insets left="2.0"/>
+                             </HBox.margin>
+@@ -98,64 +104,70 @@
+                 </HBox>
+             </children>
+         </VBox>
+-        <VBox prefHeight="800.0" prefWidth="925.0" spacing="5.0" HBox.hgrow="ALWAYS">
++        <VBox prefHeight="700.0" prefWidth="925.0" spacing="5.0" HBox.hgrow="ALWAYS">
+             <children>
+                 <HBox fillHeight="false" prefHeight="100.0" prefWidth="200.0" spacing="10.0" VBox.vgrow="NEVER">
+                     <children>
+-                        <Label prefHeight="56.0" text="Total da Compra" textAlignment="CENTER" wrapText="true">
+-                            <font>
+-                                <Font size="14.0"/>
+-                            </font>
+-                            <HBox.margin>
+-                                <Insets right="10.0"/>
+-                            </HBox.margin>
+-                        </Label>
+-                        <TextField fx:id="totalInvoice" alignment="CENTER" editable="false" maxHeight="100.0"
+-                                   maxWidth="271.0" minHeight="100.0" minWidth="215.0" prefHeight="100.0"
+-                                   prefWidth="271.0" text="0.00">
+-                            <font>
+-                                <Font size="48.0"/>
+-                            </font>
+-                        </TextField>
+-                        <Button fx:id="btDeleteProduct" layoutX="399.0" layoutY="10.0" mnemonicParsing="false"
+-                                onAction="#deleteProduct" text="Apagar Produto">
+-                            <HBox.margin>
+-                                <Insets left="5.0"/>
+-                            </HBox.margin>
+-                        </Button>
+-                        <Button fx:id="btShop" mnemonicParsing="false" onAction="#finishShop" text="Finilizar Compra">
+-                            <HBox.margin>
+-                                <Insets left="5.0"/>
+-                            </HBox.margin>
+-                        </Button>
+-                    </children>
+-                    <VBox.margin>
+-                        <Insets left="10.0"/>
+-                    </VBox.margin>
+-                </HBox>
+-                <HBox fillHeight="false" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="37.0" prefWidth="925.0"
+-                      spacing="10.0" VBox.vgrow="NEVER">
+-                    <children>
+-                        <Label minHeight="30.0" text="Quantidade">
+-                            <font>
+-                                <Font size="14.0"/>
+-                            </font>
+-                            <HBox.margin>
+-                                <Insets right="38.0"/>
+-                            </HBox.margin>
+-                        </Label>
+-                        <TextField fx:id="sQuantity" editable="false" minHeight="30.0" prefHeight="30.0"
+-                                   prefWidth="100.0"/>
+-                        <Label layoutX="10.0" layoutY="10.0" minHeight="30.0" text="Client ID">
+-                            <font>
+-                                <Font size="14.0"/>
+-                            </font>
+-                            <HBox.margin>
+-                                <Insets left="10.0" right="10.0"/>
+-                            </HBox.margin>
+-                        </Label>
+-                        <TextField fx:id="txtclientID" layoutX="121.0" layoutY="10.0" minHeight="30.0" prefHeight="30.0"
+-                                   prefWidth="100.0"/>
++                        <VBox alignment="TOP_RIGHT" prefHeight="200.0" prefWidth="100.0" spacing="45.0">
++                            <children>
++                                <Label alignment="CENTER_RIGHT" contentDisplay="CENTER"
++                                       maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308"
++                                       prefHeight="56.0" text="Total da Compra" textAlignment="CENTER" wrapText="true">
++                                    <font>
++                                        <Font size="14.0"/>
++                                    </font>
++                                </Label>
++                                <Label alignment="CENTER_RIGHT" contentDisplay="CENTER"
++                                       maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308"
++                                       prefHeight="33.0" prefWidth="100.0" text="Quantidade" textAlignment="CENTER"
++                                       wrapText="true">
++                                    <font>
++                                        <Font size="14.0"/>
++                                    </font>
++                                </Label>
++                            </children>
++                        </VBox>
++                        <VBox spacing="5.0">
++                            <children>
++                                <TextField fx:id="totalInvoice" alignment="CENTER" editable="false"
++                                           maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308"
++                                           minHeight="100.0" minWidth="215.0" prefHeight="100.0" prefWidth="271.0"
++                                           text="0.00">
++                                    <font>
++                                        <Font size="48.0"/>
++                                    </font>
++                                </TextField>
++                                <HBox fillHeight="false" spacing="10.0" VBox.vgrow="NEVER">
++                                    <children>
++                                        <TextField fx:id="txtclientID" layoutX="121.0" layoutY="10.0" minHeight="30.0"
++                                                   prefHeight="30.0" prefWidth="100.0"/>
++                                        <Label layoutX="10.0" layoutY="10.0" minHeight="30.0" text="Client ID">
++                                            <font>
++                                                <Font size="14.0"/>
++                                            </font>
++                                            <HBox.margin>
++                                                <Insets left="10.0" right="10.0"/>
++                                            </HBox.margin>
++                                        </Label>
++                                        <TextField fx:id="sQuantity" editable="false" minHeight="30.0" prefHeight="30.0"
++                                                   prefWidth="100.0"/>
++                                    </children>
++                                    <VBox.margin>
++                                        <Insets/>
++                                    </VBox.margin>
++                                </HBox>
++                            </children>
++                        </VBox>
++                        <VBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" spacing="10.0"
++                              HBox.hgrow="ALWAYS">
++                            <children>
++                                <Button fx:id="btShop" maxHeight="1.7976931348623157E308" mnemonicParsing="false"
++                                        onAction="#finishShop" text="Finilizar Compra" VBox.vgrow="ALWAYS"/>
++                                <Button fx:id="btDeleteProduct" maxHeight="1.7976931348623157E308"
++                                        mnemonicParsing="false" onAction="#deleteProduct" text="Apagar Produto"
++                                        VBox.vgrow="ALWAYS"/>
++                            </children>
++                        </VBox>
+                     </children>
+                     <VBox.margin>
+                         <Insets left="10.0"/>
+diff --git a/src/main/resources/com/example/lidl_new/LoginRegistration.fxml b/src/main/resources/com/example/lidl_new/LoginRegistration.fxml
+index 5229df3..16d179c 100644
+--- a/src/main/resources/com/example/lidl_new/LoginRegistration.fxml
++++ b/src/main/resources/com/example/lidl_new/LoginRegistration.fxml
+@@ -12,68 +12,72 @@
+   ~ Contact: fabio.rod@outlook.com
+   -->
+ 
+-<AnchorPane minHeight="800.0" minWidth="600.0" stylesheets="@../../../../../style.css" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.lidl.Controller.LidlController">
+-   <TextField fx:id="cNameClient" layoutX="212.0" layoutY="200.0" prefHeight="30.0" prefWidth="300.0" />
+-   <TextField fx:id="cContactClient" layoutX="212.0" layoutY="235.0" prefHeight="30.0" prefWidth="300.0" />
+-   <TextField fx:id="cCCClient" layoutX="212.0" layoutY="270.0" prefHeight="30.0" prefWidth="300.0" />
+-   <TextField fx:id="cNIFClient" layoutX="212.0" layoutY="305.0" prefHeight="30.0" prefWidth="300.0" />
+-   <TextField fx:id="cAddressClient" layoutX="212.0" layoutY="340.0" prefHeight="30.0" prefWidth="300.0" />
+-   <TextField fx:id="cNumberClient" layoutX="212.0" layoutY="375.0" prefHeight="30.0" prefWidth="100.0" />
+-   <TextField fx:id="cFloorClient" layoutX="412.0" layoutY="375.0" prefHeight="30.0" prefWidth="100.0" />
+-   <TextField fx:id="cLocationClient" layoutX="212.0" layoutY="410.0" prefHeight="30.0" prefWidth="300.0" />
+-   <Label layoutX="85.0" layoutY="270.0" prefHeight="30.0" text="Nº Cartão Cidadão">
+-      <font>
+-         <Font size="14.0" />
+-      </font>
+-   </Label>
+-   <Label layoutX="162.0" layoutY="200.0" prefHeight="30.0" text="Nome">
+-      <font>
+-         <Font size="14.0" />
+-      </font>
+-   </Label>
+-   <Label layoutX="61.0" layoutY="305.0" prefHeight="30.0" text="Nº Identificação Fiscal ">
+-      <font>
+-         <Font size="14.0" />
+-      </font>
+-   </Label>
+-   <Label layoutX="144.0" layoutY="235.0" prefHeight="30.0" text="Contacto">
+-      <font>
+-         <Font size="14.0" />
+-      </font>
+-   </Label>
+-   <Label layoutX="152.0" layoutY="340.0" prefHeight="30.0" text="Morada">
+-      <font>
+-         <Font size="14.0" />
+-      </font>
+-   </Label>
+-   <Label layoutX="284.0" layoutY="288.0" />
+-   <Label layoutX="167.0" layoutY="375.0" prefHeight="30.0" text="Porta">
+-      <font>
+-         <Font size="14.0" />
+-      </font>
+-   </Label>
+-   <Label layoutX="363.0" layoutY="375.0" prefHeight="30.0" text="Andar">
+-      <font>
+-         <Font size="14.0" />
+-      </font>
+-   </Label>
+-   <Label layoutX="134.0" layoutY="410.0" prefHeight="30.0" text="Localidade">
+-      <font>
+-         <Font size="14.0" />
+-      </font>
+-   </Label>
+-   <Label layoutX="166.0" layoutY="445.0" prefHeight="30.0" text="Email">
+-      <font>
+-         <Font size="14.0" />
+-      </font>
+-   </Label>
+-   <Label layoutX="142.0" layoutY="480.0" prefHeight="30.0" text="Password">
+-      <font>
+-         <Font size="14.0" />
+-      </font>
+-   </Label>
+-   <TextField fx:id="cEmailClient" layoutX="212.0" layoutY="445.0" prefHeight="30.0" prefWidth="300.0" />
+-   <PasswordField fx:id="cPasswordClient" layoutX="212.0" layoutY="480.0" prefHeight="30.0" prefWidth="300.0" />
+-   <Button fx:id="cClient" layoutX="367.0" layoutY="515.0" mnemonicParsing="false" onAction="#onCreateClient" prefHeight="25.0" prefWidth="145.0" text="Registrar" />
+-   <Button fx:id="cCancelClient" layoutX="212.0" layoutY="515.0" mnemonicParsing="false" prefWidth="145.0" text="Button" />
++<AnchorPane xmlns:fx="http://javafx.com/fxml/1" minHeight="800.0" minWidth="600.0"
++            stylesheets="@../../../../../../../Lidl/src/style.css" xmlns="http://javafx.com/javafx/11.0.2"
++            fx:controller="com.example.lidl_new.Controller.ClientController">
++    <TextField fx:id="cNameClient" layoutX="212.0" layoutY="200.0" prefHeight="30.0" prefWidth="300.0"/>
++    <TextField fx:id="cContactClient" layoutX="212.0" layoutY="235.0" prefHeight="30.0" prefWidth="300.0"/>
++    <TextField fx:id="cCCClient" layoutX="212.0" layoutY="270.0" prefHeight="30.0" prefWidth="300.0"/>
++    <TextField fx:id="cNIFClient" layoutX="212.0" layoutY="305.0" prefHeight="30.0" prefWidth="300.0"/>
++    <TextField fx:id="cAddressClient" layoutX="212.0" layoutY="340.0" prefHeight="30.0" prefWidth="300.0"/>
++    <TextField fx:id="cNumberClient" layoutX="212.0" layoutY="375.0" prefHeight="30.0" prefWidth="100.0"/>
++    <TextField fx:id="cFloorClient" layoutX="412.0" layoutY="375.0" prefHeight="30.0" prefWidth="100.0"/>
++    <TextField fx:id="cLocationClient" layoutX="212.0" layoutY="410.0" prefHeight="30.0" prefWidth="300.0"/>
++    <Label layoutX="85.0" layoutY="270.0" prefHeight="30.0" text="Nº Cartão Cidadão">
++        <font>
++            <Font size="14.0"/>
++        </font>
++    </Label>
++    <Label layoutX="162.0" layoutY="200.0" prefHeight="30.0" text="Nome">
++        <font>
++            <Font size="14.0"/>
++        </font>
++    </Label>
++    <Label layoutX="61.0" layoutY="305.0" prefHeight="30.0" text="Nº Identificação Fiscal ">
++        <font>
++            <Font size="14.0"/>
++        </font>
++    </Label>
++    <Label layoutX="144.0" layoutY="235.0" prefHeight="30.0" text="Contacto">
++        <font>
++            <Font size="14.0"/>
++        </font>
++    </Label>
++    <Label layoutX="152.0" layoutY="340.0" prefHeight="30.0" text="Morada">
++        <font>
++            <Font size="14.0"/>
++        </font>
++    </Label>
++    <Label layoutX="284.0" layoutY="288.0"/>
++    <Label layoutX="167.0" layoutY="375.0" prefHeight="30.0" text="Porta">
++        <font>
++            <Font size="14.0"/>
++        </font>
++    </Label>
++    <Label layoutX="363.0" layoutY="375.0" prefHeight="30.0" text="Andar">
++        <font>
++            <Font size="14.0"/>
++        </font>
++    </Label>
++    <Label layoutX="134.0" layoutY="410.0" prefHeight="30.0" text="Localidade">
++        <font>
++            <Font size="14.0"/>
++        </font>
++    </Label>
++    <Label layoutX="166.0" layoutY="445.0" prefHeight="30.0" text="Email">
++        <font>
++            <Font size="14.0"/>
++        </font>
++    </Label>
++    <Label layoutX="142.0" layoutY="480.0" prefHeight="30.0" text="Password">
++        <font>
++            <Font size="14.0"/>
++        </font>
++    </Label>
++    <TextField fx:id="cEmailClient" layoutX="212.0" layoutY="445.0" prefHeight="30.0" prefWidth="300.0"/>
++    <PasswordField fx:id="cPasswordClient" layoutX="212.0" layoutY="480.0" prefHeight="30.0" prefWidth="300.0"/>
++    <Button fx:id="cClient" layoutX="367.0" layoutY="515.0" mnemonicParsing="false" onAction="#onCreateClient"
++            prefHeight="25.0" prefWidth="145.0" text="Registrar"/>
++    <Button fx:id="cCancelClient" layoutX="212.0" layoutY="515.0" mnemonicParsing="false" prefWidth="145.0"
++            text="Button"/>
+ </AnchorPane>
+diff --git a/src/main/resources/com/example/lidl_new/MainApp.fxml b/src/main/resources/com/example/lidl_new/MainApp.fxml
+index 8ca934d..d8a506e 100644
+--- a/src/main/resources/com/example/lidl_new/MainApp.fxml
++++ b/src/main/resources/com/example/lidl_new/MainApp.fxml
+@@ -4,73 +4,57 @@
+ <?import javafx.scene.control.*?>
+ <?import javafx.scene.layout.*?>
+ 
+-<BorderPane xmlns:fx="http://javafx.com/fxml/1" fx:id="MainBorderPane" maxHeight="1.7976931348623157E308"
+-            maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity"
+-            xmlns="http://javafx.com/javafx/11.0.2" fx:controller="com.example.lidl_new.Controller.MainAppController">
+-    <top>
+-        <HBox alignment="CENTER" prefHeight="41.0" prefWidth="1083.0" BorderPane.alignment="CENTER">
+-            <children>
+-                <Button fx:id="tbHome" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308"
+-                        mnemonicParsing="false" onAction="#tabHome" prefHeight="69.0" prefWidth="176.0" text="Home">
+-                    <HBox.margin>
+-                        <Insets left="4.0" right="2.0"/>
+-                    </HBox.margin>
+-                    <!--               <graphic>
+-                                      <FontIcon iconLiteral="di-java" iconSize="64"/>
+-                                   </graphic>-->
+-                </Button>
+-                <Button fx:id="tbClient" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308"
+-                        mnemonicParsing="false" onAction="#tabClient" prefHeight="70.0" prefWidth="176.0"
+-                        text="Gestão de Clientes/ Cartao Cliente" wrapText="true">
+-                    <HBox.margin>
+-                        <Insets left="2.0" right="2.0"/>
+-                    </HBox.margin>
+-                </Button>
+-                <Button fx:id="tbProduct" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308"
+-                        mnemonicParsing="false" onAction="#tabProduct" prefHeight="69.0" prefWidth="176.0"
+-                        text="Gestão de Produtos">
+-                    <HBox.margin>
+-                        <Insets left="2.0" right="2.0"/>
+-                    </HBox.margin>
+-                </Button>
+-                <Button fx:id="tbAddProduct" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308"
+-                        mnemonicParsing="false" onAction="#tabAddProduct" prefHeight="69.0" prefWidth="176.0"
+-                        text="Adicionar Produtos">
+-                    <HBox.margin>
+-                        <Insets left="2.0" right="2.0"/>
+-                    </HBox.margin>
+-                </Button>
+-                <Button fx:id="tbUpdateProduct" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308"
+-                        mnemonicParsing="false" onAction="#tabUpdateProduct" prefHeight="69.0" prefWidth="176.0"
+-                        text="Atualizar Produtos">
+-                    <HBox.margin>
+-                        <Insets left="2.0" right="2.0"/>
+-                    </HBox.margin>
+-                </Button>
+-                <Button fx:id="tbAbout" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308"
+-                        mnemonicParsing="false" onAction="#tabAbout" prefHeight="69.0" prefWidth="176.0" text="Sobre">
+-                    <HBox.margin>
+-                        <Insets left="2.0" right="4.0"/>
+-                    </HBox.margin>
+-                </Button>
+-            </children>
+-        </HBox>
+-    </top>
+-    <left>
+-        <AnchorPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" BorderPane.alignment="CENTER"/>
+-    </left>
+-    <right>
+-        <AnchorPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" BorderPane.alignment="CENTER"/>
+-    </right>
+-    <padding>
+-        <Insets bottom="2.0" left="2.0" right="2.0" top="2.0"/>
+-    </padding>
+-    <bottom>
+-        <VBox fx:id="MainContent" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308"
+-              BorderPane.alignment="CENTER">
+-            <BorderPane.margin>
+-                <Insets bottom="2.0" left="2.0" right="2.0" top="2.0"/>
+-            </BorderPane.margin>
+-        </VBox>
+-    </bottom>
+-</BorderPane>
++<StackPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.lidl_new.Controller.MainAppController">
++   <children>
++      <BorderPane fx:id="MainBorderPane" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity">
++          <top>
++              <HBox alignment="CENTER" prefHeight="41.0" prefWidth="1083.0" BorderPane.alignment="CENTER">
++                  <children>
++                      <Button fx:id="tbHome" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#tabHome" prefHeight="69.0" prefWidth="176.0" text="Home">
++                          <HBox.margin>
++                              <Insets left="4.0" right="2.0" />
++                          </HBox.margin>
++                          <!--               <graphic>
++                                            <FontIcon iconLiteral="di-java" iconSize="64"/>
++                                         </graphic>-->
++                      </Button>
++                      <Button fx:id="tbClient" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#tabClient" prefHeight="70.0" prefWidth="176.0" text="Gestão de Clientes/ Cartao Cliente" wrapText="true">
++                          <HBox.margin>
++                              <Insets left="2.0" right="2.0" />
++                          </HBox.margin>
++                      </Button>
++                      <Button fx:id="tbProduct" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#tabProduct" prefHeight="69.0" prefWidth="176.0" text="Gestão de Produtos">
++                          <HBox.margin>
++                              <Insets left="2.0" right="2.0" />
++                          </HBox.margin>
++                      </Button>
++                      <Button fx:id="tbAbout" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#tabAbout" prefHeight="69.0" prefWidth="176.0" text="Sobre">
++                          <HBox.margin>
++                              <Insets left="2.0" right="4.0" />
++                          </HBox.margin>
++                      </Button>
++                  </children>
++              </HBox>
++          </top>
++          <left>
++              <AnchorPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" BorderPane.alignment="CENTER" />
++          </left>
++          <right>
++              <AnchorPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" BorderPane.alignment="CENTER" />
++          </right>
++          <padding>
++              <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />
++          </padding>
++          <bottom>
++              <VBox fx:id="MainContent" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" BorderPane.alignment="CENTER">
++                  <BorderPane.margin>
++                      <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />
++                  </BorderPane.margin>
++              </VBox>
++          </bottom>
++      </BorderPane>
++   </children>
++   <padding>
++      <Insets bottom="3.0" left="3.0" right="3.0" top="3.0" />
++   </padding>
++</StackPane>
+diff --git a/src/main/resources/com/example/lidl_new/Product.fxml b/src/main/resources/com/example/lidl_new/Product.fxml
+index 82bcc4b..acf17b7 100644
+--- a/src/main/resources/com/example/lidl_new/Product.fxml
++++ b/src/main/resources/com/example/lidl_new/Product.fxml
+@@ -30,7 +30,8 @@
+                                     </graphic>
+                                 </Button>
+                                 <Button id="btAddProduct" fx:id="btAddProduct" maxHeight="40.0" maxWidth="40.0"
+-                                        minHeight="40.0" minWidth="40.0" mnemonicParsing="false">
++                                        minHeight="40.0" minWidth="40.0" mnemonicParsing="false"
++                                        onAction="#onAddProduct">
+                                     <font>
+                                         <Font name="System Bold" size="18.0"/>
+                                     </font>
+@@ -42,7 +43,8 @@
+                                     </graphic>
+                                 </Button>
+                                 <Button id="btDeleteProduct" fx:id="btDeleteProduct" maxHeight="40.0" maxWidth="40.0"
+-                                        minHeight="40.0" minWidth="40.0" mnemonicParsing="false">
++                                        minHeight="40.0" minWidth="40.0" mnemonicParsing="false"
++                                        onAction="#onDeleteProduct">
+                                     <font>
+                                         <Font name="System Bold" size="18.0"/>
+                                     </font>
+@@ -54,7 +56,7 @@
+                                     </graphic>
+                                 </Button>
+                                 <Button fx:id="btUpdateProduct" maxHeight="40.0" maxWidth="40.0" minHeight="40.0"
+-                                        minWidth="40.0" mnemonicParsing="false">
++                                        minWidth="40.0" mnemonicParsing="false" onAction="#onUpdateProduct">
+                                     <font>
+                                         <Font name="System Bold" size="18.0"/>
+                                     </font>
+diff --git a/src/main/resources/com/example/lidl_new/UpdateProduct.fxml b/src/main/resources/com/example/lidl_new/UpdateProduct.fxml
+index a979eb2..2c5ea52 100644
+--- a/src/main/resources/com/example/lidl_new/UpdateProduct.fxml
++++ b/src/main/resources/com/example/lidl_new/UpdateProduct.fxml
+@@ -6,168 +6,151 @@
+ <?import javafx.scene.text.*?>
+ <?import org.kordamp.ikonli.javafx.*?>
+ 
+-<HBox xmlns:fx="http://javafx.com/fxml/1" fx:id="tabUpdateProduct" maxHeight="-Infinity" maxWidth="-Infinity"
+-      minHeight="-Infinity"
++<HBox xmlns:fx="http://javafx.com/fxml/1" fx:id="tabUpdateProduct" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity"
+       minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.2"
+-      fx:controller="com.example.lidl_new.Controller.ProductController">
+-    <children>
+-        <VBox>
+-            <children>
+-                <HBox alignment="TOP_RIGHT" prefHeight="27.0" prefWidth="1017.0">
+-                    <children>
+-                        <Button fx:id="btUClose" contentDisplay="GRAPHIC_ONLY" mnemonicParsing="false"
+-                                style="-fx-background-color: transparent;" textAlignment="CENTER" wrapText="true">
+-                            <graphic>
+-                                <FontIcon iconLiteral="fa-close" iconSize="20"/>
+-                            </graphic>
+-                            <padding>
+-                                <Insets bottom="-1.0" left="-1.0" right="-1.0" top="-1.0"/>
+-                            </padding>
+-                        </Button>
+-                    </children>
+-                    <VBox.margin>
+-                        <Insets bottom="-7.0" left="3.0" right="3.0"/>
+-                    </VBox.margin>
+-                    <padding>
+-                        <Insets right="4.0"/>
+-                    </padding>
+-                </HBox>
+-                <HBox prefHeight="100.0" prefWidth="200.0">
+-                    <children>
+-                        <VBox alignment="TOP_RIGHT" prefHeight="400.0" prefWidth="150.0" spacing="5.0">
+-                            <children>
+-                                <Label prefHeight="30.0" text="ID">
+-                                    <font>
+-                                        <Font size="14.0"/>
+-                                    </font>
+-                                    <VBox.margin>
+-                                        <Insets/>
+-                                    </VBox.margin>
+-                                </Label>
+-                                <Label prefHeight="30.0" text="Nome">
+-                                    <font>
+-                                        <Font size="14.0"/>
+-                                    </font>
+-                                    <VBox.margin>
+-                                        <Insets/>
+-                                    </VBox.margin>
+-                                </Label>
+-                                <Label prefHeight="30.0" text="Referencia">
+-                                    <font>
+-                                        <Font size="14.0"/>
+-                                    </font>
+-                                    <VBox.margin>
+-                                        <Insets/>
+-                                    </VBox.margin>
+-                                </Label>
+-                                <Label prefHeight="30.0" text="Stock">
+-                                    <font>
+-                                        <Font size="14.0"/>
+-                                    </font>
+-                                    <VBox.margin>
+-                                        <Insets/>
+-                                    </VBox.margin>
+-                                </Label>
+-                                <Label prefHeight="30.0" text="Preço">
+-                                    <font>
+-                                        <Font size="14.0"/>
+-                                    </font>
+-                                    <VBox.margin>
+-                                        <Insets/>
+-                                    </VBox.margin>
+-                                </Label>
+-                                <Label prefHeight="30.0" text="Categoria">
+-                                    <font>
+-                                        <Font size="14.0"/>
+-                                    </font>
+-                                    <VBox.margin>
+-                                        <Insets/>
+-                                    </VBox.margin>
+-                                </Label>
+-                                <Label prefHeight="30.0" text="Marca">
+-                                    <font>
+-                                        <Font size="14.0"/>
+-                                    </font>
+-                                    <VBox.margin>
+-                                        <Insets/>
+-                                    </VBox.margin>
+-                                </Label>
+-                                <Label prefHeight="30.0" text="Taxa">
+-                                    <font>
+-                                        <Font size="14.0"/>
+-                                    </font>
+-                                    <VBox.margin>
+-                                        <Insets/>
+-                                    </VBox.margin>
+-                                </Label>
+-                            </children>
+-                            <HBox.margin>
+-                                <Insets right="10.0"/>
+-                            </HBox.margin>
+-                        </VBox>
+-                        <VBox prefHeight="400.0" prefWidth="300.0" spacing="5.0">
+-                            <children>
+-                                <TextField fx:id="uId" disable="true" editable="false" prefHeight="30.0"
+-                                           prefWidth="300.0">
+-                                    <VBox.margin>
+-                                        <Insets/>
+-                                    </VBox.margin>
+-                                </TextField>
+-                                <TextField fx:id="uNameProduct" prefHeight="30.0" prefWidth="300.0">
+-                                    <VBox.margin>
+-                                        <Insets/>
+-                                    </VBox.margin>
+-                                </TextField>
+-                                <TextField fx:id="uPrice" prefHeight="30.0" prefWidth="300.0">
+-                                    <VBox.margin>
+-                                        <Insets/>
+-                                    </VBox.margin>
+-                                </TextField>
+-                                <TextField fx:id="uStock" prefHeight="30.0" prefWidth="300.0">
+-                                    <VBox.margin>
+-                                        <Insets/>
+-                                    </VBox.margin>
+-                                </TextField>
+-                                <TextField fx:id="uBarcode" prefHeight="30.0" prefWidth="300.0">
+-                                    <VBox.margin>
+-                                        <Insets/>
+-                                    </VBox.margin>
+-                                </TextField>
+-                                <ChoiceBox fx:id="uCategory" prefHeight="30.0" prefWidth="300.0">
+-                                    <VBox.margin>
+-                                        <Insets/>
+-                                    </VBox.margin>
+-                                </ChoiceBox>
+-                                <ChoiceBox fx:id="uBrand" prefHeight="30.0" prefWidth="300.0">
+-                                    <VBox.margin>
+-                                        <Insets/>
+-                                    </VBox.margin>
+-                                </ChoiceBox>
+-                                <ChoiceBox fx:id="uTax" prefHeight="30.0" prefWidth="300.0">
+-                                    <VBox.margin>
+-                                        <Insets/>
+-                                    </VBox.margin>
+-                                </ChoiceBox>
+-                            </children>
+-                        </VBox>
+-                    </children>
+-                </HBox>
+-                <HBox prefHeight="27.0" prefWidth="304.0">
+-                    <VBox.margin>
+-                        <Insets top="5.0"/>
+-                    </VBox.margin>
+-                    <children>
+-                        <Button fx:id="uBtUpdate" mnemonicParsing="false" onAction="#setUpdateProduct" prefHeight="25.0"
+-                                prefWidth="145.0" text="Atualizar"/>
+-                    </children>
+-                    <padding>
+-                        <Insets left="315.0"/>
+-                    </padding>
+-                </HBox>
+-            </children>
+-        </VBox>
+-    </children>
++      fx:controller="com.example.lidl_new.Controller.UpdateProduct">
+     <padding>
+         <Insets bottom="10.0" left="10.0" right="10.0" top="10.0"/>
+     </padding>
++    <VBox>
++        <HBox alignment="TOP_RIGHT" prefHeight="27.0" prefWidth="1017.0">
++            <VBox.margin>
++                <Insets bottom="-7.0" left="3.0" right="3.0"/>
++            </VBox.margin>
++            <padding>
++                <Insets right="4.0"/>
++            </padding>
++            <Button fx:id="btUClose" contentDisplay="GRAPHIC_ONLY" mnemonicParsing="false"
++                    style="-fx-background-color: transparent;" textAlignment="CENTER" wrapText="true">
++                <graphic>
++                    <FontIcon iconLiteral="fa-close" iconSize="20"/>
++                </graphic>
++                <padding>
++                    <Insets bottom="-1.0" left="-1.0" right="-1.0" top="-1.0"/>
++                </padding>
++            </Button>
++        </HBox>
++        <HBox prefHeight="100.0" prefWidth="200.0">
++            <VBox alignment="TOP_RIGHT" prefHeight="400.0" prefWidth="150.0" spacing="5.0">
++                <HBox.margin>
++                    <Insets right="10.0"/>
++                </HBox.margin>
++                <Label prefHeight="30.0" text="ID">
++                    <font>
++                        <Font size="14.0"/>
++                    </font>
++                    <VBox.margin>
++                        <Insets/>
++                    </VBox.margin>
++                </Label>
++                <Label prefHeight="30.0" text="Nome">
++                    <font>
++                        <Font size="14.0"/>
++                    </font>
++                    <VBox.margin>
++                        <Insets/>
++                    </VBox.margin>
++                </Label>
++                <Label prefHeight="30.0" text="Referencia">
++                    <font>
++                        <Font size="14.0"/>
++                    </font>
++                    <VBox.margin>
++                        <Insets/>
++                    </VBox.margin>
++                </Label>
++                <Label prefHeight="30.0" text="Stock">
++                    <font>
++                        <Font size="14.0"/>
++                    </font>
++                    <VBox.margin>
++                        <Insets/>
++                    </VBox.margin>
++                </Label>
++                <Label prefHeight="30.0" text="Preço">
++                    <font>
++                        <Font size="14.0"/>
++                    </font>
++                    <VBox.margin>
++                        <Insets/>
++                    </VBox.margin>
++                </Label>
++                <Label prefHeight="30.0" text="Categoria">
++                    <font>
++                        <Font size="14.0"/>
++                    </font>
++                    <VBox.margin>
++                        <Insets/>
++                    </VBox.margin>
++                </Label>
++                <Label prefHeight="30.0" text="Marca">
++                    <font>
++                        <Font size="14.0"/>
++                    </font>
++                    <VBox.margin>
++                        <Insets/>
++                    </VBox.margin>
++                </Label>
++                <Label prefHeight="30.0" text="Taxa">
++                    <font>
++                        <Font size="14.0"/>
++                    </font>
++                    <VBox.margin>
++                        <Insets/>
++                    </VBox.margin>
++                </Label>
++            </VBox>
++            <VBox prefHeight="400.0" prefWidth="300.0" spacing="5.0">
++                <TextField fx:id="uId" editable="false" prefHeight="30.0" prefWidth="300.0">
++                    <VBox.margin>
++                        <Insets/>
++                    </VBox.margin>
++                </TextField>
++                <TextField fx:id="uNameProduct" prefHeight="30.0" prefWidth="300.0">
++                    <VBox.margin>
++                        <Insets/>
++                    </VBox.margin>
++                </TextField>
++                <TextField fx:id="uPrice" prefHeight="30.0" prefWidth="300.0">
++                    <VBox.margin>
++                        <Insets/>
++                    </VBox.margin>
++                </TextField>
++                <TextField fx:id="uStock" prefHeight="30.0" prefWidth="300.0">
++                    <VBox.margin>
++                        <Insets/>
++                    </VBox.margin>
++                </TextField>
++                <TextField fx:id="uBarcode" prefHeight="30.0" prefWidth="300.0">
++                    <VBox.margin>
++                        <Insets/>
++                    </VBox.margin>
++                </TextField>
++                <ChoiceBox fx:id="uCategory" prefHeight="30.0" prefWidth="300.0">
++                    <VBox.margin>
++                        <Insets/>
++                    </VBox.margin>
++                </ChoiceBox>
++                <ChoiceBox fx:id="uBrand" prefHeight="30.0" prefWidth="300.0">
++                    <VBox.margin>
++                        <Insets/>
++                    </VBox.margin>
++                </ChoiceBox>
++                <ChoiceBox fx:id="uTax" prefHeight="30.0" prefWidth="300.0">
++                    <VBox.margin>
++                        <Insets/>
++                    </VBox.margin>
++                </ChoiceBox>
++            </VBox>
++        </HBox>
++        <HBox prefHeight="27.0" prefWidth="304.0">
++            <VBox.margin>
++                <Insets top="5.0"/>
++            </VBox.margin>
++            <padding>
++                <Insets left="315.0"/>
++            </padding>
++            <Button fx:id="uBtUpdate" mnemonicParsing="false" prefHeight="25.0" prefWidth="145.0" text="Atualizar"/>
++        </HBox>
++    </VBox>
+ </HBox>
+diff --git a/src/main/resources/com/example/lidl_new/loginFrame.fxml b/src/main/resources/com/example/lidl_new/loginFrame.fxml
+index 85041ca..39f0237 100644
+--- a/src/main/resources/com/example/lidl_new/loginFrame.fxml
++++ b/src/main/resources/com/example/lidl_new/loginFrame.fxml
+@@ -14,28 +14,38 @@
+   ~ Contact: fabio.rod@outlook.com
+   -->
+ 
+-<VBox alignment="CENTER" minHeight="800.0" minWidth="1200.0" stylesheets="@../../../../../../../Lidl/src/style.css" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.lidl.Controller.LidlController">
+-   <AnchorPane minHeight="800.0" minWidth="1200.0">
+-      <VBox.margin>
+-         <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+-      </VBox.margin>
++<VBox xmlns:fx="http://javafx.com/fxml/1" alignment="CENTER" minHeight="800.0" minWidth="1200.0"
++      stylesheets="@../../../../../../../Lidl/src/style.css" xmlns="http://javafx.com/javafx/11.0.2"
++      fx:controller="com.example.lidl_new.Controller.ClientController">
++    <AnchorPane minHeight="800.0" minWidth="1200.0">
++        <VBox.margin>
++            <Insets bottom="20.0" left="20.0" right="20.0" top="20.0"/>
++        </VBox.margin>
+ 
+-      <Button fx:id="btLogin" layoutX="631.0" layoutY="425.0" onAction="#onCheckLogin" prefHeight="25.0" prefWidth="95.0" text="Login" />
+-      <Button fx:id="btCancel" cancelButton="true" layoutX="526.0" layoutY="425.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="95.0" text="Cancel" />
+-      <ImageView fitHeight="200.0" fitWidth="250.0" layoutX="526.0" layoutY="150.0" pickOnBounds="true" preserveRatio="true">
+-         <Image url="@../../../media/brand__default.png" />
+-      </ImageView>
+-      <TextField fx:id="lLogin" layoutX="526.0" layoutY="355.0" prefHeight="30.0" prefWidth="200.0" promptText="Login" />
+-      <PasswordField fx:id="lPassword" layoutX="526.0" layoutY="390.0" prefHeight="30.0" prefWidth="200.0" promptText="Password" />
+-      <Label layoutX="486.0" layoutY="355.0" prefHeight="30.0" text="Login">
+-         <font>
+-            <Font size="14.0" />
+-         </font></Label>
+-      <Label layoutX="466.0" layoutY="390.0" prefHeight="30.0" text="Password">
+-         <font>
+-            <Font size="14.0" />
+-         </font></Label>
+-      <Label fx:id="txtcheckLogin" layoutX="528.0" layoutY="453.0" prefHeight="17.0" textAlignment="CENTER" textFill="#cd2e2e" />
+-      <Hyperlink layoutX="525.0" layoutY="463.0" onAction="#onLoginToReg" prefHeight="30.0" prefWidth="200.0" text="Criar Novo Cliente" textAlignment="CENTER" />
+-   </AnchorPane>
++        <Button fx:id="btLogin" layoutX="631.0" layoutY="425.0" prefHeight="25.0" prefWidth="95.0" text="Login"/>
++        <Button fx:id="btCancel" cancelButton="true" layoutX="526.0" layoutY="425.0" mnemonicParsing="false"
++                prefHeight="25.0" prefWidth="95.0" text="Cancel"/>
++        <ImageView fitHeight="200.0" fitWidth="250.0" layoutX="526.0" layoutY="150.0" pickOnBounds="true"
++                   preserveRatio="true">
++            <Image url="@../../../media/brand__default.png"/>
++        </ImageView>
++        <TextField fx:id="lLogin" layoutX="526.0" layoutY="355.0" prefHeight="30.0" prefWidth="200.0"
++                   promptText="Login"/>
++        <PasswordField fx:id="lPassword" layoutX="526.0" layoutY="390.0" prefHeight="30.0" prefWidth="200.0"
++                       promptText="Password"/>
++        <Label layoutX="486.0" layoutY="355.0" prefHeight="30.0" text="Login">
++            <font>
++                <Font size="14.0"/>
++            </font>
++        </Label>
++        <Label layoutX="466.0" layoutY="390.0" prefHeight="30.0" text="Password">
++            <font>
++                <Font size="14.0"/>
++            </font>
++        </Label>
++        <Label fx:id="txtcheckLogin" layoutX="528.0" layoutY="453.0" prefHeight="17.0" textAlignment="CENTER"
++               textFill="#cd2e2e"/>
++        <Hyperlink layoutX="525.0" layoutY="463.0" prefHeight="30.0" prefWidth="200.0" text="Criar Novo Cliente"
++                   textAlignment="CENTER"/>
++    </AnchorPane>
+ </VBox>
+diff --git a/target/classes/com/example/lidl_new/AddProduct.fxml b/target/classes/com/example/lidl_new/AddProduct.fxml
+index 7a3fbbc..8d77cdd 100644
+--- a/target/classes/com/example/lidl_new/AddProduct.fxml
++++ b/target/classes/com/example/lidl_new/AddProduct.fxml
+@@ -6,27 +6,30 @@
+ <?import javafx.scene.text.*?>
+ <?import org.kordamp.ikonli.javafx.*?>
+ 
+-<HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.lidl_new.Controller.ProductController">
++<HBox xmlns:fx="http://javafx.com/fxml/1" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
++      prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.2"
++      fx:controller="com.example.lidl_new.Controller.AddProduct">
+     <children>
+         <VBox spacing="5.0">
+             <children>
+                 <HBox alignment="TOP_RIGHT" prefHeight="27.0" prefWidth="1017.0">
+                     <children>
+-                        <Button fx:id="btUClose" contentDisplay="GRAPHIC_ONLY" mnemonicParsing="false" style="-fx-background-color: transparent;" textAlignment="CENTER" wrapText="true">
++                        <Button fx:id="btUClose" contentDisplay="GRAPHIC_ONLY" mnemonicParsing="false"
++                                style="-fx-background-color: transparent;" textAlignment="CENTER" wrapText="true">
+                             <graphic>
+-                                <FontIcon iconLiteral="fa-close" iconSize="20" />
++                                <FontIcon iconLiteral="fa-close" iconSize="20"/>
+                             </graphic>
+                             <padding>
+-                                <Insets bottom="-1.0" left="-1.0" right="-1.0" top="-1.0" />
++                                <Insets bottom="-1.0" left="-1.0" right="-1.0" top="-1.0"/>
+                             </padding>
+                         </Button>
+                     </children>
+                     <padding>
+-                        <Insets right="4.0" />
++                        <Insets right="4.0"/>
+                     </padding>
+-               <VBox.margin>
+-                  <Insets bottom="-7.0" left="3.0" right="3.0" />
+-               </VBox.margin>
++                    <VBox.margin>
++                        <Insets bottom="-7.0" left="3.0" right="3.0"/>
++                    </VBox.margin>
+                 </HBox>
+                 <HBox spacing="10.0">
+                     <children>
+@@ -34,58 +37,58 @@
+                             <children>
+                                 <Label prefHeight="30.0" text="Nome">
+                                     <font>
+-                                        <Font size="14.0" />
++                                        <Font size="14.0"/>
+                                     </font>
+                                     <VBox.margin>
+-                                        <Insets bottom="5.0" />
++                                        <Insets bottom="5.0"/>
+                                     </VBox.margin>
+                                 </Label>
+                                 <Label prefHeight="30.0" text="Referencia">
+                                     <font>
+-                                        <Font size="14.0" />
++                                        <Font size="14.0"/>
+                                     </font>
+                                     <VBox.margin>
+-                                        <Insets bottom="5.0" />
++                                        <Insets bottom="5.0"/>
+                                     </VBox.margin>
+                                 </Label>
+                                 <Label prefHeight="30.0" text="Stock">
+                                     <font>
+-                                        <Font size="14.0" />
++                                        <Font size="14.0"/>
+                                     </font>
+                                     <VBox.margin>
+-                                        <Insets bottom="5.0" />
++                                        <Insets bottom="5.0"/>
+                                     </VBox.margin>
+                                 </Label>
+                                 <Label prefHeight="30.0" text="Preço">
+                                     <font>
+-                                        <Font size="14.0" />
++                                        <Font size="14.0"/>
+                                     </font>
+                                     <VBox.margin>
+-                                        <Insets bottom="5.0" />
++                                        <Insets bottom="5.0"/>
+                                     </VBox.margin>
+                                 </Label>
+                                 <Label prefHeight="30.0" text="Categoria">
+                                     <font>
+-                                        <Font size="14.0" />
++                                        <Font size="14.0"/>
+                                     </font>
+                                     <VBox.margin>
+-                                        <Insets bottom="5.0" />
++                                        <Insets bottom="5.0"/>
+                                     </VBox.margin>
+                                 </Label>
+                                 <Label prefHeight="30.0" text="Marca">
+                                     <font>
+-                                        <Font size="14.0" />
++                                        <Font size="14.0"/>
+                                     </font>
+                                     <VBox.margin>
+-                                        <Insets bottom="5.0" />
++                                        <Insets bottom="5.0"/>
+                                     </VBox.margin>
+                                 </Label>
+                                 <Label prefHeight="30.0" text="Taxa">
+                                     <font>
+-                                        <Font size="14.0" />
++                                        <Font size="14.0"/>
+                                     </font>
+                                     <VBox.margin>
+-                                        <Insets bottom="5.0" />
++                                        <Insets bottom="5.0"/>
+                                     </VBox.margin>
+                                 </Label>
+                             </children>
+@@ -94,48 +97,51 @@
+                             <children>
+                                 <TextField fx:id="cNameProduct" prefHeight="30.0" prefWidth="300.0">
+                                     <VBox.margin>
+-                                        <Insets bottom="5.0" />
++                                        <Insets bottom="5.0"/>
+                                     </VBox.margin>
+                                 </TextField>
+                                 <TextField fx:id="cPrice" prefHeight="30.0" prefWidth="300.0">
+                                     <VBox.margin>
+-                                        <Insets bottom="5.0" />
++                                        <Insets bottom="5.0"/>
+                                     </VBox.margin>
+                                 </TextField>
+                                 <TextField fx:id="cStock" prefHeight="30.0" prefWidth="300.0">
+                                     <VBox.margin>
+-                                        <Insets bottom="5.0" />
++                                        <Insets bottom="5.0"/>
+                                     </VBox.margin>
+                                 </TextField>
+                                 <TextField fx:id="cBarcode" prefHeight="30.0" prefWidth="300.0">
+                                     <VBox.margin>
+-                                        <Insets bottom="5.0" />
++                                        <Insets bottom="5.0"/>
+                                     </VBox.margin>
+                                 </TextField>
+                                 <ChoiceBox fx:id="cCategory" prefHeight="30.0" prefWidth="300.0">
+                                     <VBox.margin>
+-                                        <Insets bottom="5.0" />
++                                        <Insets bottom="5.0"/>
+                                     </VBox.margin>
+                                 </ChoiceBox>
+                                 <ChoiceBox fx:id="cBrand" prefHeight="30.0" prefWidth="300.0">
+                                     <VBox.margin>
+-                                        <Insets bottom="5.0" />
++                                        <Insets bottom="5.0"/>
+                                     </VBox.margin>
+                                 </ChoiceBox>
+                                 <ChoiceBox fx:id="cTax" prefHeight="30.0" prefWidth="300.0">
+                                     <VBox.margin>
+-                                        <Insets bottom="5.0" />
++                                        <Insets bottom="5.0"/>
+                                     </VBox.margin>
+                                 </ChoiceBox>
+                                 <HBox prefHeight="27.0" prefWidth="304.0">
+-                           <children>
+-                                        <Button fx:id="cProduct" mnemonicParsing="false" onAction="#onCreateProduct" prefHeight="25.0" prefWidth="148.0" text="Registrar">
++                                    <children>
++                                        <Button fx:id="cProduct" mnemonicParsing="false" onAction="#onCreateProduct"
++                                                prefHeight="25.0" prefWidth="148.0" text="Registrar">
+                                             <HBox.margin>
+-                                                <Insets right="5.0" />
++                                                <Insets right="5.0"/>
+                                             </HBox.margin>
+                                         </Button>
+-                                        <Button fx:id="cBtClean" cancelButton="true" mnemonicParsing="false" prefHeight="25.0" prefWidth="148.0" text="Limpar" />
+-                           </children>
++                                        <Button fx:id="cBtClean" cancelButton="true" mnemonicParsing="false"
++                                                onAction="#clearText" prefHeight="25.0" prefWidth="148.0"
++                                                text="Limpar"/>
++                                    </children>
+                                 </HBox>
+                             </children>
+                         </VBox>
+@@ -145,6 +151,6 @@
+         </VBox>
+     </children>
+     <padding>
+-        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
++        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0"/>
+     </padding>
+ </HBox>
+diff --git a/target/classes/com/example/lidl_new/Classes/Invoice.class b/target/classes/com/example/lidl_new/Classes/Invoice.class
+index eb68faf..ff86cb6 100644
+Binary files a/target/classes/com/example/lidl_new/Classes/Invoice.class and b/target/classes/com/example/lidl_new/Classes/Invoice.class differ
+diff --git a/target/classes/com/example/lidl_new/Client.fxml b/target/classes/com/example/lidl_new/Client.fxml
+index 63bc347..9f286fe 100644
+--- a/target/classes/com/example/lidl_new/Client.fxml
++++ b/target/classes/com/example/lidl_new/Client.fxml
+@@ -16,10 +16,10 @@
+                         onAction="#onCreateClient" prefHeight="30.0" prefWidth="290.0" text="Criar Cliente"/>
+                 <HBox prefHeight="32.0" prefWidth="230.0">
+                     <children>
+-                        <TextField minHeight="30.0" minWidth="200.0" prefHeight="30.0" prefWidth="250.0"
+-                                   promptText="Nº Cartao Cliente"/>
+-                        <Button id="btConsultarCompras" minHeight="30.0" minWidth="30.0" mnemonicParsing="false"
+-                                textAlignment="CENTER">
++                        <TextField fx:id="txtClientID" minHeight="30.0" minWidth="200.0" prefHeight="30.0"
++                                   prefWidth="250.0" promptText="Nº Cartao Cliente"/>
++                        <Button id="btConsultarCompras" fx:id="btSearchInvoices" minHeight="30.0" minWidth="30.0"
++                                mnemonicParsing="false" onAction="#onSearchInvoices" textAlignment="CENTER">
+                             <font>
+                                 <Font name="Material Icons" size="14.0"/>
+                             </font>
+@@ -42,7 +42,7 @@
+                                 <Insets right="10.0"/>
+                             </HBox.margin>
+                         </Label>
+-                        <TextField disable="true" editable="false" minHeight="30.0" prefHeight="30.0"
++                        <TextField fx:id="clientPoints" editable="false" minHeight="30.0" prefHeight="30.0"
+                                    prefWidth="177.0"/>
+                     </children>
+                     <VBox.margin>
+@@ -56,18 +56,19 @@
+         </VBox>
+         <VBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" spacing="3.0" HBox.hgrow="ALWAYS">
+             <children>
+-                <TableView prefHeight="300.0" prefWidth="599.0" VBox.vgrow="ALWAYS">
++                <TableView fx:id="tbInvoice" onMouseClicked="#onListProductInvoices" prefHeight="300.0"
++                           prefWidth="599.0" VBox.vgrow="ALWAYS">
+                     <columns>
+-                        <TableColumn editable="false" prefWidth="88.0" text="ID"/>
+-                        <TableColumn editable="false" prefWidth="62.0" text="CUSTO"/>
+-                        <TableColumn editable="false" prefWidth="97.0" text="DATA"/>
++                        <TableColumn fx:id="colInvoiceID" editable="false" prefWidth="100.0" text="ID"/>
++                        <TableColumn fx:id="colInvoiceTotal" editable="false" prefWidth="126.0" text="TOTAL COMPRA"/>
++                        <TableColumn fx:id="colInvoiceDate" editable="false" prefWidth="128.0" text="DATA"/>
+                     </columns>
+                 </TableView>
+-                <TableView prefHeight="350.0" prefWidth="599.0" VBox.vgrow="ALWAYS">
++                <TableView fx:id="tbtbInvoiceProducts" prefHeight="350.0" prefWidth="599.0" VBox.vgrow="ALWAYS">
+                     <columns>
+-                        <TableColumn editable="false" prefWidth="130.0" text="PRODUTOS"/>
+-                        <TableColumn editable="false" prefWidth="46.0" text="QT"/>
+-                        <TableColumn editable="false" prefWidth="70.0" text="PREÇO"/>
++                        <TableColumn fx:id="colInvoiceNameProduct" editable="false" prefWidth="236.0" text="PRODUTOS"/>
++                        <TableColumn fx:id="colInvoiceQT" editable="false" prefWidth="46.0" text="QT"/>
++                        <TableColumn fx:id="colInvoicePrice" editable="false" prefWidth="72.0" text="PREÇO"/>
+                     </columns>
+                 </TableView>
+             </children>
+diff --git a/target/classes/com/example/lidl_new/Controller/ClientController.class b/target/classes/com/example/lidl_new/Controller/ClientController.class
+index 89f9af3..4bc3947 100644
+Binary files a/target/classes/com/example/lidl_new/Controller/ClientController.class and b/target/classes/com/example/lidl_new/Controller/ClientController.class differ
+diff --git a/target/classes/com/example/lidl_new/Controller/HomeController$2.class b/target/classes/com/example/lidl_new/Controller/HomeController$2.class
+index 37f5e1d..5949443 100644
+Binary files a/target/classes/com/example/lidl_new/Controller/HomeController$2.class and b/target/classes/com/example/lidl_new/Controller/HomeController$2.class differ
+diff --git a/target/classes/com/example/lidl_new/Controller/HomeController.class b/target/classes/com/example/lidl_new/Controller/HomeController.class
+index 04465bc..73d7883 100644
+Binary files a/target/classes/com/example/lidl_new/Controller/HomeController.class and b/target/classes/com/example/lidl_new/Controller/HomeController.class differ
+diff --git a/target/classes/com/example/lidl_new/Controller/ProductController.class b/target/classes/com/example/lidl_new/Controller/ProductController.class
+index 5581885..f8c6d5a 100644
+Binary files a/target/classes/com/example/lidl_new/Controller/ProductController.class and b/target/classes/com/example/lidl_new/Controller/ProductController.class differ
+diff --git a/target/classes/com/example/lidl_new/Home.fxml b/target/classes/com/example/lidl_new/Home.fxml
+index 2d624d4..49a2107 100644
+--- a/target/classes/com/example/lidl_new/Home.fxml
++++ b/target/classes/com/example/lidl_new/Home.fxml
+@@ -21,19 +21,21 @@
+                                      minWidth="-Infinity" resizable="false" text="Preço"/>
+                     </columns>
+                 </TableView>
+-                <HBox prefHeight="100.0" prefWidth="200.0" VBox.vgrow="NEVER">
++                <HBox prefHeight="100.0" prefWidth="200.0" spacing="3.0" VBox.vgrow="NEVER">
+                     <children>
+                         <Button fx:id="btQuantity1" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308"
+-                                minWidth="85.0" mnemonicParsing="false" onAction="#productQuantity" text="1"/>
++                                minWidth="85.0" mnemonicParsing="false" onAction="#productQuantity" text="1"
++                                HBox.hgrow="ALWAYS"/>
+                         <Button fx:id="btQuantity2" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308"
+-                                minWidth="85.0" mnemonicParsing="false" onAction="#productQuantity" text="2">
++                                minWidth="85.0" mnemonicParsing="false" onAction="#productQuantity" text="2"
++                                HBox.hgrow="ALWAYS">
+                             <HBox.margin>
+                                 <Insets left="4.0" right="4.0"/>
+                             </HBox.margin>
+                         </Button>
+                         <Button fx:id="btQuantity3" contentDisplay="CENTER" maxHeight="1.7976931348623157E308"
+                                 maxWidth="1.7976931348623157E308" minWidth="85.0" mnemonicParsing="false"
+-                                onAction="#productQuantity" text="3"/>
++                                onAction="#productQuantity" text="3" HBox.hgrow="ALWAYS"/>
+                     </children>
+                     <padding>
+                         <Insets bottom="3.0" left="3.0" top="3.0"/>
+@@ -42,16 +44,18 @@
+                 <HBox prefHeight="100.0" prefWidth="200.0" VBox.vgrow="NEVER">
+                     <children>
+                         <Button fx:id="btQuantity4" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308"
+-                                minWidth="85.0" mnemonicParsing="false" onAction="#productQuantity" text="4"/>
++                                minWidth="85.0" mnemonicParsing="false" onAction="#productQuantity" text="4"
++                                HBox.hgrow="ALWAYS"/>
+                         <Button fx:id="btQuantity5" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308"
+-                                minWidth="85.0" mnemonicParsing="false" onAction="#productQuantity" text="5">
++                                minWidth="85.0" mnemonicParsing="false" onAction="#productQuantity" text="5"
++                                HBox.hgrow="ALWAYS">
+                             <HBox.margin>
+                                 <Insets left="4.0" right="4.0"/>
+                             </HBox.margin>
+                         </Button>
+                         <Button fx:id="btQuantity6" contentDisplay="CENTER" maxHeight="1.7976931348623157E308"
+                                 maxWidth="1.7976931348623157E308" minWidth="85.0" mnemonicParsing="false"
+-                                onAction="#productQuantity" text="6"/>
++                                onAction="#productQuantity" text="6" HBox.hgrow="ALWAYS"/>
+                     </children>
+                     <padding>
+                         <Insets bottom="3.0" left="3.0" top="3.0"/>
+@@ -60,16 +64,18 @@
+                 <HBox prefHeight="100.0" prefWidth="200.0" VBox.vgrow="NEVER">
+                     <children>
+                         <Button fx:id="btQuantity7" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308"
+-                                minWidth="85.0" mnemonicParsing="false" onAction="#productQuantity" text="7"/>
++                                minWidth="85.0" mnemonicParsing="false" onAction="#productQuantity" text="7"
++                                HBox.hgrow="ALWAYS"/>
+                         <Button fx:id="btQuantity8" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308"
+-                                minWidth="85.0" mnemonicParsing="false" onAction="#productQuantity" text="8">
++                                minWidth="85.0" mnemonicParsing="false" onAction="#productQuantity" text="8"
++                                HBox.hgrow="ALWAYS">
+                             <HBox.margin>
+                                 <Insets left="4.0" right="4.0"/>
+                             </HBox.margin>
+                         </Button>
+                         <Button fx:id="btQuantity9" contentDisplay="CENTER" maxHeight="1.7976931348623157E308"
+                                 maxWidth="1.7976931348623157E308" minWidth="85.0" mnemonicParsing="false"
+-                                onAction="#productQuantity" text="9"/>
++                                onAction="#productQuantity" text="9" HBox.hgrow="ALWAYS"/>
+                     </children>
+                     <padding>
+                         <Insets bottom="3.0" left="3.0" top="3.0"/>
+@@ -79,14 +85,14 @@
+                     <children>
+                         <Button fx:id="btQuantityClear" maxHeight="1.7976931348623157E308"
+                                 maxWidth="1.7976931348623157E308" minWidth="129.0" mnemonicParsing="false"
+-                                onAction="#productQuantity" text="Clear">
++                                onAction="#productQuantity" text="Clear" HBox.hgrow="ALWAYS">
+                             <HBox.margin>
+                                 <Insets right="2.0"/>
+                             </HBox.margin>
+                         </Button>
+                         <Button fx:id="btQuantity0" contentDisplay="CENTER" maxHeight="1.7976931348623157E308"
+                                 maxWidth="1.7976931348623157E308" minWidth="129.0" mnemonicParsing="false"
+-                                onAction="#productQuantity" text="0">
++                                onAction="#productQuantity" text="0" HBox.hgrow="ALWAYS">
+                             <HBox.margin>
+                                 <Insets left="2.0"/>
+                             </HBox.margin>
+@@ -98,64 +104,70 @@
+                 </HBox>
+             </children>
+         </VBox>
+-        <VBox prefHeight="800.0" prefWidth="925.0" spacing="5.0" HBox.hgrow="ALWAYS">
++        <VBox prefHeight="700.0" prefWidth="925.0" spacing="5.0" HBox.hgrow="ALWAYS">
+             <children>
+                 <HBox fillHeight="false" prefHeight="100.0" prefWidth="200.0" spacing="10.0" VBox.vgrow="NEVER">
+                     <children>
+-                        <Label prefHeight="56.0" text="Total da Compra" textAlignment="CENTER" wrapText="true">
+-                            <font>
+-                                <Font size="14.0"/>
+-                            </font>
+-                            <HBox.margin>
+-                                <Insets right="10.0"/>
+-                            </HBox.margin>
+-                        </Label>
+-                        <TextField fx:id="totalInvoice" alignment="CENTER" editable="false" maxHeight="100.0"
+-                                   maxWidth="271.0" minHeight="100.0" minWidth="215.0" prefHeight="100.0"
+-                                   prefWidth="271.0" text="0.00">
+-                            <font>
+-                                <Font size="48.0"/>
+-                            </font>
+-                        </TextField>
+-                        <Button fx:id="btDeleteProduct" layoutX="399.0" layoutY="10.0" mnemonicParsing="false"
+-                                onAction="#deleteProduct" text="Apagar Produto">
+-                            <HBox.margin>
+-                                <Insets left="5.0"/>
+-                            </HBox.margin>
+-                        </Button>
+-                        <Button fx:id="btShop" mnemonicParsing="false" onAction="#finishShop" text="Finilizar Compra">
+-                            <HBox.margin>
+-                                <Insets left="5.0"/>
+-                            </HBox.margin>
+-                        </Button>
+-                    </children>
+-                    <VBox.margin>
+-                        <Insets left="10.0"/>
+-                    </VBox.margin>
+-                </HBox>
+-                <HBox fillHeight="false" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="37.0" prefWidth="925.0"
+-                      spacing="10.0" VBox.vgrow="NEVER">
+-                    <children>
+-                        <Label minHeight="30.0" text="Quantidade">
+-                            <font>
+-                                <Font size="14.0"/>
+-                            </font>
+-                            <HBox.margin>
+-                                <Insets right="38.0"/>
+-                            </HBox.margin>
+-                        </Label>
+-                        <TextField fx:id="sQuantity" editable="false" minHeight="30.0" prefHeight="30.0"
+-                                   prefWidth="100.0"/>
+-                        <Label layoutX="10.0" layoutY="10.0" minHeight="30.0" text="Client ID">
+-                            <font>
+-                                <Font size="14.0"/>
+-                            </font>
+-                            <HBox.margin>
+-                                <Insets left="10.0" right="10.0"/>
+-                            </HBox.margin>
+-                        </Label>
+-                        <TextField fx:id="txtclientID" layoutX="121.0" layoutY="10.0" minHeight="30.0" prefHeight="30.0"
+-                                   prefWidth="100.0"/>
++                        <VBox alignment="TOP_RIGHT" prefHeight="200.0" prefWidth="100.0" spacing="45.0">
++                            <children>
++                                <Label alignment="CENTER_RIGHT" contentDisplay="CENTER"
++                                       maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308"
++                                       prefHeight="56.0" text="Total da Compra" textAlignment="CENTER" wrapText="true">
++                                    <font>
++                                        <Font size="14.0"/>
++                                    </font>
++                                </Label>
++                                <Label alignment="CENTER_RIGHT" contentDisplay="CENTER"
++                                       maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308"
++                                       prefHeight="33.0" prefWidth="100.0" text="Quantidade" textAlignment="CENTER"
++                                       wrapText="true">
++                                    <font>
++                                        <Font size="14.0"/>
++                                    </font>
++                                </Label>
++                            </children>
++                        </VBox>
++                        <VBox spacing="5.0">
++                            <children>
++                                <TextField fx:id="totalInvoice" alignment="CENTER" editable="false"
++                                           maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308"
++                                           minHeight="100.0" minWidth="215.0" prefHeight="100.0" prefWidth="271.0"
++                                           text="0.00">
++                                    <font>
++                                        <Font size="48.0"/>
++                                    </font>
++                                </TextField>
++                                <HBox fillHeight="false" spacing="10.0" VBox.vgrow="NEVER">
++                                    <children>
++                                        <TextField fx:id="txtclientID" layoutX="121.0" layoutY="10.0" minHeight="30.0"
++                                                   prefHeight="30.0" prefWidth="100.0"/>
++                                        <Label layoutX="10.0" layoutY="10.0" minHeight="30.0" text="Client ID">
++                                            <font>
++                                                <Font size="14.0"/>
++                                            </font>
++                                            <HBox.margin>
++                                                <Insets left="10.0" right="10.0"/>
++                                            </HBox.margin>
++                                        </Label>
++                                        <TextField fx:id="sQuantity" editable="false" minHeight="30.0" prefHeight="30.0"
++                                                   prefWidth="100.0"/>
++                                    </children>
++                                    <VBox.margin>
++                                        <Insets/>
++                                    </VBox.margin>
++                                </HBox>
++                            </children>
++                        </VBox>
++                        <VBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" spacing="10.0"
++                              HBox.hgrow="ALWAYS">
++                            <children>
++                                <Button fx:id="btShop" maxHeight="1.7976931348623157E308" mnemonicParsing="false"
++                                        onAction="#finishShop" text="Finilizar Compra" VBox.vgrow="ALWAYS"/>
++                                <Button fx:id="btDeleteProduct" maxHeight="1.7976931348623157E308"
++                                        mnemonicParsing="false" onAction="#deleteProduct" text="Apagar Produto"
++                                        VBox.vgrow="ALWAYS"/>
++                            </children>
++                        </VBox>
+                     </children>
+                     <VBox.margin>
+                         <Insets left="10.0"/>
+diff --git a/target/classes/com/example/lidl_new/MainApp.fxml b/target/classes/com/example/lidl_new/MainApp.fxml
+index 8ca934d..d8a506e 100644
+--- a/target/classes/com/example/lidl_new/MainApp.fxml
++++ b/target/classes/com/example/lidl_new/MainApp.fxml
+@@ -4,73 +4,57 @@
+ <?import javafx.scene.control.*?>
+ <?import javafx.scene.layout.*?>
+ 
+-<BorderPane xmlns:fx="http://javafx.com/fxml/1" fx:id="MainBorderPane" maxHeight="1.7976931348623157E308"
+-            maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity"
+-            xmlns="http://javafx.com/javafx/11.0.2" fx:controller="com.example.lidl_new.Controller.MainAppController">
+-    <top>
+-        <HBox alignment="CENTER" prefHeight="41.0" prefWidth="1083.0" BorderPane.alignment="CENTER">
+-            <children>
+-                <Button fx:id="tbHome" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308"
+-                        mnemonicParsing="false" onAction="#tabHome" prefHeight="69.0" prefWidth="176.0" text="Home">
+-                    <HBox.margin>
+-                        <Insets left="4.0" right="2.0"/>
+-                    </HBox.margin>
+-                    <!--               <graphic>
+-                                      <FontIcon iconLiteral="di-java" iconSize="64"/>
+-                                   </graphic>-->
+-                </Button>
+-                <Button fx:id="tbClient" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308"
+-                        mnemonicParsing="false" onAction="#tabClient" prefHeight="70.0" prefWidth="176.0"
+-                        text="Gestão de Clientes/ Cartao Cliente" wrapText="true">
+-                    <HBox.margin>
+-                        <Insets left="2.0" right="2.0"/>
+-                    </HBox.margin>
+-                </Button>
+-                <Button fx:id="tbProduct" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308"
+-                        mnemonicParsing="false" onAction="#tabProduct" prefHeight="69.0" prefWidth="176.0"
+-                        text="Gestão de Produtos">
+-                    <HBox.margin>
+-                        <Insets left="2.0" right="2.0"/>
+-                    </HBox.margin>
+-                </Button>
+-                <Button fx:id="tbAddProduct" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308"
+-                        mnemonicParsing="false" onAction="#tabAddProduct" prefHeight="69.0" prefWidth="176.0"
+-                        text="Adicionar Produtos">
+-                    <HBox.margin>
+-                        <Insets left="2.0" right="2.0"/>
+-                    </HBox.margin>
+-                </Button>
+-                <Button fx:id="tbUpdateProduct" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308"
+-                        mnemonicParsing="false" onAction="#tabUpdateProduct" prefHeight="69.0" prefWidth="176.0"
+-                        text="Atualizar Produtos">
+-                    <HBox.margin>
+-                        <Insets left="2.0" right="2.0"/>
+-                    </HBox.margin>
+-                </Button>
+-                <Button fx:id="tbAbout" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308"
+-                        mnemonicParsing="false" onAction="#tabAbout" prefHeight="69.0" prefWidth="176.0" text="Sobre">
+-                    <HBox.margin>
+-                        <Insets left="2.0" right="4.0"/>
+-                    </HBox.margin>
+-                </Button>
+-            </children>
+-        </HBox>
+-    </top>
+-    <left>
+-        <AnchorPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" BorderPane.alignment="CENTER"/>
+-    </left>
+-    <right>
+-        <AnchorPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" BorderPane.alignment="CENTER"/>
+-    </right>
+-    <padding>
+-        <Insets bottom="2.0" left="2.0" right="2.0" top="2.0"/>
+-    </padding>
+-    <bottom>
+-        <VBox fx:id="MainContent" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308"
+-              BorderPane.alignment="CENTER">
+-            <BorderPane.margin>
+-                <Insets bottom="2.0" left="2.0" right="2.0" top="2.0"/>
+-            </BorderPane.margin>
+-        </VBox>
+-    </bottom>
+-</BorderPane>
++<StackPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.lidl_new.Controller.MainAppController">
++   <children>
++      <BorderPane fx:id="MainBorderPane" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity">
++          <top>
++              <HBox alignment="CENTER" prefHeight="41.0" prefWidth="1083.0" BorderPane.alignment="CENTER">
++                  <children>
++                      <Button fx:id="tbHome" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#tabHome" prefHeight="69.0" prefWidth="176.0" text="Home">
++                          <HBox.margin>
++                              <Insets left="4.0" right="2.0" />
++                          </HBox.margin>
++                          <!--               <graphic>
++                                            <FontIcon iconLiteral="di-java" iconSize="64"/>
++                                         </graphic>-->
++                      </Button>
++                      <Button fx:id="tbClient" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#tabClient" prefHeight="70.0" prefWidth="176.0" text="Gestão de Clientes/ Cartao Cliente" wrapText="true">
++                          <HBox.margin>
++                              <Insets left="2.0" right="2.0" />
++                          </HBox.margin>
++                      </Button>
++                      <Button fx:id="tbProduct" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#tabProduct" prefHeight="69.0" prefWidth="176.0" text="Gestão de Produtos">
++                          <HBox.margin>
++                              <Insets left="2.0" right="2.0" />
++                          </HBox.margin>
++                      </Button>
++                      <Button fx:id="tbAbout" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#tabAbout" prefHeight="69.0" prefWidth="176.0" text="Sobre">
++                          <HBox.margin>
++                              <Insets left="2.0" right="4.0" />
++                          </HBox.margin>
++                      </Button>
++                  </children>
++              </HBox>
++          </top>
++          <left>
++              <AnchorPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" BorderPane.alignment="CENTER" />
++          </left>
++          <right>
++              <AnchorPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" BorderPane.alignment="CENTER" />
++          </right>
++          <padding>
++              <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />
++          </padding>
++          <bottom>
++              <VBox fx:id="MainContent" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" BorderPane.alignment="CENTER">
++                  <BorderPane.margin>
++                      <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />
++                  </BorderPane.margin>
++              </VBox>
++          </bottom>
++      </BorderPane>
++   </children>
++   <padding>
++      <Insets bottom="3.0" left="3.0" right="3.0" top="3.0" />
++   </padding>
++</StackPane>
+diff --git a/target/classes/com/example/lidl_new/Model/CardModel.class b/target/classes/com/example/lidl_new/Model/CardModel.class
+index c23b638..1b6aa33 100644
+Binary files a/target/classes/com/example/lidl_new/Model/CardModel.class and b/target/classes/com/example/lidl_new/Model/CardModel.class differ
+diff --git a/target/classes/com/example/lidl_new/Model/InvoiceModel$myResult.class b/target/classes/com/example/lidl_new/Model/InvoiceModel$myResult.class
+deleted file mode 100644
+index 51aba66..0000000
+Binary files a/target/classes/com/example/lidl_new/Model/InvoiceModel$myResult.class and /dev/null differ
+diff --git a/target/classes/com/example/lidl_new/Model/InvoiceModel.class b/target/classes/com/example/lidl_new/Model/InvoiceModel.class
+index 8f8552c..72bb5db 100644
+Binary files a/target/classes/com/example/lidl_new/Model/InvoiceModel.class and b/target/classes/com/example/lidl_new/Model/InvoiceModel.class differ
+diff --git a/target/classes/com/example/lidl_new/Model/ProductModel.class b/target/classes/com/example/lidl_new/Model/ProductModel.class
+index d15fc76..6529d25 100644
+Binary files a/target/classes/com/example/lidl_new/Model/ProductModel.class and b/target/classes/com/example/lidl_new/Model/ProductModel.class differ
+diff --git a/target/classes/com/example/lidl_new/Product.fxml b/target/classes/com/example/lidl_new/Product.fxml
+index 82bcc4b..acf17b7 100644
+--- a/target/classes/com/example/lidl_new/Product.fxml
++++ b/target/classes/com/example/lidl_new/Product.fxml
+@@ -30,7 +30,8 @@
+                                     </graphic>
+                                 </Button>
+                                 <Button id="btAddProduct" fx:id="btAddProduct" maxHeight="40.0" maxWidth="40.0"
+-                                        minHeight="40.0" minWidth="40.0" mnemonicParsing="false">
++                                        minHeight="40.0" minWidth="40.0" mnemonicParsing="false"
++                                        onAction="#onAddProduct">
+                                     <font>
+                                         <Font name="System Bold" size="18.0"/>
+                                     </font>
+@@ -42,7 +43,8 @@
+                                     </graphic>
+                                 </Button>
+                                 <Button id="btDeleteProduct" fx:id="btDeleteProduct" maxHeight="40.0" maxWidth="40.0"
+-                                        minHeight="40.0" minWidth="40.0" mnemonicParsing="false">
++                                        minHeight="40.0" minWidth="40.0" mnemonicParsing="false"
++                                        onAction="#onDeleteProduct">
+                                     <font>
+                                         <Font name="System Bold" size="18.0"/>
+                                     </font>
+@@ -54,7 +56,7 @@
+                                     </graphic>
+                                 </Button>
+                                 <Button fx:id="btUpdateProduct" maxHeight="40.0" maxWidth="40.0" minHeight="40.0"
+-                                        minWidth="40.0" mnemonicParsing="false">
++                                        minWidth="40.0" mnemonicParsing="false" onAction="#onUpdateProduct">
+                                     <font>
+                                         <Font name="System Bold" size="18.0"/>
+                                     </font>
+diff --git a/target/classes/com/example/lidl_new/UpdateProduct.fxml b/target/classes/com/example/lidl_new/UpdateProduct.fxml
+index a979eb2..2c5ea52 100644
+--- a/target/classes/com/example/lidl_new/UpdateProduct.fxml
++++ b/target/classes/com/example/lidl_new/UpdateProduct.fxml
+@@ -6,168 +6,151 @@
+ <?import javafx.scene.text.*?>
+ <?import org.kordamp.ikonli.javafx.*?>
+ 
+-<HBox xmlns:fx="http://javafx.com/fxml/1" fx:id="tabUpdateProduct" maxHeight="-Infinity" maxWidth="-Infinity"
+-      minHeight="-Infinity"
++<HBox xmlns:fx="http://javafx.com/fxml/1" fx:id="tabUpdateProduct" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity"
+       minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.2"
+-      fx:controller="com.example.lidl_new.Controller.ProductController">
+-    <children>
+-        <VBox>
+-            <children>
+-                <HBox alignment="TOP_RIGHT" prefHeight="27.0" prefWidth="1017.0">
+-                    <children>
+-                        <Button fx:id="btUClose" contentDisplay="GRAPHIC_ONLY" mnemonicParsing="false"
+-                                style="-fx-background-color: transparent;" textAlignment="CENTER" wrapText="true">
+-                            <graphic>
+-                                <FontIcon iconLiteral="fa-close" iconSize="20"/>
+-                            </graphic>
+-                            <padding>
+-                                <Insets bottom="-1.0" left="-1.0" right="-1.0" top="-1.0"/>
+-                            </padding>
+-                        </Button>
+-                    </children>
+-                    <VBox.margin>
+-                        <Insets bottom="-7.0" left="3.0" right="3.0"/>
+-                    </VBox.margin>
+-                    <padding>
+-                        <Insets right="4.0"/>
+-                    </padding>
+-                </HBox>
+-                <HBox prefHeight="100.0" prefWidth="200.0">
+-                    <children>
+-                        <VBox alignment="TOP_RIGHT" prefHeight="400.0" prefWidth="150.0" spacing="5.0">
+-                            <children>
+-                                <Label prefHeight="30.0" text="ID">
+-                                    <font>
+-                                        <Font size="14.0"/>
+-                                    </font>
+-                                    <VBox.margin>
+-                                        <Insets/>
+-                                    </VBox.margin>
+-                                </Label>
+-                                <Label prefHeight="30.0" text="Nome">
+-                                    <font>
+-                                        <Font size="14.0"/>
+-                                    </font>
+-                                    <VBox.margin>
+-                                        <Insets/>
+-                                    </VBox.margin>
+-                                </Label>
+-                                <Label prefHeight="30.0" text="Referencia">
+-                                    <font>
+-                                        <Font size="14.0"/>
+-                                    </font>
+-                                    <VBox.margin>
+-                                        <Insets/>
+-                                    </VBox.margin>
+-                                </Label>
+-                                <Label prefHeight="30.0" text="Stock">
+-                                    <font>
+-                                        <Font size="14.0"/>
+-                                    </font>
+-                                    <VBox.margin>
+-                                        <Insets/>
+-                                    </VBox.margin>
+-                                </Label>
+-                                <Label prefHeight="30.0" text="Preço">
+-                                    <font>
+-                                        <Font size="14.0"/>
+-                                    </font>
+-                                    <VBox.margin>
+-                                        <Insets/>
+-                                    </VBox.margin>
+-                                </Label>
+-                                <Label prefHeight="30.0" text="Categoria">
+-                                    <font>
+-                                        <Font size="14.0"/>
+-                                    </font>
+-                                    <VBox.margin>
+-                                        <Insets/>
+-                                    </VBox.margin>
+-                                </Label>
+-                                <Label prefHeight="30.0" text="Marca">
+-                                    <font>
+-                                        <Font size="14.0"/>
+-                                    </font>
+-                                    <VBox.margin>
+-                                        <Insets/>
+-                                    </VBox.margin>
+-                                </Label>
+-                                <Label prefHeight="30.0" text="Taxa">
+-                                    <font>
+-                                        <Font size="14.0"/>
+-                                    </font>
+-                                    <VBox.margin>
+-                                        <Insets/>
+-                                    </VBox.margin>
+-                                </Label>
+-                            </children>
+-                            <HBox.margin>
+-                                <Insets right="10.0"/>
+-                            </HBox.margin>
+-                        </VBox>
+-                        <VBox prefHeight="400.0" prefWidth="300.0" spacing="5.0">
+-                            <children>
+-                                <TextField fx:id="uId" disable="true" editable="false" prefHeight="30.0"
+-                                           prefWidth="300.0">
+-                                    <VBox.margin>
+-                                        <Insets/>
+-                                    </VBox.margin>
+-                                </TextField>
+-                                <TextField fx:id="uNameProduct" prefHeight="30.0" prefWidth="300.0">
+-                                    <VBox.margin>
+-                                        <Insets/>
+-                                    </VBox.margin>
+-                                </TextField>
+-                                <TextField fx:id="uPrice" prefHeight="30.0" prefWidth="300.0">
+-                                    <VBox.margin>
+-                                        <Insets/>
+-                                    </VBox.margin>
+-                                </TextField>
+-                                <TextField fx:id="uStock" prefHeight="30.0" prefWidth="300.0">
+-                                    <VBox.margin>
+-                                        <Insets/>
+-                                    </VBox.margin>
+-                                </TextField>
+-                                <TextField fx:id="uBarcode" prefHeight="30.0" prefWidth="300.0">
+-                                    <VBox.margin>
+-                                        <Insets/>
+-                                    </VBox.margin>
+-                                </TextField>
+-                                <ChoiceBox fx:id="uCategory" prefHeight="30.0" prefWidth="300.0">
+-                                    <VBox.margin>
+-                                        <Insets/>
+-                                    </VBox.margin>
+-                                </ChoiceBox>
+-                                <ChoiceBox fx:id="uBrand" prefHeight="30.0" prefWidth="300.0">
+-                                    <VBox.margin>
+-                                        <Insets/>
+-                                    </VBox.margin>
+-                                </ChoiceBox>
+-                                <ChoiceBox fx:id="uTax" prefHeight="30.0" prefWidth="300.0">
+-                                    <VBox.margin>
+-                                        <Insets/>
+-                                    </VBox.margin>
+-                                </ChoiceBox>
+-                            </children>
+-                        </VBox>
+-                    </children>
+-                </HBox>
+-                <HBox prefHeight="27.0" prefWidth="304.0">
+-                    <VBox.margin>
+-                        <Insets top="5.0"/>
+-                    </VBox.margin>
+-                    <children>
+-                        <Button fx:id="uBtUpdate" mnemonicParsing="false" onAction="#setUpdateProduct" prefHeight="25.0"
+-                                prefWidth="145.0" text="Atualizar"/>
+-                    </children>
+-                    <padding>
+-                        <Insets left="315.0"/>
+-                    </padding>
+-                </HBox>
+-            </children>
+-        </VBox>
+-    </children>
++      fx:controller="com.example.lidl_new.Controller.UpdateProduct">
+     <padding>
+         <Insets bottom="10.0" left="10.0" right="10.0" top="10.0"/>
+     </padding>
++    <VBox>
++        <HBox alignment="TOP_RIGHT" prefHeight="27.0" prefWidth="1017.0">
++            <VBox.margin>
++                <Insets bottom="-7.0" left="3.0" right="3.0"/>
++            </VBox.margin>
++            <padding>
++                <Insets right="4.0"/>
++            </padding>
++            <Button fx:id="btUClose" contentDisplay="GRAPHIC_ONLY" mnemonicParsing="false"
++                    style="-fx-background-color: transparent;" textAlignment="CENTER" wrapText="true">
++                <graphic>
++                    <FontIcon iconLiteral="fa-close" iconSize="20"/>
++                </graphic>
++                <padding>
++                    <Insets bottom="-1.0" left="-1.0" right="-1.0" top="-1.0"/>
++                </padding>
++            </Button>
++        </HBox>
++        <HBox prefHeight="100.0" prefWidth="200.0">
++            <VBox alignment="TOP_RIGHT" prefHeight="400.0" prefWidth="150.0" spacing="5.0">
++                <HBox.margin>
++                    <Insets right="10.0"/>
++                </HBox.margin>
++                <Label prefHeight="30.0" text="ID">
++                    <font>
++                        <Font size="14.0"/>
++                    </font>
++                    <VBox.margin>
++                        <Insets/>
++                    </VBox.margin>
++                </Label>
++                <Label prefHeight="30.0" text="Nome">
++                    <font>
++                        <Font size="14.0"/>
++                    </font>
++                    <VBox.margin>
++                        <Insets/>
++                    </VBox.margin>
++                </Label>
++                <Label prefHeight="30.0" text="Referencia">
++                    <font>
++                        <Font size="14.0"/>
++                    </font>
++                    <VBox.margin>
++                        <Insets/>
++                    </VBox.margin>
++                </Label>
++                <Label prefHeight="30.0" text="Stock">
++                    <font>
++                        <Font size="14.0"/>
++                    </font>
++                    <VBox.margin>
++                        <Insets/>
++                    </VBox.margin>
++                </Label>
++                <Label prefHeight="30.0" text="Preço">
++                    <font>
++                        <Font size="14.0"/>
++                    </font>
++                    <VBox.margin>
++                        <Insets/>
++                    </VBox.margin>
++                </Label>
++                <Label prefHeight="30.0" text="Categoria">
++                    <font>
++                        <Font size="14.0"/>
++                    </font>
++                    <VBox.margin>
++                        <Insets/>
++                    </VBox.margin>
++                </Label>
++                <Label prefHeight="30.0" text="Marca">
++                    <font>
++                        <Font size="14.0"/>
++                    </font>
++                    <VBox.margin>
++                        <Insets/>
++                    </VBox.margin>
++                </Label>
++                <Label prefHeight="30.0" text="Taxa">
++                    <font>
++                        <Font size="14.0"/>
++                    </font>
++                    <VBox.margin>
++                        <Insets/>
++                    </VBox.margin>
++                </Label>
++            </VBox>
++            <VBox prefHeight="400.0" prefWidth="300.0" spacing="5.0">
++                <TextField fx:id="uId" editable="false" prefHeight="30.0" prefWidth="300.0">
++                    <VBox.margin>
++                        <Insets/>
++                    </VBox.margin>
++                </TextField>
++                <TextField fx:id="uNameProduct" prefHeight="30.0" prefWidth="300.0">
++                    <VBox.margin>
++                        <Insets/>
++                    </VBox.margin>
++                </TextField>
++                <TextField fx:id="uPrice" prefHeight="30.0" prefWidth="300.0">
++                    <VBox.margin>
++                        <Insets/>
++                    </VBox.margin>
++                </TextField>
++                <TextField fx:id="uStock" prefHeight="30.0" prefWidth="300.0">
++                    <VBox.margin>
++                        <Insets/>
++                    </VBox.margin>
++                </TextField>
++                <TextField fx:id="uBarcode" prefHeight="30.0" prefWidth="300.0">
++                    <VBox.margin>
++                        <Insets/>
++                    </VBox.margin>
++                </TextField>
++                <ChoiceBox fx:id="uCategory" prefHeight="30.0" prefWidth="300.0">
++                    <VBox.margin>
++                        <Insets/>
++                    </VBox.margin>
++                </ChoiceBox>
++                <ChoiceBox fx:id="uBrand" prefHeight="30.0" prefWidth="300.0">
++                    <VBox.margin>
++                        <Insets/>
++                    </VBox.margin>
++                </ChoiceBox>
++                <ChoiceBox fx:id="uTax" prefHeight="30.0" prefWidth="300.0">
++                    <VBox.margin>
++                        <Insets/>
++                    </VBox.margin>
++                </ChoiceBox>
++            </VBox>
++        </HBox>
++        <HBox prefHeight="27.0" prefWidth="304.0">
++            <VBox.margin>
++                <Insets top="5.0"/>
++            </VBox.margin>
++            <padding>
++                <Insets left="315.0"/>
++            </padding>
++            <Button fx:id="uBtUpdate" mnemonicParsing="false" prefHeight="25.0" prefWidth="145.0" text="Atualizar"/>
++        </HBox>
++    </VBox>
+ </HBox>

@@ -4,7 +4,7 @@
   <a href="https://github.com/sparthaa/lidl_NEW">
     <img src="media/brand__default.png" alt="Logo" width="115" height="115">
   </a>
-   
+
 <h3 align="center">Lidl</h3>
 
   <p align="center">
@@ -25,5 +25,5 @@
 <p>Projeto realizado por:</p>
 
 * [Fabio Rodrigues](https://github.com/sparthaa)
-* [Pedro Silva](https://github.com/pedrosilva89)
 * [Nuno Alves](https://github.com/alves95)
+* [Pedro Silva](https://github.com/pedrosilva89)
