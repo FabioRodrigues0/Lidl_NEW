@@ -25,5 +25,5 @@
 <p>Projeto realizado por:</p>
 
 * [Fabio Rodrigues](https://github.com/sparthaa)
-* [Pedro Silva](https://github.com/pedrosilva89)
 * [Nuno Alves](https://github.com/alves95)
+* [Pedro Silva](https://github.com/pedrosilva89)
