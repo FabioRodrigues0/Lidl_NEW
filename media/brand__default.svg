@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  - Project: Lidl_4
+  - User : fabiorodrigues.
+  - Date: 10/20/21, 2:27 PM
+  - Author: Fábio Rodrigues
+  - Contact: fabio.rod@outlook.com
+  -->
+
+<!--
+  - User : fabiorodrigues.
+  - Date: $date, Date $time, Date
+  - Author: $author,
+  - Contact: fabio.rod@outlook.com
+  -
+  -
+  -->
+
+<!-- Generator: Adobe Illustrator 25.2.3, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<svg version="1.1" id="Ebene_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 viewBox="0 0 115 115" style="enable-background:new 0 0 115 115;" xml:space="preserve">
+<style type="text/css">
+	.st0{fill:#0050AA;}
+	.st1{fill:#FFFFFF;}
+	.st2{fill-rule:evenodd;clip-rule:evenodd;fill:#FFF000;}
+	.st3{fill-rule:evenodd;clip-rule:evenodd;fill:#E60A14;}
+	.st4{fill-rule:evenodd;clip-rule:evenodd;fill:#0050AA;}
+</style>
+<path class="st0" d="M1,1h113v113H1V1z"/>
+<path class="st1" d="M114,1v113H1V1H114 M115,0H0v115h115V0z"/>
+<path class="st2" d="M57.5,7.4C29.8,7.4,7.4,29.8,7.4,57.5s22.4,50.1,50.1,50.1c27.7,0,50.1-22.4,50.1-50.1
+	C107.6,29.8,85.2,7.4,57.5,7.4z"/>
+<path class="st3" d="M54.4,58.9l-8.8-8.9L35.3,60.3v3.4l2.6-2.6l7.1,7.1l-2.6,2.6l1.7,1.7l14.2-14.3v-3.4L54.4,58.9z"/>
+<path class="st4" d="M13.1,48.2h15.8v3.4h-2.6v11l9.1-5.1v9.3H13.1v-3.4h2.6V51.6h-2.6C13.1,51.6,13.1,48.2,13.1,48.2z M79.5,48.2
+	v3.4h2.6v11.8h-2.6v3.4h22.3v-9.3l-9.1,5.1v-11h2.6v-3.4C95.3,48.2,79.5,48.2,79.5,48.2z"/>
+<path class="st3" d="M44.2,37.6c3.1,0,5.6,2.5,5.6,5.6c0,3.1-2.5,5.6-5.6,5.6s-5.6-2.5-5.6-5.6c0,0,0,0,0,0
+	C38.6,40.1,41.1,37.6,44.2,37.6C44.2,37.6,44.2,37.6,44.2,37.6z"/>
+<path class="st3" d="M57.5,4C27.9,4,4,27.9,4,57.5C4,87.1,27.9,111,57.5,111C87,111,111,87.1,111,57.5C111,28,87,4,57.5,4z
+	 M57.5,107.6c-27.7,0-50.1-22.4-50.1-50.1S29.8,7.4,57.5,7.4s50.1,22.4,50.1,50.1c0,0,0,0,0,0C107.6,85.2,85.2,107.6,57.5,107.6
+	L57.5,107.6z"/>
+<path class="st4" d="M70.8,48.2h-15v3.4h2.6v11.8h-2.7v3.4h15C81.9,66.8,82,48.2,70.8,48.2z"/>
+<path class="st2" d="M68.6,61h-0.8v-7h0.6C71.8,54,71.8,61,68.6,61z"/>
+</svg>

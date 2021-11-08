@@ -1,8 +1,8 @@
 package com.example.lidl_new.Controller;
 
-import com.example.lidl_new.Classes.Invoice;
+import com.example.lidl_new.Classes.ShopList;
 import com.example.lidl_new.Classes.Product;
-import com.example.lidl_new.Model.InvoiceModel;
+import com.example.lidl_new.Model.ShopListModel;
 import com.example.lidl_new.Model.ProductModel;
 import java.net.URL;
 import java.sql.SQLException;
@@ -60,13 +60,13 @@ public class HomeController implements Initializable {
   public Button btQuantityClear;
   /* tabela de produtos da fatura */
   @FXML
-  public TableView<Invoice> tbInvoice;
+  public TableView<ShopList> tbInvoice;
   @FXML
-  public TableColumn<Invoice, String> colProduct;
+  public TableColumn<ShopList, String> colProduct;
   @FXML
-  public TableColumn<Invoice, Integer> colQuantity;
+  public TableColumn<ShopList, Integer> colQuantity;
   @FXML
-  public TableColumn<Invoice, Double> colPrice;
+  public TableColumn<ShopList, Double> colPrice;
   /* Secção de botoes de funcionadlidades e caixas de texto para informação */
   @FXML
   public TextField txtclientID;
@@ -79,7 +79,7 @@ public class HomeController implements Initializable {
 
   //variaveis
   ProductModel productModel = new ProductModel();
-  InvoiceModel invoiceModel = new InvoiceModel();
+  ShopListModel shopListModel = new ShopListModel();
   ObservableList<Product> product = productModel.getProducts();
 
   public HomeController () {
@@ -93,7 +93,7 @@ public class HomeController implements Initializable {
   public void finishShop () throws SQLException {
     int idClient = Integer.parseInt(txtclientID.getText());
     float totalPurchase = Float.parseFloat(totalInvoice.getText());
-    invoiceModel.CreateInvoiceProduct(idClient, totalPurchase);
+    shopListModel.CreateInvoiceProduct(idClient, totalPurchase);
 
   }
 
@@ -161,12 +161,13 @@ public class HomeController implements Initializable {
    */
   @FXML
   public void onBtListProduct (ActionEvent event) {
-    tp_Products.getChildren().clear();
     // !todo WARNING E ma utilização depender do texto do botão
     String nameButton = ((Button) event.getSource()).getText();
     List<Button> listProduct = new ArrayList<Button>();//our Collection to hold newly created Buttons
+    listProduct.clear();
     List<Product> productListQuantity = productModel.addListOfProducts().stream().filter(product -> product.getCategory().equals(nameButton)).collect(Collectors.toList());
 
+    tp_Products.getChildren().clear();
     for (Product value : productListQuantity) {
       btProducts = new Button(value.getProductName());
       btProducts.setPrefWidth(70);
@@ -176,7 +177,7 @@ public class HomeController implements Initializable {
       // action event
       EventHandler<ActionEvent> evt = new EventHandler<ActionEvent>() {
         public void handle (ActionEvent e) {
-          onToInvoice(e);
+          onToShopList(e);
         }
       };
 
@@ -190,7 +191,7 @@ public class HomeController implements Initializable {
    * Adicionar um produto da lista da fatura
    */
   @FXML
-  public void onToInvoice (ActionEvent event) {
+  public void onToShopList (ActionEvent event) {
     // !todo WARNING E ma utilização depender do texto do botão
     String nameProduct = ((Button) event.getSource()).getText();
     int productQuantity = Integer.parseInt(sQuantity.getText());
@@ -212,7 +213,7 @@ public class HomeController implements Initializable {
     totalPurchasetxt = String.format("%.2f", totalPurchase);
 
     totalInvoice.setText(String.valueOf(totalPurchasetxt));
-    invoiceModel.addRowInvoice(productID, nameProduct, productQuantity, price);
+    shopListModel.addRowInvoice(productID, nameProduct, productQuantity, price);
     updateProductsToInvoice();
   }
 
@@ -221,11 +222,11 @@ public class HomeController implements Initializable {
    */
   @FXML
   public void updateProductsToInvoice () {
-    colProduct.setCellValueFactory(new PropertyValueFactory<Invoice, String>("nameProduct"));
-    colQuantity.setCellValueFactory(new PropertyValueFactory<Invoice, Integer>("quantity"));
-    colPrice.setCellValueFactory(new PropertyValueFactory<Invoice, Double>("price"));
+    colProduct.setCellValueFactory(new PropertyValueFactory<ShopList, String>("nameProduct"));
+    colQuantity.setCellValueFactory(new PropertyValueFactory<ShopList, Integer>("quantity"));
+    colPrice.setCellValueFactory(new PropertyValueFactory<ShopList, Double>("price"));
 
-    tbInvoice.setItems(invoiceModel.getInvoices());
+    tbInvoice.setItems(shopListModel.getInvoices());
   }
 
   /*
@@ -233,7 +234,7 @@ public class HomeController implements Initializable {
    */
   @FXML
   public void deleteProduct (ActionEvent event) {
-    Invoice r = tbInvoice.getSelectionModel().getSelectedItem();
-    invoiceModel.deleteRowInvoice(r);
+    ShopList r = tbInvoice.getSelectionModel().getSelectedItem();
+    shopListModel.deleteRowInvoice(r);
   }
 }

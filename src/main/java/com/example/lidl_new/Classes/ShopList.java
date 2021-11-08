@@ -1,6 +1,6 @@
 package com.example.lidl_new.Classes;
 
-public class Invoice {
+public class ShopList {
 
 
   public String nameProduct;
@@ -8,7 +8,7 @@ public class Invoice {
   public int idProduct;
   public float price;
 
-  public Invoice (int idProduct, String product, int quantity, float price) {
+  public ShopList (int idProduct, String product, int quantity, float price) {
     this.idProduct = idProduct;
     this.nameProduct = product;
     this.quantity = quantity;
@@ -16,7 +16,7 @@ public class Invoice {
   }
 
 
-  public Invoice () {
+  public ShopList () {
 
   }
 

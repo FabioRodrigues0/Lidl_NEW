@@ -8,12 +8,10 @@
 
 package com.example.lidl_new.Model;
 
-import com.example.lidl_new.Classes.Invoice;
 import com.example.lidl_new.Classes.Product;
 import com.example.lidl_new.Database.Conn;
 import java.sql.ResultSet;
 import java.sql.Statement;
-import java.util.Collection;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
@@ -38,9 +36,7 @@ public class ProductModel {
     }
   }
 
-  public static void updateProduct (int idProduto, int barcode, String productName, int category, int brand, int stock, float price, int tax) {
-
-    System.out.println("barcode:" + barcode + "product: " + productName + "price: " + price + "stock: " + stock + "category: " + category + "brand: " + brand + "tax: " + tax);
+  public void updateProduct (int idProduto, int barcode, String productName, int category, int brand, int stock, float price, int tax) {
 
     try {
       Statement stmt = Conn.createStatement();
@@ -50,9 +46,11 @@ public class ProductModel {
       System.out.println(e);
 
     }
+    addListOfProducts();
   }
 
   public ObservableList<Product> addListOfProducts () {
+    cleanproductList();
     try {
       Statement stmt = Conn.createStatement();
       ResultSet rs = stmt.executeQuery("CALL lidl_java.listProducts()");
@@ -63,6 +61,22 @@ public class ProductModel {
       System.out.println(e);
     }
     return productList;
+  }
+
+  public void cleanproductList () {
+    productList.clear();
+  }
+
+  public void deleteProduct (int idProduto) {
+    try {
+      Statement stmt = Conn.createStatement();
+      stmt.executeUpdate("DELETE `product` WHERE `id`= '" + idProduto + "'");
+      System.out.println("Produto Apagado com sucesso!");
+    } catch (Exception e) {
+      System.out.println(e);
+
+    }
+    addListOfProducts();
   }
 
   public ObservableList<Product> getProducts () {

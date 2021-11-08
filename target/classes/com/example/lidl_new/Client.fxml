@@ -16,10 +16,10 @@
                         onAction="#onCreateClient" prefHeight="30.0" prefWidth="290.0" text="Criar Cliente"/>
                 <HBox prefHeight="32.0" prefWidth="230.0">
                     <children>
-                        <TextField minHeight="30.0" minWidth="200.0" prefHeight="30.0" prefWidth="250.0"
-                                   promptText="Nº Cartao Cliente"/>
-                        <Button id="btConsultarCompras" minHeight="30.0" minWidth="30.0" mnemonicParsing="false"
-                                textAlignment="CENTER">
+                        <TextField fx:id="txtClientID" minHeight="30.0" minWidth="200.0" prefHeight="30.0"
+                                   prefWidth="250.0" promptText="Nº Cartao Cliente"/>
+                        <Button id="btConsultarCompras" fx:id="btSearchInvoices" minHeight="30.0" minWidth="30.0"
+                                mnemonicParsing="false" onAction="#onSearchInvoices" textAlignment="CENTER">
                             <font>
                                 <Font name="Material Icons" size="14.0"/>
                             </font>
@@ -42,7 +42,7 @@
                                 <Insets right="10.0"/>
                             </HBox.margin>
                         </Label>
-                        <TextField disable="true" editable="false" minHeight="30.0" prefHeight="30.0"
+                        <TextField fx:id="clientPoints" editable="false" minHeight="30.0" prefHeight="30.0"
                                    prefWidth="177.0"/>
                     </children>
                     <VBox.margin>
@@ -56,18 +56,19 @@
         </VBox>
         <VBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" spacing="3.0" HBox.hgrow="ALWAYS">
             <children>
-                <TableView prefHeight="300.0" prefWidth="599.0" VBox.vgrow="ALWAYS">
+                <TableView fx:id="tbInvoice" onMouseClicked="#onListProductInvoices" prefHeight="300.0"
+                           prefWidth="599.0" VBox.vgrow="ALWAYS">
                     <columns>
-                        <TableColumn editable="false" prefWidth="88.0" text="ID"/>
-                        <TableColumn editable="false" prefWidth="62.0" text="CUSTO"/>
-                        <TableColumn editable="false" prefWidth="97.0" text="DATA"/>
+                        <TableColumn fx:id="colInvoiceID" editable="false" prefWidth="100.0" text="ID"/>
+                        <TableColumn fx:id="colInvoiceTotal" editable="false" prefWidth="126.0" text="TOTAL COMPRA"/>
+                        <TableColumn fx:id="colInvoiceDate" editable="false" prefWidth="128.0" text="DATA"/>
                     </columns>
                 </TableView>
-                <TableView prefHeight="350.0" prefWidth="599.0" VBox.vgrow="ALWAYS">
+                <TableView fx:id="tbtbInvoiceProducts" prefHeight="350.0" prefWidth="599.0" VBox.vgrow="ALWAYS">
                     <columns>
-                        <TableColumn editable="false" prefWidth="130.0" text="PRODUTOS"/>
-                        <TableColumn editable="false" prefWidth="46.0" text="QT"/>
-                        <TableColumn editable="false" prefWidth="70.0" text="PREÇO"/>
+                        <TableColumn fx:id="colInvoiceNameProduct" editable="false" prefWidth="236.0" text="PRODUTOS"/>
+                        <TableColumn fx:id="colInvoiceQT" editable="false" prefWidth="46.0" text="QT"/>
+                        <TableColumn fx:id="colInvoicePrice" editable="false" prefWidth="72.0" text="PREÇO"/>
                     </columns>
                 </TableView>
             </children>

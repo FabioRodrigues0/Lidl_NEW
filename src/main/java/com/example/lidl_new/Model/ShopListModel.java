@@ -8,7 +8,7 @@
  */
 package com.example.lidl_new.Model;
 
-import com.example.lidl_new.Classes.Invoice;
+import com.example.lidl_new.Classes.ShopList;
 import com.example.lidl_new.Database.Conn;
 
 import java.sql.ResultSet;
@@ -17,11 +17,11 @@ import java.sql.Statement;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
-public class InvoiceModel {
-  public ObservableList<Invoice> invoiceList;
+public class ShopListModel {
+  public ObservableList<ShopList> shopListList;
 
-  public InvoiceModel () {
-    invoiceList = FXCollections.observableArrayList();
+  public ShopListModel () {
+    shopListList = FXCollections.observableArrayList();
 
   }
 
@@ -46,7 +46,7 @@ public class InvoiceModel {
     } catch (Exception e) {
       System.out.println(e);
     }
-    for (Invoice r : invoiceList) {
+    for (ShopList r : shopListList) {
       try {
         Statement stmt = Conn.createStatement();
         System.out.println(invoiceId + " aqui este id");
@@ -112,23 +112,23 @@ public class InvoiceModel {
   }
 
   //----------------------- UPDATE A LISTA DE PRODUTOS QUE CLIENTE QUER COMPRAR ----------------------------------//
-  public ObservableList<Invoice> addRowInvoice (int productIndex, String nameProduct, int quantity, float price) {
-    invoiceList.add(new Invoice(productIndex, nameProduct, quantity, price));
-    return invoiceList;
+  public ObservableList<ShopList> addRowInvoice (int productIndex, String nameProduct, int quantity, float price) {
+    shopListList.add(new ShopList(productIndex, nameProduct, quantity, price));
+    return shopListList;
   }
 
-  public ObservableList<Invoice> deleteRowInvoice (Invoice r) {
-    invoiceList.remove(r);
-    return invoiceList;
+  public ObservableList<ShopList> deleteRowInvoice (ShopList r) {
+    shopListList.remove(r);
+    return shopListList;
   }
 
   //-------------------------- LISTA DE PRODUTOS QUE CLIENTE QUER COMPRAR ---------------------------------------//
-  public ObservableList<Invoice> getInvoices () {
-    return invoiceList;
+  public ObservableList<ShopList> getInvoices () {
+    return shopListList;
   }
 
-  public void setInvoices (ObservableList<Invoice> invoiceList) {
-    this.invoiceList = invoiceList;
+  public void setInvoices (ObservableList<ShopList> shopListList) {
+    this.shopListList = shopListList;
   }
 
   //------------------------------------------------------------------------------------------------------------//

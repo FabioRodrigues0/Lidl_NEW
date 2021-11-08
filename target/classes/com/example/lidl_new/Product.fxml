@@ -30,7 +30,8 @@
                                     </graphic>
                                 </Button>
                                 <Button id="btAddProduct" fx:id="btAddProduct" maxHeight="40.0" maxWidth="40.0"
-                                        minHeight="40.0" minWidth="40.0" mnemonicParsing="false">
+                                        minHeight="40.0" minWidth="40.0" mnemonicParsing="false"
+                                        onAction="#onAddProduct">
                                     <font>
                                         <Font name="System Bold" size="18.0"/>
                                     </font>
@@ -42,7 +43,8 @@
                                     </graphic>
                                 </Button>
                                 <Button id="btDeleteProduct" fx:id="btDeleteProduct" maxHeight="40.0" maxWidth="40.0"
-                                        minHeight="40.0" minWidth="40.0" mnemonicParsing="false">
+                                        minHeight="40.0" minWidth="40.0" mnemonicParsing="false"
+                                        onAction="#onDeleteProduct">
                                     <font>
                                         <Font name="System Bold" size="18.0"/>
                                     </font>
@@ -54,7 +56,7 @@
                                     </graphic>
                                 </Button>
                                 <Button fx:id="btUpdateProduct" maxHeight="40.0" maxWidth="40.0" minHeight="40.0"
-                                        minWidth="40.0" mnemonicParsing="false">
+                                        minWidth="40.0" mnemonicParsing="false" onAction="#onUpdateProduct">
                                     <font>
                                         <Font name="System Bold" size="18.0"/>
                                     </font>
