@@ -86,7 +86,7 @@ Contem as varias views
   <summary>Client</summary>
 <div align="center">
 
-![Client](/media/Client2.png)
+![Client](/media/client2.png)
 
 </div>
 <ol>
@@ -111,7 +111,7 @@ Contem as varias views
   <summary>Product</summary>
 <div align="center">
 
-![Product](/media/product2.png)
+![Product](/media/produto2.png)
 
 </div>
 <ol>
