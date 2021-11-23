@@ -10,7 +10,7 @@
   <p align="center">
     project_description
     <br />
-    <a href="https://github.com/sparthaa/lidl_NEW"><strong>Explore the docs »</strong></a>
+    <a href="https://github.com/sparthaa/lidl_NEW/blob/test/doc/documentation.md"><strong>Explore the docs »</strong></a>
     <br />
     <br />
     <a href="https://github.com/github_username/repo_name">View Demo</a>
