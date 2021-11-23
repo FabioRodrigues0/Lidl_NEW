@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.net.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+<?import org.kordamp.ikonli.javafx.*?>
+
+<StackPane xmlns:fx="http://javafx.com/fxml/1" fx:id="MainPane" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308"
+           minHeight="800.0" minWidth="1200.0" styleClass="root"
+           xmlns="http://javafx.com/javafx/11.0.2" fx:controller="com.example.lidl_new.Controller.MainAppController">
+    <BorderPane fx:id="MainBorderPane" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308"
+                minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1200.0" styleClass="root"
+                StackPane.alignment="CENTER">
+        <right>
+            <AnchorPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308"
+                        BorderPane.alignment="CENTER"/>
+        </right>
+        <StackPane.margin>
+            <Insets/>
+        </StackPane.margin>
+        <top>
+            <AnchorPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308"
+                        BorderPane.alignment="TOP_CENTER">
+            </AnchorPane>
+        </top>
+        <left>
+            <VBox alignment="CENTER_LEFT" maxHeight="1.7976931348623157E308" maxWidth="-Infinity" minWidth="-Infinity"
+                  prefHeight="800.0" prefWidth="50.0" spacing="30.0" BorderPane.alignment="CENTER_LEFT">
+                <Button fx:id="tbHome" alignment="CENTER" contentDisplay="CENTER" maxHeight="1.7976931348623157E308"
+                        maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#tabHome" prefHeight="50.0"
+                        prefWidth="50.0" textAlignment="CENTER">
+                    <HBox.margin>
+                        <Insets left="4.0"/>
+                    </HBox.margin>
+                    <graphic>
+                        <FontIcon iconColor="#ea7c69" iconLiteral="fa-home" textAlignment="CENTER">
+                            <font>
+                                <Font size="28.0"/>
+                            </font>
+                        </FontIcon>
+                    </graphic>
+                    <font>
+                        <Font name="System Bold" size="18.0"/>
+                    </font>
+                </Button>
+                <Button fx:id="tbClient" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308"
+                        mnemonicParsing="false" onAction="#tabClient" prefHeight="50.0" prefWidth="50.0"
+                        wrapText="true">
+                    <HBox.margin>
+                        <Insets left="2.0" right="2.0"/>
+                    </HBox.margin>
+                    <graphic>
+                        <FontIcon iconColor="#ea7c69" iconLiteral="fa-drivers-license">
+                            <font>
+                                <Font size="28.0"/>
+                            </font>
+                        </FontIcon>
+                    </graphic>
+                </Button>
+                <Button fx:id="tbProduct" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308"
+                        mnemonicParsing="false" onAction="#tabProduct" prefHeight="50.0" prefWidth="50.0">
+                    <HBox.margin>
+                        <Insets left="2.0" right="2.0"/>
+                    </HBox.margin>
+                    <graphic>
+                        <FontIcon iconColor="#ea7c69" iconLiteral="fa-product-hunt">
+                            <font>
+                                <Font size="28.0"/>
+                            </font>
+                        </FontIcon>
+                    </graphic>
+                </Button>
+                <Button fx:id="tbAbout" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308"
+                        mnemonicParsing="false" onAction="#tabAbout" prefHeight="50.0" prefWidth="50.0">
+                    <HBox.margin>
+                        <Insets left="2.0" right="4.0"/>
+                    </HBox.margin>
+                    <graphic>
+                        <FontIcon iconColor="#ea7c69" iconLiteral="fa-info-circle">
+                            <font>
+                                <Font size="28.0"/>
+                            </font>
+                        </FontIcon>
+                    </graphic>
+                </Button>
+                <Button fx:id="btLogout" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308"
+                        mnemonicParsing="false" onAction="#logout" prefHeight="50.0" prefWidth="50.0"
+                        textAlignment="CENTER" textFill="WHITE" wrapText="true">
+                    <graphic>
+                        <FontIcon iconColor="#ea7c69" iconLiteral="fa-sign-out">
+                            <font>
+                                <Font size="28.0"/>
+                            </font>
+                        </FontIcon>
+                    </graphic>
+                    <font>
+                        <Font size="18.0"/>
+                    </font>
+                </Button>
+                <BorderPane.margin>
+                    <Insets/>
+                </BorderPane.margin>
+            </VBox>
+        </left>
+        <bottom>
+            <AnchorPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308"
+                        BorderPane.alignment="CENTER"/>
+        </bottom>
+    </BorderPane>
+    <BorderPane fx:id="loginPane" minHeight="800.0" minWidth="1200.0" scaleShape="false" styleClass="root">
+        <center>
+            <HBox id="card" alignment="CENTER" maxHeight="400.0" maxWidth="600.0" spacing="10.0"
+                  style="-fx-background-color: #2D303E; -fx-background-radius: 20;" styleClass="card"
+                  BorderPane.alignment="CENTER">
+                <VBox.margin>
+                    <Insets bottom="20.0" left="20.0" right="20.0" top="20.0"/>
+                </VBox.margin>
+                <children>
+                    <FlowPane alignment="CENTER" hgap="10.0" HBox.hgrow="NEVER">
+                        <children>
+                            <HBox alignment="CENTER" nodeOrientation="LEFT_TO_RIGHT" styleClass="card"/>
+                            <HBox alignment="TOP_RIGHT" styleClass="card">
+                                <children>
+                                    <VBox spacing="10.0" styleClass="card" HBox.hgrow="ALWAYS">
+                                        <children>
+                                            <ImageView fitHeight="200.0" fitWidth="250.0" pickOnBounds="true"
+                                                       preserveRatio="true">
+                                                <image>
+                                                    <Image url="@../Media/brand__default.png"/>
+                                                </image>
+                                            </ImageView>
+                                            <TextField fx:id="lLogin" prefHeight="30.0" prefWidth="200.0"
+                                                       promptText="Login"/>
+                                            <PasswordField fx:id="lPassword" prefHeight="30.0" prefWidth="200.0"
+                                                           promptText="Password"/>
+                                            <Hyperlink maxHeight="1.7976931348623157E308"
+                                                       maxWidth="1.7976931348623157E308" onAction="#createClient"
+                                                       text="Criar Novo Cliente" textAlignment="CENTER"/>
+                                            <HBox spacing="10.0">
+                                                <children>
+                                                    <Button fx:id="btCancel" cancelButton="true" mnemonicParsing="false"
+                                                            prefHeight="25.0" prefWidth="95.0" text="Cancel"/>
+                                                    <Button fx:id="btLogin" onAction="#onCheckLogin" prefHeight="25.0"
+                                                            prefWidth="95.0" text="Login"/>
+                                                </children>
+                                            </HBox>
+                                            <Label fx:id="txtcheckLogin" textAlignment="CENTER" textFill="#cd2e2e"/>
+                                        </children>
+                                    </VBox>
+                                </children>
+                            </HBox>
+                        </children>
+                    </FlowPane>
+                </children>
+                <padding>
+                    <Insets bottom="30.0" left="30.0" right="30.0" top="30.0"/>
+                </padding>
+            </HBox>
+        </center>
+        <top>
+            <AnchorPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="40.0"
+                        minWidth="40.0" BorderPane.alignment="CENTER"/>
+        </top>
+        <left>
+            <AnchorPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="40.0"
+                        minWidth="40.0" BorderPane.alignment="CENTER"/>
+        </left>
+        <right>
+            <AnchorPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="40.0"
+                        minWidth="40.0" BorderPane.alignment="CENTER"/>
+        </right>
+        <bottom>
+            <AnchorPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="40.0"
+                        minWidth="40.0" BorderPane.alignment="CENTER"/>
+        </bottom>
+    </BorderPane>
+    <stylesheets>
+        <URL value="@style.css"/>
+    </stylesheets>
+</StackPane>

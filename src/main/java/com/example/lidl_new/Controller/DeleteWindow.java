@@ -15,12 +15,12 @@ import javafx.stage.Stage;
 
 public class DeleteWindow implements Initializable {
   @FXML
+  static Stage window = new Stage();
+  private static boolean answer;
+  @FXML
   public Button yesButton;
   @FXML
   public Button noButton;
-  @FXML
-  Stage window = new Stage();
-  private boolean answer;
 
   @FXML
   public boolean display () throws IOException {
@@ -28,7 +28,7 @@ public class DeleteWindow implements Initializable {
     window.setTitle("Confirmar");
     window.setMinWidth(250);
 
-    FXMLLoader fxmlLoader = new FXMLLoader(MainApp.class.getResource("DeleteWindow.fxml"));
+    FXMLLoader fxmlLoader = new FXMLLoader(MainApp.class.getResource("Views/DeleteWindow.fxml"));
     Scene scene = new Scene(fxmlLoader.load(), 600, 200);
     window.setScene(scene);
     window.showAndWait();
@@ -42,14 +42,16 @@ public class DeleteWindow implements Initializable {
 
   }
 
+  @FXML
   public void yes (ActionEvent event) {
-    System.out.println("Clicked");
+    System.out.println("Clicked2");
     answer = true;
     window.close();
   }
 
+  @FXML
   public void no (ActionEvent event) {
-    System.out.println("Clicked");
+    System.out.println("Clicked1");
     answer = false;
     window.close();
   }

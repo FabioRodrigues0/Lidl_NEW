@@ -2,6 +2,7 @@ package com.example.lidl_new.Controller;
 
 
 import com.example.lidl_new.MainApp;
+import com.example.lidl_new.Model.ClientModel;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
@@ -14,7 +15,12 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.PasswordField;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.Pane;
+import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 
 public class MainAppController implements Initializable {
@@ -25,18 +31,36 @@ public class MainAppController implements Initializable {
   public BorderPane MainBorderPane;
   @FXML // fx:id="tbAbout"
   public Button tbAbout; // Value injected by FXMLLoader
-  @FXML // fx:id="tbAddProduct"
-  public Button tbAddProduct; // Value injected by FXMLLoader
   @FXML // fx:id="tbClient"
   public Button tbClient; // Value injected by FXMLLoader
   @FXML // fx:id="tbHome"
   public Button tbHome; // Value injected by FXMLLoader
   @FXML // fx:id="tbProduct"
   public Button tbProduct; // Value injected by FXMLLoader
-  @FXML // fx:id="tbUpdateProduct"
-  public Button tbUpdateProduct; // Value injected by FXMLLoader
   @FXML
   public VBox MainContent;
+  @FXML
+  public BorderPane loginPane;
+  @FXML
+  public StackPane MainPane;
+  /*
+   * Carregar Caixas de Texto e Botões da Scene de login
+   */
+  @FXML
+  public Button btLogin;
+  @FXML
+  public Button btCancel;
+  @FXML
+  public TextField lLogin;
+  @FXML
+  public PasswordField lPassword;
+  @FXML
+  public Label txtcheckLogin;
+  @FXML
+  public Button btLogout;
+
+  ClientModel client = new ClientModel();
+  ClientController clientController = new ClientController();
 
   public MainAppController () {
 
@@ -50,17 +74,20 @@ public class MainAppController implements Initializable {
    */
   @FXML
   public void tabHome (ActionEvent event) throws SQLException, IOException {
-    loadUI("Home", event);
+    loadUI("Home");
   }
 
   /*
+   *--------------------------------------LOAD TABS--------------------------------------------------------
+   */
+  /*
    *Função que que muda a tab
    */
-  public void loadUI (String ui, ActionEvent event) throws SQLException, IOException {
+  public void loadUI (String ui) throws SQLException, IOException {
     Parent root = null;
     try {
       FXMLLoader loader = new FXMLLoader();
-      loader.setLocation(MainApp.class.getResource(ui + ".fxml"));
+      loader.setLocation(MainApp.class.getResource("Views/" + ui + ".fxml"));
 
       root = loader.load();
     } catch (IOException ex) {
@@ -71,31 +98,54 @@ public class MainAppController implements Initializable {
 
   @FXML
   public void tabClient (ActionEvent event) throws SQLException, IOException {
-    loadUI("Client", event);
+    loadUI("Client");
   }
 
   @FXML
   public void tabProduct (ActionEvent event) throws SQLException, IOException {
-    loadUI("Product", event);
-  }
-
-  @FXML
-  public void tabAddProduct (ActionEvent event) throws SQLException, IOException {
-    loadUI("AddProduct", event);
-  }
-
-  @FXML
-  public void tabUpdateProduct (ActionEvent event) throws SQLException, IOException {
-    loadUI("UpdateProduct", event);
+    loadUI("Product");
   }
 
   @FXML
   public void tabAbout (ActionEvent event) throws SQLException, IOException {
-    loadUI("About", event);
+    loadUI("About");
   }
 
   @Override
   public void initialize (URL url, ResourceBundle resourceBundle) {
+  }
 
+  @FXML
+  public void onCheckLogin (ActionEvent event) throws IOException, SQLException {
+    String login = lLogin.getText();
+    String password = lPassword.getText();
+
+    String result = client.CheckLogin(login, password);
+    if (result.contains("login")) {
+      paneController("login");
+    } else {
+      txtcheckLogin.setText("Erro no Login, verifique o Login");
+    }
+  }
+
+  @FXML
+  public void paneController (String txt) {
+    if (txt.contains("login")) {
+      loginPane.setVisible(false);
+      MainBorderPane.setVisible(true);
+    } else if (txt.contains("logout")) {
+      loginPane.setVisible(true);
+      MainBorderPane.setVisible(false);
+    }
+  }
+
+  @FXML
+  public void createClient () throws IOException {
+    clientController.onAddClient();
+  }
+
+  @FXML
+  public void logout () {
+    paneController("logout");
   }
 }

@@ -53,7 +53,7 @@ public class AddProduct implements Initializable {
     window.setTitle("Criar Produto");
     window.setMinWidth(250);
 
-    FXMLLoader fxmlLoader = new FXMLLoader(MainApp.class.getResource("AddProduct.fxml"));
+    FXMLLoader fxmlLoader = new FXMLLoader(MainApp.class.getResource("Views/AddProduct.fxml"));
     Scene scene = new Scene(fxmlLoader.load(), 600, 400);
     window.setScene(scene);
     window.show();

@@ -18,46 +18,6 @@ import javafx.scene.control.cell.PropertyValueFactory;
 
 public class ClientController implements Initializable {
   /*
-   * Carregar Caixas de Texto e Botões da Scene de Registar Novo Cliente
-   */
-  @FXML
-  public PasswordField cPasswordClient;
-  @FXML
-  public TextField cEmailClient;
-  @FXML
-  public TextField cLocationClient;
-  @FXML
-  public TextField cFloorClient;
-  @FXML
-  public TextField cNumberClient;
-  @FXML
-  public TextField cAddressClient;
-  @FXML
-  public TextField cNIFClient;
-  @FXML
-  public TextField cCCClient;
-  @FXML
-  public TextField cContactClient;
-  @FXML
-  public TextField cNameClient;
-  @FXML
-  public Button cClient;
-  @FXML
-  public Button cCancelClient;
-  /*
-   * Carregar Caixas de Texto e Botões da Scene de login
-   */
-  @FXML
-  public Button btLogin;
-  @FXML
-  public Button btCancel;
-  @FXML
-  public TextField lLogin;
-  @FXML
-  public PasswordField lPassword;
-  @FXML
-  public Label txtcheckLogin;
-  /*
    * Carregar Tabela das faturas do cliente
    */
   @FXML
@@ -72,7 +32,7 @@ public class ClientController implements Initializable {
    * Carregar Tabela dos Produtos na fatura do cliente
    */
   @FXML
-  public TableView<InvoiceProduct> tbtbInvoiceProducts;
+  public TableView<InvoiceProduct> tbInvoiceProducts;
   @FXML
   public TableColumn<InvoiceProduct, String> colInvoiceNameProduct;
   @FXML
@@ -85,29 +45,16 @@ public class ClientController implements Initializable {
   public Button btSearchInvoices;
   @FXML
   public TextField clientPoints;
+  @FXML
+  public Button btCreateClient;
 
-  InvoiceModel model = new InvoiceModel(0);
-  InvoiceProductModel modelProduct = new InvoiceProductModel();
-  CardModel c = new CardModel();
+  InvoiceModel invoice = new InvoiceModel(0);
+  InvoiceProductModel invoiceProduct = new InvoiceProductModel();
+  CardModel card = new CardModel();
+  AddClient addClient = new AddClient();
 
   public ClientController () {
 
-  }
-
-  //------------------------------------------- Criar Clinte -----------------------------------------------
-  /*
-   * Função chamada no clicar do botão de Registar
-   * Chama que cria o cliente
-   * No fim chama a função de Mudar de Scene
-   */
-  @FXML
-  public void onCreateClient (ActionEvent event) throws IOException, SQLException {
-    // !todo talves nao dê
-    int nif = Integer.parseInt(cNIFClient.getText());
-    int tlf = Integer.parseInt(cContactClient.getText());
-    int port = Integer.parseInt(cNumberClient.getText());
-
-    ClientModel.CreateClient(cNameClient.getText(), cCCClient.getText(), nif, tlf, cAddressClient.getText(), port, cFloorClient.getText(), cLocationClient.getText(), cEmailClient.getText(), cPasswordClient.getText());
   }
 
   //------------------------------------------- Listar Faturas -----------------------------------------------
@@ -119,13 +66,13 @@ public class ClientController implements Initializable {
     Invoice invoiceSelected = tbInvoice.getSelectionModel().getSelectedItem();
     int id = invoiceSelected.getId();
 
-    modelProduct.ListOfProductsInvoices(id);
+    invoiceProduct.ListOfProductsInvoices(id);
 
     colInvoiceNameProduct.setCellValueFactory(new PropertyValueFactory<InvoiceProduct, String>("productName"));
     colInvoiceQT.setCellValueFactory(new PropertyValueFactory<InvoiceProduct, Float>("quantity"));
     colInvoicePrice.setCellValueFactory(new PropertyValueFactory<InvoiceProduct, Float>("productPrice"));
 
-    tbtbInvoiceProducts.setItems(modelProduct.ListOfProductsInvoices(id));
+    tbInvoiceProducts.setItems(invoiceProduct.ListOfProductsInvoices(id));
   }
 
   /*
@@ -138,9 +85,9 @@ public class ClientController implements Initializable {
     colInvoiceID.setCellValueFactory(new PropertyValueFactory<Invoice, Integer>("id"));
     colInvoiceTotal.setCellValueFactory(new PropertyValueFactory<Invoice, Float>("total_price"));
     colInvoiceDate.setCellValueFactory(new PropertyValueFactory<Invoice, String>("date"));
-    int points = c.getPoints(client);
+    int points = card.getPoints(client);
     clientPoints.setText(String.valueOf(points));
-    tbInvoice.setItems(model.getInvoiceModel(client));
+    tbInvoice.setItems(invoice.getInvoiceModel(client));
   }
 
   //------------------------------------------- initialize -----------------------------------------------
@@ -158,6 +105,12 @@ public class ClientController implements Initializable {
     colInvoiceTotal.setCellValueFactory(new PropertyValueFactory<Invoice, Float>("total_price"));
     colInvoiceDate.setCellValueFactory(new PropertyValueFactory<Invoice, String>("date"));
 
-    tbInvoice.setItems(model.getInvoiceModel(0));
+    tbInvoice.setItems(invoice.getInvoiceModel(0));
   }
+
+  @FXML
+  public void onAddClient () throws IOException {
+    addClient.display();
+  }
+
 }

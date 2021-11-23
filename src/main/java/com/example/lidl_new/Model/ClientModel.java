@@ -24,11 +24,13 @@
 
 package com.example.lidl_new.Model;
 
-import com.example.lidl_new.Classes.Brand;
 import com.example.lidl_new.Classes.Client;
 import com.example.lidl_new.Database.Conn;
+import java.io.IOException;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.Date;
+
 /**
  * Project: Lidl
  * User: pedrosilva
@@ -38,20 +40,28 @@ import java.util.Date;
  * Contact: pedromiguelsilva89@gmail.com
  */
 public class ClientModel {
-    Client c;
-    public ClientModel (int id, String name, String ccNumber, int nif, int phoneNumber, String email, String password) {
-        c = new Client(id, name, ccNumber, nif, phoneNumber, email, password);
-    }
 
-    public static void CreateClient (String name, String ccNumber, int nif, int phone_number,
-                                     String address, int number, String floor, String location,
-                                     String email, String password) {
-        try {
-            Statement stmt = Conn.createStatement();
-            stmt.executeQuery("CALL lidl_java.registerclient('"+ name +"', '"+ ccNumber +"', '"+ nif +"', '"+ phone_number +"', '"+ address +"', '"+number+"', '"+ floor +"', '"+ location +"', '"+ email+"', '"+ password +"')");
-            System.out.println("Cliente inserido com sucesso!");
-        }catch (Exception e){
-            System.out.println(e);
-        }
+  public ClientModel () {
+  }
+
+  public static void CreateClient (String name, String ccNumber, int nif, int phone_number, String address, int number, String floor, String location, String email, String password) {
+    try {
+      Statement stmt = Conn.createStatement();
+      stmt.executeQuery("CALL lidl_java.registerclient('" + name + "', '" + ccNumber + "', '" + nif + "', '" + phone_number + "', '" + address + "', '" + number + "', '" + floor + "', '" + location + "', '" + email + "', '" + password + "')");
+      System.out.println("Cliente inserido com sucesso!");
+    } catch (Exception e) {
+      System.out.println(e);
     }
+  }
+
+  public String CheckLogin (String txtLogin, String txtPassword) throws IOException, SQLException {
+    Statement stmt = Conn.createStatement();
+    ResultSet rs = stmt.executeQuery("CALL lidl_java.checklogin('" + txtLogin + "', '" + txtPassword + "')");
+    if (rs.next()) {
+      System.out.println(txtLogin + " fez login");
+      return "login";
+    } else {
+      return "error";
+    }
+  }
 }

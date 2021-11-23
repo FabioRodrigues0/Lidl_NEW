@@ -70,7 +70,7 @@ public class ProductModel {
   public void deleteProduct (int idProduto) {
     try {
       Statement stmt = Conn.createStatement();
-      stmt.executeUpdate("DELETE `product` WHERE `id`= '" + idProduto + "'");
+      stmt.executeUpdate("DELETE `product` WHERE `id`=" + idProduto + "");
       System.out.println("Produto Apagado com sucesso!");
     } catch (Exception e) {
       System.out.println(e);

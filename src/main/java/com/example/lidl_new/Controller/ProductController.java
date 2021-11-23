@@ -1,7 +1,9 @@
 package com.example.lidl_new.Controller;
 
 import com.example.lidl_new.Classes.Product;
+import com.example.lidl_new.Classes.ProductHolder;
 import com.example.lidl_new.Database.Conn;
+import com.example.lidl_new.MainApp;
 import com.example.lidl_new.Model.ProductModel;
 import java.io.IOException;
 import java.net.URL;
@@ -10,10 +12,16 @@ import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
+import javafx.stage.Stage;
 
 public class ProductController implements Initializable {
   /*
@@ -60,6 +68,7 @@ public class ProductController implements Initializable {
   AddProduct add = new AddProduct();
   UpdateProduct update = new UpdateProduct();
   DeleteWindow delete = new DeleteWindow();
+  MainAppController main = new MainAppController();
 
   Connection conn;
   String query;
@@ -88,18 +97,16 @@ public class ProductController implements Initializable {
    *  através da lista de produto selecionado
    */
   @FXML
-  public void onUpdateProduct () throws IOException {
-    update.display();
+  public void onUpdateProduct (MouseEvent event) throws IOException {
     Product productSelected = tvListProducts.getSelectionModel().getSelectedItem();
-    String a = String.valueOf(productSelected.getId());
-    String b = String.valueOf(productSelected.getProductName());
-    String c = String.valueOf(productSelected.getBarcode());
-    String d = String.valueOf(productSelected.getStock());
-    String e = String.valueOf(productSelected.getPrice());
-    update.updateProduct(a, b, c, d, e);
-
+    try {
+      ProductHolder holder = ProductHolder.getInstance();
+      holder.setUser(productSelected);
+      update.display();
+    } catch (IOException e) {
+      System.err.println(String.format("Error: %s", e.getMessage()));
+    }
   }
-
 
   //----------------------------- Função de Iniciar o Controlador -----------------------------------------------
   /*
@@ -143,6 +150,7 @@ public class ProductController implements Initializable {
     Product productSelected = tvListProducts.getSelectionModel().getSelectedItem();
     try {
       result = delete.display();
+      System.out.println(result);
     } catch (IOException e) {
       e.printStackTrace();
     }

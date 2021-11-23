@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<?import org.kordamp.ikonli.javafx.FontIcon?>
+
+<HBox alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="613.0" prefWidth="845.0" spacing="10.0" stylesheets="@style.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.lidl_new.Controller.ClientController">
+    <children>
+        <VBox maxHeight="1.7976931348623157E308" maxWidth="-Infinity" prefHeight="200.0" prefWidth="200.0" spacing="10.0" HBox.hgrow="NEVER">
+            <children>
+                <Button id="btCreateClient" fx:id="btCreateClient" minHeight="30.0" minWidth="200.0" mnemonicParsing="false" onAction="#onAddClient" prefHeight="30.0" prefWidth="200.0" text="Criar Cliente" />
+                <HBox prefHeight="32.0" prefWidth="170.0" spacing="2.0">
+                    <children>
+                        <TextField fx:id="txtClientID" minHeight="30.0" minWidth="170.0" prefHeight="30.0" prefWidth="168.0" promptText="Nº Cartao Cliente" />
+                        <Button id="btConsultarCompras" fx:id="btSearchInvoices" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#onSearchInvoices" prefHeight="30.0" prefWidth="30.0" textAlignment="CENTER">
+                            <font>
+                                <Font name="Material Icons" size="14.0" />
+                            </font>
+                            <graphic>
+                                <FontIcon iconColor="WHITE" iconLiteral="fa-search" />
+                            </graphic>
+                        </Button>
+                    </children>
+                    <VBox.margin>
+                        <Insets />
+                    </VBox.margin>
+                </HBox>
+                <HBox prefHeight="30.0" prefWidth="200.0" spacing="10.0">
+                    <children>
+                        <Label alignment="CENTER_RIGHT" minHeight="-Infinity" prefHeight="30.0" prefWidth="60.0" text="Pontos">
+                            <font>
+                                <Font size="14.0" />
+                            </font>
+                            <HBox.margin>
+                                <Insets />
+                            </HBox.margin>
+                        </Label>
+                        <TextField fx:id="clientPoints" editable="false" minHeight="30.0" prefHeight="30.0" prefWidth="140.0" />
+                    </children>
+                    <VBox.margin>
+                        <Insets />
+                    </VBox.margin>
+                </HBox>
+            </children>
+            <HBox.margin>
+                <Insets />
+            </HBox.margin>
+        </VBox>
+        <VBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" spacing="5.0" HBox.hgrow="ALWAYS">
+            <children>
+                <TableView fx:id="tbInvoice" onMouseClicked="#onListProductInvoices" prefHeight="300.0" prefWidth="599.0" VBox.vgrow="ALWAYS">
+                    <columns>
+                        <TableColumn fx:id="colInvoiceID" editable="false" prefWidth="100.0" text="ID" />
+                        <TableColumn fx:id="colInvoiceTotal" editable="false" prefWidth="126.0" text="TOTAL COMPRA" />
+                        <TableColumn fx:id="colInvoiceDate" editable="false" prefWidth="128.0" text="DATA" />
+                    </columns>
+                </TableView>
+                <TableView fx:id="tbInvoiceProducts" prefHeight="350.0" prefWidth="599.0" VBox.vgrow="ALWAYS">
+                    <columns>
+                        <TableColumn fx:id="colInvoiceNameProduct" editable="false" prefWidth="236.0" text="PRODUTOS" />
+                        <TableColumn fx:id="colInvoiceQT" editable="false" prefWidth="46.0" text="QT" />
+                        <TableColumn fx:id="colInvoicePrice" editable="false" prefWidth="72.0" text="PREÇO" />
+                    </columns>
+                </TableView>
+            </children>
+            <HBox.margin>
+                <Insets />
+            </HBox.margin>
+        </VBox>
+    </children>
+    <padding>
+        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+    </padding>
+</HBox>

@@ -1,8 +1,6 @@
 package com.example.lidl_new.Controller;
 
-import com.example.lidl_new.Classes.Brand;
-import com.example.lidl_new.Classes.Category;
-import com.example.lidl_new.Classes.Tax;
+import com.example.lidl_new.Classes.*;
 import com.example.lidl_new.MainApp;
 import com.example.lidl_new.Model.ProductModel;
 import java.io.IOException;
@@ -12,10 +10,12 @@ import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TextField;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -59,15 +59,15 @@ public class UpdateProduct implements Initializable {
   @FXML
   public void display () throws IOException {
     Stage window = new Stage();
+
     window.initModality(Modality.WINDOW_MODAL);
     window.setTitle("Update");
     window.setMinWidth(250);
 
-    FXMLLoader fxmlLoader = new FXMLLoader(MainApp.class.getResource("UpdateProduct.fxml"));
+    FXMLLoader fxmlLoader = new FXMLLoader(MainApp.class.getResource("Views/UpdateProduct.fxml"));
     Scene scene = new Scene(fxmlLoader.load(), 600, 400);
     window.setScene(scene);
     window.show();
-    System.out.println("Entrei3");
   }
 
   //------------------------------------------- Update Produto -----------------------------------------------
@@ -98,28 +98,6 @@ public class UpdateProduct implements Initializable {
     model.updateProduct(id, barcode, uNameProduct.getText(), category, brand, stock, price, tax);
   }
 
-  /*
-   * Escreve o producto nas caixas de texto e seleciona os choisebox
-   * para se mudar e atualizar o producto
-   */
-  @FXML
-  public void updateProduct (String a, String b, String c, String d, String e) {
-    System.out.println("Entrei1");
-    uId.setText("6");
-    uNameProduct.setText("7");
-    uBarcode.setText("8");
-    uStock.setText("9");
-    uPrice.setText("10");
-/*    uId.setText(a);
-    uNameProduct.setText(b);
-    uBarcode.setText(c);
-    uStock.setText(d);
-    uPrice.setText(e);
-    uCategory.setValue("");
-    uBrand.setValue("");
-    uTax.setValue(1);*/
-  }
-
   //------------------------------------------- initialize -----------------------------------------------
   /*
    * Arranca assim que o fxml e feito load
@@ -127,8 +105,8 @@ public class UpdateProduct implements Initializable {
   @FXML
   @Override
   public void initialize (URL url, ResourceBundle resourceBundle) {
-    System.out.println("Entrei5");
     update();
+    receiveData();
   }
 
   /*
@@ -136,12 +114,6 @@ public class UpdateProduct implements Initializable {
    */
   @FXML
   public void update () {
-    System.out.println("Entrei4");
-    uId.setText("1");
-    uNameProduct.setText("2");
-    uBarcode.setText("3");
-    uStock.setText("4");
-    uPrice.setText("5");
     for (Brand b : getBrand()) {
       uBrand.getItems().addAll(b.getBrandName());
     }
@@ -154,4 +126,36 @@ public class UpdateProduct implements Initializable {
       uTax.getItems().addAll(t.getTaxPercent());
     }
   }
+
+  @FXML
+  void receiveData () {
+    ProductHolder holder = ProductHolder.getInstance();
+    Product p = holder.getUser();
+    String id = String.valueOf(p.getId());
+    String productName = p.getProductName();
+    String barcode = String.valueOf(p.getBarcode());
+    String stock = String.valueOf(p.getStock());
+    String category = String.valueOf(p.getCategory());
+    String brand = String.valueOf(p.getBrand());
+    String price = String.valueOf(p.getPrice());
+    int tax = p.getTax();
+    updateProduct(id, productName, barcode, stock, price, category, brand, tax);
+  }
+
+  /*
+   * Escreve o producto nas caixas de texto e seleciona os choisebox
+   * para se mudar e atualizar o producto
+   */
+  @FXML
+  public void updateProduct (String a, String b, String c, String d, String e, String f, String g, int h) {
+    uId.setText(a);
+    uNameProduct.setText(b);
+    uBarcode.setText(c);
+    uStock.setText(d);
+    uPrice.setText(e);
+    uCategory.setValue(f);
+    uBrand.setValue(g);
+    uTax.setValue(h);
+  }
+
 }

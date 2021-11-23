@@ -20,6 +20,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.TilePane;
+import org.controlsfx.control.action.Action;
 
 import static com.example.lidl_new.Classes.Category.getCategory;
 
@@ -81,6 +82,9 @@ public class HomeController implements Initializable {
   ProductModel productModel = new ProductModel();
   ShopListModel shopListModel = new ShopListModel();
   ObservableList<Product> product = productModel.getProducts();
+
+  String totalPurchasetxt;
+  float totalPurchase;
 
   public HomeController () {
   }
@@ -170,8 +174,8 @@ public class HomeController implements Initializable {
     tp_Products.getChildren().clear();
     for (Product value : productListQuantity) {
       btProducts = new Button(value.getProductName());
-      btProducts.setPrefWidth(70);
-      btProducts.setPrefHeight(80);
+      btProducts.setPrefWidth(86);
+      btProducts.setPrefHeight(65);
       btProducts.setWrapText(true);
       btProducts.setAlignment(Pos.CENTER);
       // action event
@@ -206,10 +210,10 @@ public class HomeController implements Initializable {
     int index = product.indexOf(productIndex);
     float price = product.get(index).getPrice();
     int productID = product.get(index).getId();
-    float totalPurchase = Float.parseFloat(totalInvoice.getText());
+    totalPurchase = Float.parseFloat(totalInvoice.getText());
 
     totalPurchase = totalPurchase + (price * productQuantity);
-    String totalPurchasetxt = String.valueOf(totalPurchase);
+    totalPurchasetxt = String.valueOf(totalPurchase);
     totalPurchasetxt = String.format("%.2f", totalPurchase);
 
     totalInvoice.setText(String.valueOf(totalPurchasetxt));
@@ -235,6 +239,16 @@ public class HomeController implements Initializable {
   @FXML
   public void deleteProduct (ActionEvent event) {
     ShopList r = tbInvoice.getSelectionModel().getSelectedItem();
+    float deleteProduct = r.getPrice();
+    totalPurchase = totalPurchase - deleteProduct;
+    totalPurchasetxt = String.format("%.2f", totalPurchase);
+    totalInvoice.setText(String.valueOf(totalPurchasetxt));
     shopListModel.deleteRowInvoice(r);
+  }
+
+  @FXML
+  public void updateTotalPurchase () {
+    ShopList r = tbInvoice.getSelectionModel().getSelectedItem();
+
   }
 }

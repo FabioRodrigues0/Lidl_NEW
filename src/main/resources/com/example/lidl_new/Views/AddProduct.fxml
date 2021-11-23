@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<HBox xmlns:fx="http://javafx.com/fxml/1" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
+      prefHeight="400.0" prefWidth="600.0" stylesheets="@style.css"
+      xmlns="http://javafx.com/javafx/11.0.2" fx:controller="com.example.lidl_new.Controller.AddProduct">
+    <children>
+        <VBox spacing="5.0">
+            <children>
+                <HBox alignment="TOP_RIGHT" prefHeight="27.0" prefWidth="1017.0">
+                    <children>
+                        <Button fx:id="btUClose" contentDisplay="GRAPHIC_ONLY" mnemonicParsing="false"
+                                style="-fx-background-color: transparent;" textAlignment="CENTER" wrapText="true">
+                            <padding>
+                                <Insets bottom="-1.0" left="-1.0" right="-1.0" top="-1.0"/>
+                            </padding>
+                        </Button>
+                    </children>
+                    <padding>
+                        <Insets right="4.0"/>
+                    </padding>
+                    <VBox.margin>
+                        <Insets bottom="-7.0" left="3.0" right="3.0"/>
+                    </VBox.margin>
+                </HBox>
+                <HBox spacing="10.0">
+                    <children>
+                        <VBox alignment="TOP_RIGHT" prefHeight="400.0" prefWidth="150.0">
+                            <children>
+                                <Label prefHeight="30.0" text="Nome">
+                                    <font>
+                                        <Font size="14.0"/>
+                                    </font>
+                                    <VBox.margin>
+                                        <Insets bottom="5.0"/>
+                                    </VBox.margin>
+                                </Label>
+                                <Label prefHeight="30.0" text="Referencia">
+                                    <font>
+                                        <Font size="14.0"/>
+                                    </font>
+                                    <VBox.margin>
+                                        <Insets bottom="5.0"/>
+                                    </VBox.margin>
+                                </Label>
+                                <Label prefHeight="30.0" text="Stock">
+                                    <font>
+                                        <Font size="14.0"/>
+                                    </font>
+                                    <VBox.margin>
+                                        <Insets bottom="5.0"/>
+                                    </VBox.margin>
+                                </Label>
+                                <Label prefHeight="30.0" text="Preço">
+                                    <font>
+                                        <Font size="14.0"/>
+                                    </font>
+                                    <VBox.margin>
+                                        <Insets bottom="5.0"/>
+                                    </VBox.margin>
+                                </Label>
+                                <Label prefHeight="30.0" text="Categoria">
+                                    <font>
+                                        <Font size="14.0"/>
+                                    </font>
+                                    <VBox.margin>
+                                        <Insets bottom="5.0"/>
+                                    </VBox.margin>
+                                </Label>
+                                <Label prefHeight="30.0" text="Marca">
+                                    <font>
+                                        <Font size="14.0"/>
+                                    </font>
+                                    <VBox.margin>
+                                        <Insets bottom="5.0"/>
+                                    </VBox.margin>
+                                </Label>
+                                <Label prefHeight="30.0" text="Taxa">
+                                    <font>
+                                        <Font size="14.0"/>
+                                    </font>
+                                    <VBox.margin>
+                                        <Insets bottom="5.0"/>
+                                    </VBox.margin>
+                                </Label>
+                            </children>
+                        </VBox>
+                        <VBox prefHeight="400.0" prefWidth="300.0">
+                            <children>
+                                <TextField fx:id="cNameProduct" prefHeight="30.0" prefWidth="300.0">
+                                    <VBox.margin>
+                                        <Insets bottom="5.0"/>
+                                    </VBox.margin>
+                                </TextField>
+                                <TextField fx:id="cPrice" prefHeight="30.0" prefWidth="300.0">
+                                    <VBox.margin>
+                                        <Insets bottom="5.0"/>
+                                    </VBox.margin>
+                                </TextField>
+                                <TextField fx:id="cStock" prefHeight="30.0" prefWidth="300.0">
+                                    <VBox.margin>
+                                        <Insets bottom="5.0"/>
+                                    </VBox.margin>
+                                </TextField>
+                                <TextField fx:id="cBarcode" prefHeight="30.0" prefWidth="300.0">
+                                    <VBox.margin>
+                                        <Insets bottom="5.0"/>
+                                    </VBox.margin>
+                                </TextField>
+                                <ChoiceBox fx:id="cCategory" prefHeight="30.0" prefWidth="300.0"
+                                           style="-fx-background-color: #393C49;">
+                                    <VBox.margin>
+                                        <Insets bottom="5.0"/>
+                                    </VBox.margin>
+                                </ChoiceBox>
+                                <ChoiceBox fx:id="cBrand" prefHeight="30.0" prefWidth="300.0"
+                                           style="-fx-background-color: #393C49;">
+                                    <VBox.margin>
+                                        <Insets bottom="5.0"/>
+                                    </VBox.margin>
+                                </ChoiceBox>
+                                <ChoiceBox fx:id="cTax" prefHeight="30.0" prefWidth="300.0"
+                                           style="-fx-background-color: #393C49;">
+                                    <VBox.margin>
+                                        <Insets bottom="5.0"/>
+                                    </VBox.margin>
+                                </ChoiceBox>
+                                <HBox prefHeight="27.0" prefWidth="304.0">
+                                    <children>
+                                        <Button fx:id="cProduct" mnemonicParsing="false" onAction="#onCreateProduct"
+                                                prefHeight="25.0" prefWidth="148.0" text="Registrar">
+                                            <HBox.margin>
+                                                <Insets right="5.0"/>
+                                            </HBox.margin>
+                                        </Button>
+                                        <Button fx:id="cBtClean" cancelButton="true" mnemonicParsing="false"
+                                                onAction="#clearText" prefHeight="25.0" prefWidth="148.0"
+                                                text="Limpar"/>
+                                    </children>
+                                </HBox>
+                            </children>
+                        </VBox>
+                    </children>
+                </HBox>
+            </children>
+        </VBox>
+    </children>
+    <padding>
+        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0"/>
+    </padding>
+</HBox>

@@ -1,6 +1,7 @@
 module com.example.lidl_new {
   requires javafx.controls;
   requires javafx.graphics;
+  requires java.base;
   requires javafx.fxml;
 
   requires org.controlsfx.controls;

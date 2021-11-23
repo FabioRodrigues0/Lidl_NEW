@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<!--
+  ~ Project: Lidl_4
+  ~ User : fabiorodrigues.
+  ~ Date: 10/20/21, 2:27 PM
+  ~ Author: Fábio Rodrigues
+  ~ Contact: fabio.rod@outlook.com
+  -->
+
+<BorderPane xmlns:fx="http://javafx.com/fxml/1" maxHeight="400.0" maxWidth="600.0" prefHeight="400.0" prefWidth="600.0"
+            scaleShape="false" stylesheets="@style.css" xmlns="http://javafx.com/javafx/11.0.2"
+            fx:controller="com.example.lidl_new.Controller.AddClient">
+    <center>
+        <HBox alignment="CENTER" maxHeight="400.0" maxWidth="600.0" spacing="10.0" BorderPane.alignment="CENTER">
+            <HBox alignment="TOP_RIGHT" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308"
+                  HBox.hgrow="ALWAYS">
+                <HBox.margin>
+                    <Insets/>
+                </HBox.margin>
+                <VBox alignment="TOP_RIGHT" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308"
+                      spacing="5.0">
+                    <Label prefHeight="30.0" text="Nº Cartão Cidadão">
+                        <font>
+                            <Font size="14.0"/>
+                        </font>
+                    </Label>
+                    <Label prefHeight="30.0" text="Nome">
+                        <font>
+                            <Font size="14.0"/>
+                        </font>
+                    </Label>
+                    <Label prefHeight="30.0" text="Nº Identificação Fiscal ">
+                        <font>
+                            <Font size="14.0"/>
+                        </font>
+                    </Label>
+                    <Label prefHeight="30.0" text="Contacto">
+                        <font>
+                            <Font size="14.0"/>
+                        </font>
+                    </Label>
+                    <Label prefHeight="30.0" text="Morada">
+                        <font>
+                            <Font size="14.0"/>
+                        </font>
+                    </Label>
+                    <Label prefHeight="30.0" text="Porta">
+                        <font>
+                            <Font size="14.0"/>
+                        </font>
+                    </Label>
+                    <Label prefHeight="30.0" text="Localidade">
+                        <font>
+                            <Font size="14.0"/>
+                        </font>
+                    </Label>
+                    <Label prefHeight="30.0" text="Email">
+                        <font>
+                            <Font size="14.0"/>
+                        </font>
+                    </Label>
+                    <Label prefHeight="30.0" text="Password">
+                        <font>
+                            <Font size="14.0"/>
+                        </font>
+                    </Label>
+                    <Label/>
+                </VBox>
+            </HBox>
+            <HBox alignment="TOP_RIGHT" maxHeight="1.7976931348623157E308" maxWidth="-Infinity" spacing="5.0">
+                <VBox prefHeight="503.0" prefWidth="367.0" spacing="5.0">
+                    <children>
+                        <TextField fx:id="cCCClient" prefHeight="30.0" prefWidth="300.0"/>
+                        <TextField fx:id="cNameClient" prefHeight="30.0" prefWidth="300.0"/>
+                        <TextField fx:id="cNIFClient" prefHeight="30.0" prefWidth="300.0"/>
+                        <TextField fx:id="cContactClient" prefHeight="30.0" prefWidth="300.0"/>
+                        <TextField fx:id="cAddressClient" prefHeight="30.0" prefWidth="300.0"/>
+                        <HBox spacing="10.0">
+                            <TextField fx:id="cNumberClient" prefHeight="30.0" prefWidth="145.0"/>
+                            <Label prefHeight="30.0" text="Andar">
+                                <font>
+                                    <Font size="14.0"/>
+                                </font>
+                            </Label>
+                            <TextField fx:id="cFloorClient" prefHeight="30.0" prefWidth="102.0" HBox.hgrow="ALWAYS"/>
+                        </HBox>
+                        <TextField fx:id="cLocationClient" prefHeight="30.0" prefWidth="300.0"/>
+                        <TextField fx:id="cEmailClient" prefHeight="30.0" prefWidth="300.0"/>
+                        <PasswordField fx:id="cPasswordClient" prefHeight="30.0" prefWidth="300.0"/>
+                        <HBox prefHeight="31.0" prefWidth="352.0" spacing="10.0" VBox.vgrow="NEVER">
+                            <Button fx:id="cCancelClient" maxHeight="1.7976931348623157E308"
+                                    maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="Button"
+                                    HBox.hgrow="ALWAYS">
+                                <HBox.margin>
+                                    <Insets bottom="3.0" left="3.0" right="3.0" top="3.0"/>
+                                </HBox.margin>
+                            </Button>
+                            <Button fx:id="cClient" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308"
+                                    mnemonicParsing="false" onAction="#onCreateClient" text="Registrar"
+                                    HBox.hgrow="ALWAYS">
+                                <HBox.margin>
+                                    <Insets bottom="3.0" left="3.0" right="3.0" top="3.0"/>
+                                </HBox.margin>
+                            </Button>
+                        </HBox>
+                    </children>
+                </VBox>
+            </HBox>
+        </HBox>
+    </center>
+    <right>
+        <AnchorPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="20.0"
+                    minWidth="20.0"/>
+    </right>
+    <top>
+        <AnchorPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="20.0"
+                    minWidth="20.0"/>
+    </top>
+    <left>
+        <AnchorPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="20.0"
+                    minWidth="20.0"/>
+    </left>
+    <bottom>
+        <AnchorPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="20.0"
+                    minWidth="20.0"/>
+    </bottom>
+</BorderPane>
